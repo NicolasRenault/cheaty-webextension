@@ -9,30 +9,32 @@ console.log("Cheaty extention working here");
 
 document.onkeydown = (e) => {
 	// console.log(e.key + " " + e.code);
+	e.preventDefault();
 
 	if (e.ctrlKey && e.altKey && e.key == "n") { //Ctr + Alt + N
-		if (selectMode) {
+		if (selectMode || actionMode) {
 			stopSelectMode();
 		} else {
-			initSelectMode();
+			init();
 		}
 	} else if (e.code == "ArrowUp" && selectMode) { // Arrow Up
-		e.preventDefault();
 		selectParentComponent();
     } else if (e.code == "ArrowDown" && selectMode) { // Arrow Down
-		e.preventDefault();
 		selectChildComponent();
     } else if (e.code == "ArrowLeft" && selectMode) { // Arrow Left
-		e.preventDefault();
 		selectPreviousSiblingComponent();
     } else if (e.code == "ArrowRight" && selectMode) { // Arrow Right
-		e.preventDefault();
 		selectNextSiblingComponent();
-    } else if (e.code == "Escape" && selectMode) { // Escape
-		e.preventDefault();
-		stopSelectMode();
-	} else if (e.code == "Enter") { // Enter
-		validateSelection();
+    } else if (e.code == "Escape" && (selectMode || actionMode)) { // Escape
+		if (!actionMode) {
+			stop();
+		} else {
+			stopActionMode();
+		}
+	} else if (e.code == "Enter" && selectMode) { // Enter
+		if (!actionMode) {
+			initActionMode();
+		}
 	}
 };
 
@@ -43,20 +45,38 @@ document.onmousemove = (e) => {
 }
 
 /**
- * Init the selection of a component
+ * Init the process
  */
-function initSelectMode() {
-	selectMode = true;
-	console.log("Cheaty: Select mode on");
+function init() {
+	selectMode = false;
+	actionMode = false;
 	selectComponent();
+	initSelectionMode();
 }
 
 /**
- * Stop the selection of a component
+ * Stop all the process
  */
-function stopSelectMode() {
+function stop() {
 	selectMode = false;
+	actionMode = false;
+	removeAllBorder();
+}
+
+/**
+ * Init the selection mode
+ */
+function initSelectionMode() {
+	console.log("Cheaty: Select mode on");
+	selectMode = true;
+}
+
+/**
+ * Stop the selection mode
+ */
+function stopSelectionMode() {
 	console.log("Cheaty: Select mode off");
+	selectMode = false;
 }
 
 /**
@@ -70,7 +90,7 @@ function selectComponent() {
 
 	if (hovers.length == 0) {
 		console.log("Something is wrong with the selection of a component with the mouse");
-		stopSelectMode();
+		stop();
 		return -1;
 	}
 
@@ -115,14 +135,31 @@ function selectNextSiblingComponent() {
 	if (currentComponent == null || currentComponent.nextSibling == null) return;
 	currentComponent = currentComponent.nextSibling;
 	addBorderToCurrentComponent();
-} 
+}
+
+/**
+ * Validate the current component, stop the selection mode and init action mode
+ */
+function initActionMode() {
+	stopSelectionMode();
+	actionMode = true;
+	console.log("Cheaty: Selection validated")
+	console.log(currentComponent);
+}
+
+/**
+ * Stop the action mode and start the selection mode
+ */
+function stopActionMode() {
+	actionMode = false;
+	initSelectionMode();
+}
 
 /**
  * Add a border to the current component selected
  */
 function addBorderToCurrentComponent() {
 	removeAllBorder();
-	console.log(currentComponent);
 	currentComponent.classList.add(CSS_CLASS_NAME);
 }
 
