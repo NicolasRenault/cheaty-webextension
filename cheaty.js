@@ -9,7 +9,7 @@ console.log("Cheaty extention working here");
 
 document.onkeydown = (e) => {
 	// console.log(e.key + " " + e.code);
-	e.preventDefault();
+	e.preventDefault(); //TODO check if not blocking all the shortcut in the page. Add verification with selectMode and actionMode
 
 	if (e.ctrlKey && e.altKey && e.key == "n") { //Ctr + Alt + N
 		if (selectMode || actionMode) {
