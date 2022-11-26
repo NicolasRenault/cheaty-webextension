@@ -1,3 +1,41 @@
 .cheaty-selected {
     border: 2px dotted orange !important;
 }
+
+#cheaty_action_button_container {
+    position: absolute;
+    background-color: black;
+    padding:5px;
+    border-radius:5px;
+    height: 40px;
+    width: 150px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+#cheaty_action_button_container:after {
+    position:absolute;
+    content:'';
+    left:50%;
+    margin-left:-10px;
+    top: 38px;
+    border: 10px solid transparent;
+    border-top: 10px solid black;
+}
+#cheaty_action_button_container.bottom:after {
+    top: -8px;
+    border-top: transparent;
+    border-bottom: 10px solid black;
+}
+#cheaty_action_button_container.cheaty_input {
+    width: 250px;
+}
+#cheaty_action_button_container button {
+    color: white;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid;
+}
+#cheaty_action_button_container button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
