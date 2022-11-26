@@ -51,7 +51,12 @@ document.onkeydown = (e) => {
 	}
 };
 
-//TODO validate the selection on click
+document.onclick = (e) => {
+	if(selectMode || actionMode) {
+		e.preventDefault();
+		if (!actionMode) initActionMode();
+	}
+}
 
 document.onmousemove = (e) => {
 	if(selectMode && !actionMode) {
