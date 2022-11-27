@@ -3,11 +3,21 @@
     "name": "Cheaty",
     "version": "0.1",
     "description": "Extention for the web that feel illegal",
+    "homepage_url": "https://cheaty.nicolasrenault.com",
     "content_scripts": [
         {
         "matches": ["<all_urls>"],
         "js": ["cheaty.js"],
         "css": ["cheaty.css"]
         }
-    ]
+    ],
+    "permissions": [
+        "activeTab",
+        "clipboardWrite"
+    ],
+    "browser_action": {
+        "default_icon": "icons/pen_32x32.png",
+        "default_title": "Cheaty",
+        "default_popup": "popup/cheaty_popup.html"
+    }
 }

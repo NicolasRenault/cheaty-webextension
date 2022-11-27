@@ -1,0 +1,9 @@
+html, body {
+    /* width: 100px; */
+    background-color: darkgrey;
+}
+
+button {
+    background-color: transparent;
+    border: none;
+}
