@@ -4,6 +4,7 @@
 
 #cheaty_action_button_container {
     position: absolute;
+    z-index: 999 !important;
     background-color: black;
     padding:5px;
     border-radius:5px;
