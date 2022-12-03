@@ -13,6 +13,7 @@ let actionMode = false;
 let currentComponent = null;
 let listOfSelected = null;
 
+//TODO Handle errors
 console.log("Cheaty extention working here");
 
 document.onkeydown = (e) => {
@@ -64,6 +65,14 @@ document.onmousemove = (e) => {
 	}
 }
 
+browser.runtime.onMessage.addListener((message) => {
+	if (message.command === "cheaty_get_data") {
+		sendDataToPopup();
+	} else if (message.command === "cheaty_revert_action") {
+		revertActionOnComponent(message.component);
+	}
+});
+
 /**
  * Init the process
  */
@@ -106,6 +115,7 @@ function initActionMode() {
 	stopSelectionMode();
 	actionMode = true;
 	initActionMenu();
+	console.log(currentComponent);
 }
 
 /**
@@ -275,7 +285,7 @@ function setPositionFromCurrentComponent(elm) {
 
 	if ((rect.top - ACTION_BUTTON_CONATINER_HEIGHT) > 0) {
 		elm.style.top = (rect.top + window.scrollY - ACTION_BUTTON_CONATINER_HEIGHT) + "px";
-	} else {
+	} else { //TODO check if the current component take all the window -> Display inside the currentElement and bottom
 		elm.style.top = (rect.top + window.scrollY + rect.height + 8) + "px";
 		elm.classList.add("bottom");
 	}
@@ -311,8 +321,10 @@ function updateActionButtonsState(action) {
 function hideCurrentComponent() {
 	if (currentComponent.style.display == "none") {
 		currentComponent.style.display = "block";
+		addDataType("show");
 	} else {
 		currentComponent.style.display = "none";
+		addDataType("hide");
 	}
 
 	updateActionButtonsState("hide");
@@ -324,8 +336,10 @@ function hideCurrentComponent() {
 function changePasswordTypeCurrentComponent() {
 	if (currentComponent.type == "password") {
 		currentComponent.type = "text";
+		addDataType("password show");
 	} else {
 		currentComponent.type = "password";
+		addDataType("password hide");
 	}
 
 	updateActionButtonsState("password");
@@ -351,4 +365,42 @@ function copyCurrentComponent() {
 	} catch (err) {
 		console.error("Something went wrong", err);
 	}
+}
+
+/**
+ * Add a data type and id on the current component with the action passed in parameter
+ * 
+ * @param {String} action 
+ */
+function addDataType(action) {
+	currentComponent.dataset.cheaty = action;
+	if (currentComponent.dataset.cheaty_id === undefined) currentComponent.dataset.cheaty_id = (Math.floor(Math.random() * 100)) + "_" + currentComponent.tagName;
+}
+
+function sendDataToPopup() {
+	try {
+		browser.runtime.sendMessage({
+			command: "cheaty_get_data",
+			components: getListOfUpdatedComponents()
+		});
+	} catch (error) {
+		console.error(error);
+	}
+	
+}
+
+/**
+ * Get the list off all the updated component on the page
+ * 
+ * @returns array
+ */
+function getListOfUpdatedComponents() {
+	let components = document.querySelectorAll("[data-cheaty]");
+	let componentsData = [];
+
+	components.forEach(component => {
+		componentsData.push([component.dataset.cheaty_id, component.dataset.cheaty]); //TODO send a displayable in the first argument
+	});
+
+	return componentsData === [] ? "empty" : componentsData;
 }
