@@ -4,11 +4,13 @@
 
 #cheaty_action_button_container {
     position: absolute;
+    box-sizing: content-box;
     z-index: 99999 !important;
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.3);
     padding:5px;
     border-radius:5px;
-    height: 40px;
+    min-height: 28px;
+    max-height: 28px;
     width: 150px;
     display: flex;
     flex-direction: row;
@@ -17,16 +19,17 @@
 #cheaty_action_button_container:after {
     position:absolute;
     content:'';
+    box-sizing: content-box;
     left:50%;
     margin-left:-10px;
     top: 38px;
     border: 10px solid transparent;
-    border-top: 10px solid black;
+    border-top: 10px solid rgba(0, 0, 0, 0.3);
 }
 #cheaty_action_button_container.bottom:after {
-    top: -8px;
+    top: -10px;
     border-top: transparent;
-    border-bottom: 10px solid black;
+    border-bottom: 10px solid rgba(0, 0, 0, 0.3);
 }
 #cheaty_action_button_container.hidden:after {
     border: transparent;
@@ -35,10 +38,14 @@
     width: 250px;
 }
 #cheaty_action_button_container button {
+    all: unset;
+    box-sizing: content-box;
     color: white;
     background-color: transparent;
     border: none;
     border-bottom: 1px solid;
+    height: 100%;
+    font-family: Arial, sans-serif;
 }
 #cheaty_action_button_container button:hover {
     background-color: rgba(255, 255, 255, 0.3);
