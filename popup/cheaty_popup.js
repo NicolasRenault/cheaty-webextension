@@ -14,6 +14,7 @@ browser.runtime.onMessage.addListener((message) => {
         displayComponents(message.components);
     }
 });
+
 /**
  * Send a request message to the content script to get the data informations of updated component by the extension 
  * 
@@ -35,21 +36,88 @@ try {
     logs.innerHTML = logs.innerHTML + " " + error;
 }
 
+/**
+ * Take a list of components with actions and display it on the popup element
+ * 
+ * @param {array} components 
+ */
 function displayComponents(components) {
-    logs.innerHTML = logs.innerHTML + " component:  " + components + " type:  " + typeof components;
+    removeAllChildNodes(list);
 
     if (components !== undefined) { //TODO Find case if empty
         components.forEach((el) => {
             let li = document.createElement("li");
-            li.innerHTML = el[0] + " " + el[1];
+            let componentId = li.innerHTML = el[0];
+
+            let actions = el[1].split("|");
+            
+            if (actions[0] !== "") {
+                li.appendChild(createActionButton(componentId, "hide", actions[0].split(":")[1]));
+            }
+            
+            if (actions[1] !== "") {
+                li.appendChild(createActionButton(componentId, "password", actions[1].split(":")[1]));
+            }
+
             list.appendChild(li);
-            logs.innerHTML = logs.innerHTML + " " + li.innerHTML;
         });
     } else {
         list.innerHTML = "Nothing yet";
     }    
 }
 
+/**
+ * Create and decorate a button from the param values 
+ * 
+ * @param {string} componentId 
+ * @param {string} action 
+ */
+function createActionButton(componentId, action, status) {
+    let button = document.createElement("button");
+
+    button.addEventListener("click", () => {
+        reverseComponent(componentId, action);
+    });
+
+    if (status === "ON") {
+        button.style.backgroundColor = "green";
+    } else if (status === "OFF") {
+        button.style.backgroundColor = "red";
+    }
+
+    button.innerHTML = action; //TODO change to better display
+
+    return button;
+}
+
+/**
+ * Send a message the content script to reverse the action on the component passed in param
+ * 
+ * @param {string} componentId 
+ * @param {string} action 
+ */
+function reverseComponent(componentId, action) {
+    browser.tabs.query({active: true, currentWindow: true})
+        .then((tabs) => {
+            browser.tabs.sendMessage(tabs[0].id, {
+                command: "cheaty_reverse",
+                componentId: componentId,
+                action: action,
+            });
+        })
+        .catch(reportError);
+}
+
+/**
+ * Remove all the childs of an element
+ * 
+ * @param {HTMLElement} parent 
+ */
+function removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
 // logs.innerHTML = logs.innerHTML + " component lenght " + components.length;
 
 //TODO Remove

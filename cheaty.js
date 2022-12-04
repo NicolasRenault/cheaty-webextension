@@ -68,8 +68,8 @@ document.onmousemove = (e) => {
 browser.runtime.onMessage.addListener((message) => {
 	if (message.command === "cheaty_get_data") {
 		sendDataToPopup();
-	} else if (message.command === "cheaty_revert_action") {
-		revertActionOnComponent(message.component);
+	} else if (message.command === "cheaty_reverse") {
+		revertActionOnComponent(message.componentId, message.action);
 	}
 });
 
@@ -96,7 +96,6 @@ function stop() {
  * Init the selection mode
  */
 function initSelectionMode() {
-	console.log("Cheaty: Select mode on");
 	selectMode = true;
 }
 
@@ -104,7 +103,6 @@ function initSelectionMode() {
  * Stop the selection mode
  */
 function stopSelectionMode() {
-	console.log("Cheaty: Select mode off");
 	selectMode = false;
 }
 
@@ -115,7 +113,6 @@ function initActionMode() {
 	stopSelectionMode();
 	actionMode = true;
 	initActionMenu();
-	console.log(currentComponent);
 }
 
 /**
@@ -206,7 +203,6 @@ function removeAllBorder() {
  * Init and place next to the current component the action menu
  */
 function initActionMenu() {
-	console.log("initActionMode");
 	let actionButton = genrateActionButton();
 	actionButton = setPositionFromCurrentComponent(actionButton);
 
@@ -223,7 +219,7 @@ function removeActionMenu() {
 /**
  * Generate the action button menu
  * 
- * @return HTMLDivElement 
+ * @return HTMLElement 
  */
 function genrateActionButton() {
 	let actionButtonContainer = document.createElement("div");
@@ -255,7 +251,7 @@ function genrateActionButton() {
 			passwordButton.innerHTML = "Show password";
 		} else {
 			passwordButton.title = "Change the type of the selected element";
-			passwordButton.innerHTML = "Hide password";
+			passwordButton.innerHTML = "Hide as password";
 		}
 		passwordButton.addEventListener('click', changePasswordTypeCurrentComponent);
 		actionButtonContainer.appendChild(passwordButton);
@@ -273,10 +269,10 @@ function genrateActionButton() {
 }
 
 /**
- * Set the top and left value of the element in parameter from the current coponent positions
+ * Get an element passed in param with the top and left value of the current coponent positions
  * 
- * @param {HTMLDivElement} elm 
- * @returns HTMLDivElement
+ * @param {HTMLElement} elm 
+ * @returns HTMLElement
  */
 function setPositionFromCurrentComponent(elm) {
 	let rect = currentComponent.getBoundingClientRect();
@@ -295,64 +291,107 @@ function setPositionFromCurrentComponent(elm) {
 
 /**
  * Update the action menu button by action
+ * 
+ * @param {HTMLElement} component
  * @param {string} action
  */
-function updateActionButtonsState(action) {
-	if (action === "hide") {
-		if (currentComponent.style.display == "none") {
-			document.getElementById(HIDE_BUTTON_ID).innerHTML = "Show";
-		} else {
-			document.getElementById(HIDE_BUTTON_ID).innerHTML = "Hide";
+function updateActionButtonsState(component, action) {
+	if (document.getElementById(ACTION_BUTTON_CONTAINER_ID) != null) {
+		if (action === "hide") {
+			if (component.style.display == "none") {
+				document.getElementById(HIDE_BUTTON_ID).innerHTML = "Show";
+			} else {
+				document.getElementById(HIDE_BUTTON_ID).innerHTML = "Hide";
+			}
+		} else if (action === "password") {
+			if (component.type == "password") {
+				document.getElementById(PASSWORD_BUTTON_ID).innerHTML = "Show password";
+			} else {
+				document.getElementById(PASSWORD_BUTTON_ID).innerHTML = "Hide as password";
+			}
+		} else if (action === "copy") {
+			document.getElementById(COPY_BUTTON_ID).innerHTML = "Copied";
 		}
-	} else if (action === "password") {
-		if (currentComponent.type == "password") {
-			document.getElementById(PASSWORD_BUTTON_ID).innerHTML = "Show password";
-		} else {
-			document.getElementById(PASSWORD_BUTTON_ID).innerHTML = "Hide password";
-		}
-	} else if (action === "copy") {
-		document.getElementById(COPY_BUTTON_ID).innerHTML = "Copied";
 	}
 }
 
 /**
- * Hide/show the current component by setting the style display to none/block
+ * Call the method hideComponent for the current component
+ * 
+ * @see hideComponent
  */
 function hideCurrentComponent() {
-	if (currentComponent.style.display == "none") {
-		currentComponent.style.display = "block";
-		addDataType("show");
-	} else {
-		currentComponent.style.display = "none";
-		addDataType("hide");
-	}
-
-	updateActionButtonsState("hide");
+	hideComponent(currentComponent)
 }
 
 /**
- * Hide/show the text password for the current component by setting the input type to password/text
+ * Hide/show the component in param by setting the style display to none/block
+ * 
+ * @param {HTMLElement} component
+ */
+function hideComponent(component) {
+	let status = undefined;
+
+	if (component.style.display == "none") {
+		component.style.display = "block";
+		status = "ON";
+	} else {
+		component.style.display = "none";
+		status = "OFF";
+	}
+
+	addDataType(component, "hide", status);
+	updateActionButtonsState(component, "hide");
+}
+
+/**
+ * Call the method changePasswordTypeComponent for the current component
+ * 
+ * @see changePasswordTypeComponent
  */
 function changePasswordTypeCurrentComponent() {
-	if (currentComponent.type == "password") {
-		currentComponent.type = "text";
-		addDataType("password show");
-	} else {
-		currentComponent.type = "password";
-		addDataType("password hide");
-	}
-
-	updateActionButtonsState("password");
+	changePasswordTypeComponent(currentComponent)
 }
 
 /**
- * Copy the current component to the clipboard
+ * Hide/show the text password for the component in param by setting the input type to password/text
+ * 
+ * @param {HTMLElement} component
+ */
+function changePasswordTypeComponent(component) {
+	let status = undefined;
+
+	if (component.type == "password") {
+		component.type = "text";
+		status = "ON";
+	} else {
+		component.type = "password";
+		status = "OFF";
+	}
+
+	addDataType(component, "password", status);
+	updateActionButtonsState(component, "password");
+}
+
+/**
+ * Call the method copyComponent for the current component
+ * 
+ * @see copyComponent
  */
 function copyCurrentComponent() {
+	copyComponent(currentComponent);
+}
+
+/**
+ * Copy the component to the clipboard
+ * 
+ * @param {HTMLElement} component
+ */
+function copyComponent(component) {
 	try {
 		//Copy to the clipboard
 		navigator.clipboard
-			.writeText(currentComponent.outerHTML)
+			.writeText(component.outerHTML)
 			.then(() => {
 				console.log("HTML Component copied to clipboard");
 			})
@@ -360,7 +399,7 @@ function copyCurrentComponent() {
 				throw new Error(err);
 			});
 
-		updateActionButtonsState("copy");
+		updateActionButtonsState(component, "copy");
 
 	} catch (err) {
 		console.error("Something went wrong", err);
@@ -370,13 +409,26 @@ function copyCurrentComponent() {
 /**
  * Add a data type and id on the current component with the action passed in parameter
  * 
+ * @param {HTMLElement} component 
  * @param {String} action 
+ * @param {String} status 
  */
-function addDataType(action) {
-	currentComponent.dataset.cheaty = action;
-	if (currentComponent.dataset.cheaty_id === undefined) currentComponent.dataset.cheaty_id = (Math.floor(Math.random() * 100)) + "_" + currentComponent.tagName;
+function addDataType(component, action, status) {
+	if (component.dataset.cheaty_id === undefined) component.dataset.cheaty_id = Date.now() + "_" + component.tagName; //? We use here Date.now() as part for a unqiue ID because it's humanly impossible to do an action on 2 sepearate composant at the same millisecond
+
+	if (action === "hide") {
+		component.dataset.cheaty_action_hide = status;
+	} else if (action === "password") {
+		component.dataset.cheaty_action_password = status;
+
+	}
 }
 
+/**
+ * Send a message to the popup witht the data of updated components
+ * 
+ * @see getListOfUpdatedComponents
+ */
 function sendDataToPopup() {
 	try {
 		browser.runtime.sendMessage({
@@ -395,12 +447,40 @@ function sendDataToPopup() {
  * @returns array
  */
 function getListOfUpdatedComponents() {
-	let components = document.querySelectorAll("[data-cheaty]");
+	let components = document.querySelectorAll("[data-cheaty_id]");
 	let componentsData = [];
 
 	components.forEach(component => {
-		componentsData.push([component.dataset.cheaty_id, component.dataset.cheaty]); //TODO send a displayable in the first argument
+		let actions = "|";
+		if (component.dataset.cheaty_action_hide !== undefined) {
+			actions = "hide:" + component.dataset.cheaty_action_hide + actions;
+		}
+		if (component.dataset.cheaty_action_password !== undefined) {
+			actions = actions + "password:" + component.dataset.cheaty_action_password;
+		}
+
+		componentsData.push([component.dataset.cheaty_id, actions]); //TODO send a displayable in the first argument
 	});
 
 	return componentsData === [] ? "empty" : componentsData;
+}
+
+/**
+ * Reverse the action on the component passed in param
+ * This method call sendDataToPopup to update the content of the popup
+ * 
+ * @see sendDataToPopup
+ * @param {string} id of the component 
+ * @param {string} action 
+ */
+function revertActionOnComponent(id, action) {
+	let component = document.querySelector('[data-cheaty_id="' + id + '"]');
+
+	if (action === "hide") {
+		hideComponent(component);
+	} else if (action === "password") {
+		changePasswordTypeComponent(component);
+	}
+
+	sendDataToPopup();
 }
