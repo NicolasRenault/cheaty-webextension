@@ -4,7 +4,7 @@
 
 #cheaty_action_button_container {
     position: absolute;
-    z-index: 999 !important;
+    z-index: 99999 !important;
     background-color: black;
     padding:5px;
     border-radius:5px;
@@ -27,6 +27,9 @@
     top: -8px;
     border-top: transparent;
     border-bottom: 10px solid black;
+}
+#cheaty_action_button_container.hidden:after {
+    border: transparent;
 }
 #cheaty_action_button_container.cheaty_input {
     width: 250px;

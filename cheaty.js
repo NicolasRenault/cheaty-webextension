@@ -73,6 +73,12 @@ browser.runtime.onMessage.addListener((message) => {
 	}
 });
 
+onresize = (e) => {
+	if (actionMode) {
+		moveActionMenu();
+	}
+};
+
 /**
  * Init the process
  */
@@ -204,9 +210,17 @@ function removeAllBorder() {
  */
 function initActionMenu() {
 	let actionButton = genrateActionButton();
-	actionButton = setPositionFromCurrentComponent(actionButton);
+	setPositionFromCurrentComponent(actionButton);
 
 	document.body.appendChild(actionButton);
+}
+
+/**
+ * Move the action menu
+ */
+function moveActionMenu() {
+	let actionMenu = document.getElementById(ACTION_BUTTON_CONTAINER_ID);
+	setPositionFromCurrentComponent(actionMenu);
 }
 
 /**
@@ -269,24 +283,36 @@ function genrateActionButton() {
 }
 
 /**
- * Get an element passed in param with the top and left value of the current coponent positions
+ * Set the top and left value of the element in param from the current component positions
  * 
  * @param {HTMLElement} elm 
- * @returns HTMLElement
  */
 function setPositionFromCurrentComponent(elm) {
 	let rect = currentComponent.getBoundingClientRect();
+	let style =  window.getComputedStyle(currentComponent, null);
+
+	if (style.getPropertyValue("display") == "none") {
+		elm.style.left = "1px";
+		elm.style.top = "1px";
+		elm.classList.add("hidden");
+
+		return;
+	} else {
+		elm.classList.remove("hidden");
+	}
 
 	elm.style.left = ((rect.right - (rect.width / 2)) + window.scrollX - ((((currentComponent.tagName == 'INPUT') ? ACTION_BUTTON_CONATINER_WIDTH_BIG : ACTION_BUTTON_CONATINER_WIDTH_SMALL)) / 2)) + "px";
 
 	if ((rect.top - ACTION_BUTTON_CONATINER_HEIGHT) > 0) {
 		elm.style.top = (rect.top + window.scrollY - ACTION_BUTTON_CONATINER_HEIGHT) + "px";
-	} else { //TODO check if the current component take all the window -> Display inside the currentElement and bottom
-		elm.style.top = (rect.top + window.scrollY + rect.height + 8) + "px";
+	} else {
+		if (rect.bottom + ACTION_BUTTON_CONATINER_HEIGHT > window.innerHeight) {
+			elm.style.top = (rect.top + window.scrollY + 9) + "px";
+		} else {
+			elm.style.top = (rect.top + window.scrollY + rect.height + 8) + "px";
+		}
 		elm.classList.add("bottom");
 	}
-
-	return elm;
 }
 
 /**
