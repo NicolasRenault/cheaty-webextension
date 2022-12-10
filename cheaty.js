@@ -10,6 +10,7 @@ const ACTION_BUTTON_CONATINER_WIDTH_BIG = 250;
 const ACTION_BUTTON_CONATINER_HEIGHT = 48;
 
 let selectMode = false;
+let globalIndex = 0;
 let actionMode = false;
 let currentComponent = null;
 let listOfSelected = null;
@@ -457,13 +458,16 @@ function copyComponent(component) {
  * @param {String} status 
  */
 function addDataType(component, action, status) {
-	if (component.dataset.cheaty_id === undefined) component.dataset.cheaty_id = Date.now() + "_" + component.tagName; //? We use here Date.now() as part for a unqiue ID because it's humanly impossible to do an action on 2 sepearate composant at the same millisecond
+	if (component.dataset.cheaty_id === undefined) {
+		component.dataset.cheaty_id = Date.now() + "_" + component.tagName; //? We use here Date.now() as part for a unqiue ID because it's humanly impossible to do an action on 2 sepearate composant at the same millisecond
+		component.dataset.cheaty_index = globalIndex;
+		globalIndex++;
+	}	
 
 	if (action === "hide") {
 		component.dataset.cheaty_action_hide = status;
 	} else if (action === "password") {
 		component.dataset.cheaty_action_password = status;
-
 	}
 }
 
@@ -490,10 +494,18 @@ function sendDataToPopup() {
  * @returns array
  */
 function getListOfUpdatedComponents() {
-	let components = document.querySelectorAll("[data-cheaty_id]");
 	let componentsData = [];
+	let find = true;
+	let i = 0;
 
-	components.forEach(component => {
+	while (find) {
+		let component = document.querySelector('[data-cheaty_index="' + i + '"]');
+
+		if (component == null || i > globalIndex) {
+			find = false;
+			break;
+		}
+
 		let actions = "|";
 		if (component.dataset.cheaty_action_hide !== undefined) {
 			actions = "hide:" + component.dataset.cheaty_action_hide + actions;
@@ -502,8 +514,18 @@ function getListOfUpdatedComponents() {
 			actions = actions + "password:" + component.dataset.cheaty_action_password;
 		}
 
-		componentsData.push([component.dataset.cheaty_id, actions]); //TODO send a displayable in the first argument
-	});
+		console.log("Component ID:" + component.id + " !");
+		let componentData = {
+			id: component.dataset.cheaty_id,
+			html_id: component.id,
+			index: component.dataset.cheaty_index,
+			type: component.tagName,
+			actions: actions,
+		}
+
+		componentsData.push(componentData); //TODO send a displayable in the first argument
+		i++;
+	}
 
 	return componentsData === [] ? "empty" : componentsData;
 }

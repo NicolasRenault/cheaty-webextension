@@ -7,3 +7,17 @@ button {
     background-color: transparent;
     border: none;
 }
+
+li span {
+    margin-left: 3px;
+}
+li span:nth-child(1) {
+    color: lightgray;  
+}
+li span:nth-child(2) {
+    color: rgb(176, 107, 203);
+    margin-left: 0;
+}
+li span:nth-child(3N) {
+    color: rgb(114, 192, 84);
+}

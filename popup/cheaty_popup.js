@@ -47,9 +47,23 @@ function displayComponents(components) {
     if (components !== undefined) { //TODO Find case if empty
         components.forEach((el) => {
             let li = document.createElement("li");
-            let componentId = li.innerHTML = el[0];
+            let componentId = el.id;
 
-            let actions = el[1].split("|");
+            let index = document.createElement("span");
+            index.innerHTML = (parseInt(el.index) + 1) + ".";
+            li.appendChild(index);
+            
+            let type = document.createElement("span");
+            type.innerHTML = el.type.toLowerCase();
+            li.appendChild(type);
+
+            if (el.html_id != "") {
+                let html_Id = document.createElement("span");
+                html_Id.innerHTML = "#" + el.html_id;
+                li.appendChild(html_Id);
+            }
+            
+            let actions = el.actions.split("|");
             
             if (actions[0] !== "") {
                 li.appendChild(createActionButton(componentId, "hide", actions[0].split(":")[1]));
