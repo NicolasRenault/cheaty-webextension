@@ -1,4 +1,5 @@
-const CSS_CLASS_NAME = "cheaty-selected";
+const CSS_CLASS_NAME_SELECTION = "cheaty-selection";
+const CSS_CLASS_NAME_SELECTED = "cheaty-selected";
 const ACTION_BUTTON_CONTAINER_ID = "cheaty_action_button_container";
 const HIDE_BUTTON_ID = "cheaty_hide_button";
 const PASSWORD_BUTTON_ID = "cheaty_password_button";
@@ -85,6 +86,7 @@ onresize = (e) => {
 function init() {
 	selectMode = false;
 	actionMode = false;
+	addSelectionClassToBody();
 	selectComponent();
 	initSelectionMode();
 }
@@ -95,6 +97,7 @@ function init() {
 function stop() {
 	selectMode = false;
 	actionMode = false;
+	removeSelectionClass();
 	removeAllBorder();
 }
 
@@ -189,19 +192,33 @@ function selectNextSiblingComponent() {
 }
 
 /**
+ * Add a class to the body 
+ */
+function addSelectionClassToBody() {
+	document.body.classList.add(CSS_CLASS_NAME_SELECTION);
+}
+
+/**
+ * Remove class from the body
+ */
+function removeSelectionClass() {
+	document.body.classList.remove(CSS_CLASS_NAME_SELECTION);
+}
+
+/**
  * Add a border to the current component selected
  */
 function addBorderToCurrentComponent() {
 	removeAllBorder();
-	currentComponent.classList.add(CSS_CLASS_NAME);
+	currentComponent.classList.add(CSS_CLASS_NAME_SELECTED);
 }
 
 /**
  * Remove all the border displayed in the page
  */
 function removeAllBorder() {
-	document.querySelectorAll("." + CSS_CLASS_NAME).forEach((item) => {
-		item.classList.remove(CSS_CLASS_NAME);
+	document.querySelectorAll("." + CSS_CLASS_NAME_SELECTED).forEach((item) => {
+		item.classList.remove(CSS_CLASS_NAME_SELECTED);
 	});
 }
 

@@ -1,3 +1,7 @@
+body.cheaty-selection {
+    cursor: url("./icons/cursor_32x32.png"), auto !important;
+}
+
 .cheaty-selected {
     border: 2px dotted orange !important;
 }
