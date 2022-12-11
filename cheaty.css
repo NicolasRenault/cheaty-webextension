@@ -1,39 +1,50 @@
+@import url("./global.css");
+
 body.cheaty-selection {
     cursor: url("./icons/cursor_32x32.png"), auto !important;
 }
 
 .cheaty-selected {
-    border: 2px dotted orange !important;
+    outline: 2px dotted orange !important;
 }
 
 #cheaty_action_button_container {
     position: absolute;
-    box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+            box-sizing: content-box;
     z-index: 99999 !important;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: var(--secondary-color);
+    color: var(--text-color);
     padding:5px;
     border-radius:5px;
     min-height: 28px;
     max-height: 28px;
     width: 150px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
 }
 #cheaty_action_button_container:after {
     position:absolute;
     content:'';
-    box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+            box-sizing: content-box;
     left:50%;
     margin-left:-10px;
     top: 38px;
     border: 10px solid transparent;
-    border-top: 10px solid rgba(0, 0, 0, 0.3);
+    border-top: 10px solid var(--secondary-color);
 }
 #cheaty_action_button_container.bottom:after {
     top: -10px;
     border-top: transparent;
-    border-bottom: 10px solid rgba(0, 0, 0, 0.3);
+    border-bottom: 10px solid var(--secondary-color);
 }
 #cheaty_action_button_container.hidden:after {
     border: transparent;
@@ -43,7 +54,8 @@ body.cheaty-selection {
 }
 #cheaty_action_button_container button {
     all: unset;
-    box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+            box-sizing: content-box;
     color: white;
     background-color: transparent;
     border: none;
@@ -54,3 +66,10 @@ body.cheaty-selection {
 #cheaty_action_button_container button:hover {
     background-color: rgba(255, 255, 255, 0.3);
 }
+
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/

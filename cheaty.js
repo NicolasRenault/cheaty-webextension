@@ -66,14 +66,17 @@ document.onmousemove = (e) => {
 		selectComponent();
 	}
 }
-
-browser.runtime.onMessage.addListener((message) => {
-	if (message.command === "cheaty_get_data") {
-		sendDataToPopup();
-	} else if (message.command === "cheaty_reverse") {
-		revertActionOnComponent(message.componentId, message.action);
-	}
-});
+try {
+	browser.runtime.onMessage.addListener((message) => {
+		if (message.command === "cheaty_get_data") {
+			sendDataToPopup();
+		} else if (message.command === "cheaty_reverse") {
+			revertActionOnComponent(message.componentId, message.action);
+		}
+	});
+} catch (error) {
+	console.error(error);
+}
 
 onresize = (e) => {
 	if (actionMode) {
