@@ -19,5 +19,9 @@
         "default_icon": "icons/pen_32x32.ico",
         "default_title": "Cheaty",
         "default_popup": "popup/cheaty_popup.html"
+    },
+    "options_ui": {
+        "page": "options/cheaty_options.html",
+        "browser_style": true
     }
 }

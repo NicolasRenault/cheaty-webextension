@@ -19,6 +19,12 @@ try {
     logError(error)
 }
 
+/**
+ * Set link to option page for the option button
+ */
+document.getElementById("optionsButton").addEventListener('click', () =>
+    browser.runtime.openOptionsPage()
+)
 
 /**
  * Send a request message to the content script to get the data informations of updated component by the extension 
@@ -167,4 +173,3 @@ function logError(message) {
 
     logs.appendChild(error);
 }
-    
