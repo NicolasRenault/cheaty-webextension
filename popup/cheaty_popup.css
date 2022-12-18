@@ -17,16 +17,16 @@ html, body {
 }
 
 #cheaty_popup_container {
-    background-color: var(--primary-color);
-    color: var(--text-color);
-    border: 1px solid var(--secondary-color);
+    background-color: var(--cheaty-primary-color);
+    color: var(--cheaty-text-color);
+    border: 1px solid var(--cheaty-secondary-color);
     height: 100%;
     /* width: 100%; */
     overflow: hidden;
 }
 #cheaty_popup_container a,
 #cheaty_popup_container button {
-    color: var(--text-color);
+    color: var(--cheaty-text-color);
     text-decoration: none;
 }
 #cheaty_popup_container button {
@@ -35,7 +35,7 @@ html, body {
     cursor: pointer;
 }
 #cheaty_popup_container header {
-    background-color: var(--termary-color);
+    background-color: var(--cheaty-termary-color);
     padding: 5px;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -89,8 +89,8 @@ html, body {
 }
 #cheaty_main #empty_list p {
     display: inherit;
-    outline: 2px solid var(--secondary-color);
-    background-color: rgb(var(--primary-color) 0.6);
+    outline: 2px solid var(--cheaty-secondary-color);
+    background-color: rgb(var(--cheaty-primary-color) 0.6);
     border-radius: 15px;
     padding: 5px;
     font-size: 20px;
@@ -154,12 +154,12 @@ html, body {
 }
 #cheaty_component_list li button {
     background-color: transparent;
-    border: 1px solid var(--secondary-color);
+    border: 1px solid var(--cheaty-secondary-color);
     border-radius: 15px;
     margin: 0 2px;
 }
 #cheaty_component_list li button:hover {
-    background-color: var(--primary-color);
+    background-color: var(--cheaty-primary-color);
 }
 #cheaty_component_list li button span {
     margin: 0;

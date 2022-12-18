@@ -8,6 +8,13 @@ const COPY_BUTTON_ID = "cheaty_copy_button";
 const ACTION_BUTTON_CONATINER_WIDTH_SMALL = 150;
 const ACTION_BUTTON_CONATINER_WIDTH_BIG = 250;
 const ACTION_BUTTON_CONATINER_HEIGHT = 48;
+const GLOBAL_CSS_VARIABLES = [
+	"--cheaty-primary-color:rgb(27, 38, 59)",
+	"--cheaty-secondary-color:rgb(65, 90, 119)",
+	"--cheaty-termary-color:rgb(13, 27, 42)",
+	"--cheaty-text-color:rgb(224, 225, 221)",
+	"--cheaty-cursor-pen-url:[url]",
+];
 
 let selectMode = false;
 let globalIndex = 0;
@@ -15,7 +22,6 @@ let actionMode = false;
 let currentComponent = null;
 let listOfSelected = null;
 
-//TODO Handle errors
 console.log("Cheaty extention working here");
 
 document.onkeydown = (e) => {
@@ -66,8 +72,9 @@ document.onmousemove = (e) => {
 		selectComponent();
 	}
 }
+
 try {
-	browser.runtime.onMessage.addListener((message) => {
+	chrome.runtime.onMessage.addListener((message) => {
 		if (message.command === "cheaty_get_data") {
 			sendDataToPopup();
 		} else if (message.command === "cheaty_reverse") {
@@ -83,6 +90,29 @@ onresize = (e) => {
 		moveActionMenu();
 	}
 };
+
+// ? Since in chrome and chromium browser the code: @import url("./global.css"); doesn't work, here is a fix
+// ? If you have any idea how to fix this issue please feel free to add an issue here: https://github.com/NicolasRenault/cheaty-webextention/issues/new
+initCSS();
+/**
+ * Insert custom CSS variables to the page
+ */
+function initCSS() { 
+	let penUrl = "url(" + chrome.runtime.getURL("icons/cursor_32x32.png") + ")";
+	console.log(penUrl);
+
+	GLOBAL_CSS_VARIABLES.forEach((variable) => {
+		variable = variable.split(":");
+
+		if (variable[1] === "[url]") variable[1] = penUrl;
+
+		document.documentElement.style.setProperty(variable[0], variable[1]);
+	})
+
+
+
+}
+
 
 /**
  * Init the process
@@ -440,7 +470,7 @@ function copyComponent(component) {
 		navigator.clipboard
 			.writeText(component.outerHTML)
 			.then(() => {
-				console.log("HTML Component copied to clipboard");
+				console.info("HTML Component copied to clipboard");
 			})
 			.catch((err) => {
 				throw new Error(err);
@@ -481,7 +511,7 @@ function addDataType(component, action, status) {
  */
 function sendDataToPopup() {
 	try {
-		browser.runtime.sendMessage({
+		chrome.runtime.sendMessage({
 			command: "cheaty_get_data",
 			components: getListOfUpdatedComponents()
 		});
@@ -517,7 +547,6 @@ function getListOfUpdatedComponents() {
 			actions = actions + "password:" + component.dataset.cheaty_action_password;
 		}
 
-		console.log("Component ID:" + component.id + " !");
 		let componentData = {
 			id: component.dataset.cheaty_id,
 			html_id: component.id,
@@ -526,7 +555,7 @@ function getListOfUpdatedComponents() {
 			actions: actions,
 		}
 
-		componentsData.push(componentData); //TODO send a displayable in the first argument
+		componentsData.push(componentData);
 		i++;
 	}
 

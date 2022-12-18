@@ -6,11 +6,11 @@ const TEXT_NOT_VISIBLE_ICON = '<span class="material-symbols-outlined">password<
 const GOOGLE_ICON_CLASS = "material-symbols-outlined";
 
 try {
-    browser.tabs.query({active: true, currentWindow: true})
-    .then(requestDataFromContentScript)
-    .catch(logError);
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        requestDataFromContentScript(tabs);
+    });
 
-    browser.runtime.onMessage.addListener((message) => {
+    chrome.runtime.onMessage.addListener((message) => {
         if (message.command === "cheaty_get_data") {
             displayComponents(message.components);
         }
@@ -23,7 +23,7 @@ try {
  * Set link to option page for the option button
  */
 document.getElementById("optionsButton").addEventListener('click', () =>
-    browser.runtime.openOptionsPage()
+    chrome.runtime.openOptionsPage()
 )
 
 /**
@@ -32,7 +32,7 @@ document.getElementById("optionsButton").addEventListener('click', () =>
  * @param {*} tabs 
  */
 function requestDataFromContentScript(tabs) {
-    browser.tabs.sendMessage(tabs[0].id, {
+    chrome.tabs.sendMessage(tabs[0].id, {
         command: "cheaty_get_data",
     });
 }
@@ -133,15 +133,13 @@ function createActionButton(componentId, action, status) {
  */
 function reverseComponent(componentId, action) {
     try {
-        browser.tabs.query({active: true, currentWindow: true})
-            .then((tabs) => {
-                browser.tabs.sendMessage(tabs[0].id, {
-                    command: "cheaty_reverse",
-                    componentId: componentId,
-                    action: action,
-                });
-            })
-            .catch(logError);
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+            chrome.tabs.sendMessage(tabs[0].id, {
+                command: "cheaty_reverse",
+                componentId: componentId,
+                action: action,
+            });
+        });
     } catch (error) {
         logError(error);
     }
@@ -164,6 +162,8 @@ function removeAllChildNodes(parent) {
  * @param {string} message 
  */
 function logError(message) {
+    console.error(message);
+
     let cheaty_error = document.getElementById("cheaty_error");
     cheaty_error.classList.add("visible");
 
