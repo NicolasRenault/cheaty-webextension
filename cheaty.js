@@ -406,14 +406,14 @@ function hideCurrentComponent() {
  * 
  * @param {HTMLElement} component
  */
-function hideComponent(component) {
+function hideComponent(component) { //TODO Change the method name to changeDisplayComponent
 	let status = undefined;
 
 	if (component.style.display == "none") {
-		component.style.display = "block";
+		component.style.display = "block"; //TODO take the old display value. If not just display block 
 		status = "ON";
 	} else {
-		component.style.display = "none";
+		component.style.display = "none"; //TODO save the old diplay value 
 		status = "OFF";
 	}
 
