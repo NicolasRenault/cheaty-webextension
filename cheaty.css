@@ -1,11 +1,10 @@
 /* @import url("./global.css"); */
-
-body.cheaty-selection {
-    cursor: var(--cheaty-cursor-pen-url), auto !important;
-}
-
 .cheaty-selected {
-    border: 2px dotted orange !important;
+    border-color: transparent;
+    outline: 2px dotted orange !important;
+    outline-offset: -2px;
+    
+    cursor: var(--cheaty-cursor-pen-url), auto !important;
 }
 
 #cheaty_action_button_container {
@@ -13,8 +12,8 @@ body.cheaty-selection {
     -webkit-box-sizing: content-box;
             box-sizing: content-box;
     z-index: 99999 !important;
-    background-color: var(--cheaty-secondary-color);
-    color: var(--cheaty-text-color);
+    background-color: rgb(var(--cheaty-secondary-color));
+    color: rgb(var(--cheaty-text-color));
     padding:5px;
     border-radius:5px;
     min-height: 28px;
@@ -39,12 +38,12 @@ body.cheaty-selection {
     margin-left:-10px;
     top: 38px;
     border: 10px solid transparent;
-    border-top: 10px solid var(--cheaty-secondary-color);
+    border-top: 10px solid rgb(var(--cheaty-secondary-color));
 }
 #cheaty_action_button_container.bottom:after {
     top: -10px;
     border-top: transparent;
-    border-bottom: 10px solid var(--cheaty-secondary-color);
+    border-bottom: 10px solid rgb(var(--cheaty-secondary-color));
 }
 #cheaty_action_button_container.hidden:after {
     border: transparent;
@@ -64,11 +63,11 @@ body.cheaty-selection {
     font-family: Arial, sans-serif;
 }
 #cheaty_action_button_container button:hover {
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgb(var(--cheaty-text-color), 0.3);
 }
 
 /*
-* Prefixed by https://autoprefixer.github.io
+)* Prefixed by https://autoprefixer.github.io
 * PostCSS: v8.4.14,
 * Autoprefixer: v10.4.7
 * Browsers: last 4 version

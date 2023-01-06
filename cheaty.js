@@ -10,10 +10,10 @@ const ACTION_BUTTON_CONATINER_WIDTH_BIG = 250;
 const ACTION_BUTTON_CONATINER_HEIGHT = 48;
 const INPUT_TEXT_LIST = ["text", "email", "password", "search", "tel", "url"];
 const GLOBAL_CSS_VARIABLES = [
-	"--cheaty-primary-color:rgb(27, 38, 59)",
-	"--cheaty-secondary-color:rgb(65, 90, 119)",
-	"--cheaty-termary-color:rgb(13, 27, 42)",
-	"--cheaty-text-color:rgb(224, 225, 221)",
+	"--cheaty-primary-color:27, 38, 59",
+	"--cheaty-secondary-color:65, 90, 119",
+	"--cheaty-termary-color:13, 27, 42",
+	"--cheaty-text-color:224, 225, 221",
 	"--cheaty-cursor-pen-url:[url]",
 ];
 
@@ -108,9 +108,6 @@ function initCSS() {
 
 		document.documentElement.style.setProperty(variable[0], variable[1]);
 	})
-
-
-
 }
 
 

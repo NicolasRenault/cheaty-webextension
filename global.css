@@ -1,7 +1,7 @@
 :root {
-    --cheaty-primary-color: rgb(27, 38, 59);
-    --cheaty-secondary-color: rgb(65, 90, 119);
-    --cheaty-termary-color: rgb(13, 27, 42);
-    --cheaty-text-color: rgb(224, 225, 221);
+    --cheaty-primary-color: 27, 38, 59;
+    --cheaty-secondary-color: 65, 90, 119;
+    --cheaty-termary-color: 13, 27, 42;
+    --cheaty-text-color: 224, 225, 221;
 }
 /* ! Don't forget to duplicate this in the cheaty.js file. If you have any idea how to fix this issue please feel free to add an issue here: https://github.com/NicolasRenault/cheaty-webextention/issues/new */
