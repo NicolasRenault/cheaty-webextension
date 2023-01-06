@@ -99,7 +99,6 @@ initCSS();
  */
 function initCSS() { 
 	let penUrl = "url(" + chrome.runtime.getURL("icons/cursor_32x32.png") + ")";
-	console.log(penUrl);
 
 	GLOBAL_CSS_VARIABLES.forEach((variable) => {
 		variable = variable.split(":");
@@ -301,7 +300,7 @@ function genrateActionButton() {
 		hideButton.innerHTML = "Hide";
 	}
 
-	hideButton.addEventListener('click', hideCurrentComponent);
+	hideButton.addEventListener('click', changeDisplayCurrentComponent);
 	actionButtonContainer.appendChild(hideButton);
 
 	// let span = document.createElement("span");
@@ -395,10 +394,10 @@ function updateActionButtonsState(component, action) {
 /**
  * Call the method hideComponent for the current component
  * 
- * @see hideComponent
+ * @see changeDisplayComponent
  */
-function hideCurrentComponent() {
-	hideComponent(currentComponent)
+function changeDisplayCurrentComponent() {
+	changeDisplayComponent(currentComponent)
 }
 
 /**
@@ -406,16 +405,9 @@ function hideCurrentComponent() {
  * 
  * @param {HTMLElement} component
  */
-function hideComponent(component) { //TODO Change the method name to changeDisplayComponent
-	let status = undefined;
-
-	if (component.style.display == "none") {
-		component.style.display = "block"; //TODO take the old display value. If not just display block 
-		status = "ON";
-	} else {
-		component.style.display = "none"; //TODO save the old diplay value 
-		status = "OFF";
-	}
+function changeDisplayComponent(component) { //TODO Change the method name to changeDisplayComponent
+	component.hidden = !component.hidden;
+	let status = component.hidden ? "OFF" : "ON"; 
 
 	addDataType(component, "hide", status);
 	updateActionButtonsState(component, "hide");
@@ -492,7 +484,7 @@ function copyComponent(component) {
  */
 function addDataType(component, action, status) {
 	if (component.dataset.cheaty_id === undefined) {
-		component.dataset.cheaty_id = Date.now() + "_" + component.tagName; //? We use here Date.now() as part for a unqiue ID because it's humanly impossible to do an action on 2 sepearate composant at the same millisecond
+		component.dataset.cheaty_id = Date.now() + "_" + component.tagName; //? I use here Date.now() as part for a unqiue ID because it's humanly impossible to do an action on 2 sepearate composant at the same millisecond
 		component.dataset.cheaty_index = globalIndex;
 		globalIndex++;
 	}	
@@ -574,7 +566,7 @@ function revertActionOnComponent(id, action) {
 	let component = document.querySelector('[data-cheaty_id="' + id + '"]');
 
 	if (action === "hide") {
-		hideComponent(component);
+		changeDisplayComponent(component);
 	} else if (action === "password") {
 		changePasswordTypeComponent(component);
 	}
