@@ -8,6 +8,7 @@ const COPY_BUTTON_ID = "cheaty_copy_button";
 const ACTION_BUTTON_CONATINER_WIDTH_SMALL = 150;
 const ACTION_BUTTON_CONATINER_WIDTH_BIG = 250;
 const ACTION_BUTTON_CONATINER_HEIGHT = 48;
+const INPUT_TEXT_LIST = ["text", "email", "password", "search", "tel", "url"];
 const GLOBAL_CSS_VARIABLES = [
 	"--cheaty-primary-color:rgb(27, 38, 59)",
 	"--cheaty-secondary-color:rgb(65, 90, 119)",
@@ -306,7 +307,7 @@ function genrateActionButton() {
 	// let span = document.createElement("span");
 	// actionButtonContainer.appendChild(span);
 
-	if (currentComponent.tagName == 'INPUT') {
+	if (currentComponent.tagName == 'INPUT' && INPUT_TEXT_LIST.includes(currentComponent.type)) {
 		let passwordButton = document.createElement("button");
 		passwordButton.id = PASSWORD_BUTTON_ID;
 
@@ -317,6 +318,7 @@ function genrateActionButton() {
 			passwordButton.title = "Change the type of the selected element";
 			passwordButton.innerHTML = "Hide as password";
 		}
+
 		passwordButton.addEventListener('click', changePasswordTypeCurrentComponent);
 		actionButtonContainer.appendChild(passwordButton);
 		actionButtonContainer.classList.add(PASSWORD_CLASS);
@@ -429,9 +431,18 @@ function changePasswordTypeCurrentComponent() {
  */
 function changePasswordTypeComponent(component) {
 	let status = undefined;
+	
+	if (component.dataset.cheaty_password_default === undefined) {
+		component.dataset.cheaty_password_default = component.type;
+	}
 
 	if (component.type == "password") {
-		component.type = "text";
+		if (component.dataset.cheaty_password_default === "password") {
+			component.type = "text";
+		} else {
+			component.type = component.dataset.cheaty_password_default;
+		}
+
 		status = "ON";
 	} else {
 		component.type = "password";
