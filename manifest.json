@@ -35,6 +35,8 @@
     ],
     "web_accessible_resources": [
         "icons/cursor_32x32.png",
-        "icons/pen_32x32.ico"
+        "icons/pen_16x16.ico",
+        "icons/pen_32x32.ico",
+        "icons/pen_48x48.ico"
     ]
 }
