@@ -190,8 +190,8 @@ function selectComponent() {
  * Select the parent of the current component
  */
 function selectParentComponent() {
-	if (currentComponent == null || currentComponent.parentNode == null) return;
-	currentComponent = currentComponent.parentNode;
+	if (currentComponent == null || currentComponent.parentElement == null) return;
+	currentComponent = currentComponent.parentElement;
 	addBorderToCurrentComponent();
 }
 
@@ -199,8 +199,8 @@ function selectParentComponent() {
  * Select the child of the current component
  */
 function selectChildComponent() {
-	if (currentComponent == null || currentComponent.firstChild == null) return;
-	currentComponent = currentComponent.firstChild;
+	if (currentComponent == null || currentComponent.firstElementChild == null) return;
+	currentComponent = currentComponent.firstElementChild;
 	addBorderToCurrentComponent();
 }
 
@@ -208,8 +208,8 @@ function selectChildComponent() {
  * Select the previous sibling of the current component
  */
 function selectPreviousSiblingComponent() {
-	if (currentComponent == null || currentComponent.previousSibling == null) return;
-	currentComponent = currentComponent.previousSibling;
+	if (currentComponent == null || currentComponent.previousElementSibling == null) return;
+	currentComponent = currentComponent.previousElementSibling;
 	addBorderToCurrentComponent();
 } 
 
@@ -217,8 +217,8 @@ function selectPreviousSiblingComponent() {
  * Select the next sibling of the current component
  */
 function selectNextSiblingComponent() {
-	if (currentComponent == null || currentComponent.nextSibling == null) return;
-	currentComponent = currentComponent.nextSibling;
+	if (currentComponent == null || currentComponent.nextElementSibling == null) return;
+	currentComponent = currentComponent.nextElementSibling;
 	addBorderToCurrentComponent();
 }
 
