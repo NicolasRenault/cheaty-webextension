@@ -400,7 +400,7 @@ function changeDisplayCurrentComponent() {
 }
 
 /**
- * Hide/show the component in param by setting the style display to none/block
+ * Hide/show the component in param by setting the hidden attribut to true/false
  * 
  * @param {HTMLElement} component
  */
@@ -422,7 +422,7 @@ function changePasswordTypeCurrentComponent() {
 }
 
 /**
- * Hide/show the text password for the component in param by setting the input type to password/text
+ * Hide/show the text input for the component in param by setting the input type to password or it's old value
  * 
  * @param {HTMLElement} component
  */
