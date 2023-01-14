@@ -5,9 +5,16 @@ const HIDE_BUTTON_ID = "cheaty_hide_button";
 const PASSWORD_BUTTON_ID = "cheaty_password_button";
 const PASSWORD_CLASS = "cheaty_input";
 const COPY_BUTTON_ID = "cheaty_copy_button";
+const INSPECTOR_INFOS_BAR_ID = "cheaty_inspector_infos_bar";
+const INSPECTOR_INFOS_TAGNAME_ID = "cheaty_inspector_infos_tagname";
+const INSPECTOR_INFOS_ID_ID = "cheaty_inspector_infos_id";
+const INSPECTOR_INFOS_CLASSES_ID = "cheaty_inspector_infos_classes";
 const ACTION_BUTTON_CONATINER_WIDTH_SMALL = 150;
 const ACTION_BUTTON_CONATINER_WIDTH_BIG = 250;
 const ACTION_BUTTON_CONATINER_HEIGHT = 48;
+const INSPECTOR_INFOS_CONATINER_MAX_WIDTH_SMALL = 300;
+const INSPECTOR_INFOS_CONATINER_MAX_WIDTH_BIG = 500;
+const INSPECTOR_INFOS_CONATINER_MEDIA_MAX_WIDTH = 520;
 const INPUT_TEXT_LIST = ["text", "email", "password", "search", "tel", "url"];
 const GLOBAL_CSS_VARIABLES = [
 	"--cheaty-primary-color:27, 38, 59",
@@ -22,6 +29,7 @@ let globalIndex = 0;
 let actionMode = false;
 let currentComponent = null;
 let listOfSelected = null;
+let inspectorMode = false; //TODO change this value in exetenstion parameter
 
 console.log("Cheaty extention working here");
 
@@ -89,6 +97,8 @@ try {
 onresize = (e) => {
 	if (actionMode) {
 		moveActionMenu();
+	} else if (selectMode) {
+		moveInspectorInfosBar();
 	}
 };
 
@@ -129,6 +139,7 @@ function stop() {
 	selectMode = false;
 	actionMode = false;
 	removeSelectionClass();
+	removeInspectorInfosBar();
 	removeAllBorder();
 }
 
@@ -144,6 +155,7 @@ function initSelectionMode() {
  */
 function stopSelectionMode() {
 	selectMode = false;
+	removeInspectorInfosBar();
 }
 
 /**
@@ -162,6 +174,7 @@ function stopActionMode() {
 	actionMode = false;
 	removeActionMenu();
 	initSelectionMode();
+	selectCurrentComponent();
 }
 
 /**
@@ -183,7 +196,7 @@ function selectComponent() {
 
 	currentComponent = hovers.item(hovers.length - 1);
 
-	addBorderToCurrentComponent();
+	selectCurrentComponent();
 }
 
 /**
@@ -192,7 +205,7 @@ function selectComponent() {
 function selectParentComponent() {
 	if (currentComponent == null || currentComponent.parentElement == null) return;
 	currentComponent = currentComponent.parentElement;
-	addBorderToCurrentComponent();
+	selectCurrentComponent();
 }
 
 /**
@@ -201,7 +214,7 @@ function selectParentComponent() {
 function selectChildComponent() {
 	if (currentComponent == null || currentComponent.firstElementChild == null) return;
 	currentComponent = currentComponent.firstElementChild;
-	addBorderToCurrentComponent();
+	selectCurrentComponent();
 }
 
 /**
@@ -210,7 +223,7 @@ function selectChildComponent() {
 function selectPreviousSiblingComponent() {
 	if (currentComponent == null || currentComponent.previousElementSibling == null) return;
 	currentComponent = currentComponent.previousElementSibling;
-	addBorderToCurrentComponent();
+	selectCurrentComponent();
 } 
 
 /**
@@ -219,7 +232,7 @@ function selectPreviousSiblingComponent() {
 function selectNextSiblingComponent() {
 	if (currentComponent == null || currentComponent.nextElementSibling == null) return;
 	currentComponent = currentComponent.nextElementSibling;
-	addBorderToCurrentComponent();
+	selectCurrentComponent();
 }
 
 /**
@@ -234,6 +247,15 @@ function addSelectionClassToBody() {
  */
 function removeSelectionClass() {
 	document.body.classList.remove(CSS_CLASS_NAME_SELECTION);
+}
+
+/**
+ * Add visual aspect to the current component
+ */
+function selectCurrentComponent() {
+	addBorderToCurrentComponent();
+	removeInspectorInfosBar();
+	initInspectorInfos();
 }
 
 /**
@@ -254,13 +276,92 @@ function removeAllBorder() {
 }
 
 /**
+ * Add an information box next to the current component with HTML type, id and classes information
+ * Similar to inspector mode on web (inspired by Firefox inspector)
+ */
+function initInspectorInfos() {
+	if (inspectorMode) {
+		let inspectorInfosBar = generateInspectorInfosBar();
+		document.body.appendChild(inspectorInfosBar);
+
+		setPositionFromCurrentComponent(inspectorInfosBar, "inspector");
+
+	}
+}
+
+/**
+ * Move the action menu
+ */
+function moveInspectorInfosBar() {
+	let inspectorInfosBar = document.getElementById(INSPECTOR_INFOS_BAR_ID);
+	if (inspectorInfosBar !== null) setPositionFromCurrentComponent(inspectorInfosBar, "inspector");
+}
+
+/**
+ * Remove the inspector infos bar from the page
+ */
+function removeInspectorInfosBar() {
+	if (document.getElementById(INSPECTOR_INFOS_BAR_ID) !== null) {
+		document.getElementById(INSPECTOR_INFOS_BAR_ID).remove();
+	}
+}
+
+/**
+ * Generate the inspector information bar
+ * 
+ * @return HTMLElement 
+ */
+function generateInspectorInfosBar() {
+	let numberOfChar = 0;
+	let inspectorInfosContainer = document.createElement("div");
+	inspectorInfosContainer.id = INSPECTOR_INFOS_BAR_ID;
+
+	let currentComponentTagName = document.createElement("span");
+	currentComponentTagName.id = INSPECTOR_INFOS_TAGNAME_ID;
+	currentComponentTagName.innerHTML = currentComponent.tagName.toLowerCase();
+	inspectorInfosContainer.appendChild(currentComponentTagName);
+	
+	numberOfChar += currentComponentTagName.innerHTML.length;
+	
+	if (currentComponent.id !== "") {
+		let currentComponentId = document.createElement("span");
+		currentComponentId.id = INSPECTOR_INFOS_ID_ID;
+		currentComponentId.innerHTML = "#" + currentComponent.id;
+		inspectorInfosContainer.appendChild(currentComponentId);
+		
+		numberOfChar += currentComponentId.innerHTML.length;
+	}
+
+	if (currentComponent.classList.length !== 0) {
+		let currentComponentClasses = document.createElement("span");
+		currentComponentClasses.id = INSPECTOR_INFOS_CLASSES_ID;
+
+		let classList = "";
+		currentComponent.classList.forEach(element => {
+			if(![CSS_CLASS_NAME_SELECTION, CSS_CLASS_NAME_SELECTED].includes(element)) {
+				classList += "." + element;
+			}
+		});
+
+		currentComponentClasses.innerHTML = classList;
+		inspectorInfosContainer.appendChild(currentComponentClasses);
+
+		numberOfChar += currentComponentClasses.innerHTML.length;
+	}
+
+	inspectorInfosContainer.numberOfChar = numberOfChar;
+
+	return inspectorInfosContainer;
+}
+
+/**
  * Init and place next to the current component the action menu
  */
 function initActionMenu() {
-	let actionButton = genrateActionButton();
-	setPositionFromCurrentComponent(actionButton);
+	let actionMenu = genrateActionMenu();
+	setPositionFromCurrentComponent(actionMenu, "action");
 
-	document.body.appendChild(actionButton);
+	document.body.appendChild(actionMenu);
 }
 
 /**
@@ -268,7 +369,7 @@ function initActionMenu() {
  */
 function moveActionMenu() {
 	let actionMenu = document.getElementById(ACTION_BUTTON_CONTAINER_ID);
-	setPositionFromCurrentComponent(actionMenu);
+	if (actionMenu !== null) setPositionFromCurrentComponent(actionMenu, "action");
 }
 
 /**
@@ -283,9 +384,9 @@ function removeActionMenu() {
  * 
  * @return HTMLElement 
  */
-function genrateActionButton() {
-	let actionButtonContainer = document.createElement("div");
-	actionButtonContainer.id = ACTION_BUTTON_CONTAINER_ID;
+function genrateActionMenu() {
+	let actionMenuContainer = document.createElement("div");
+	actionMenuContainer.id = ACTION_BUTTON_CONTAINER_ID;
 
 	let hideButton = document.createElement("button");
 	hideButton.id = HIDE_BUTTON_ID;
@@ -299,10 +400,7 @@ function genrateActionButton() {
 	}
 
 	hideButton.addEventListener('click', changeDisplayCurrentComponent);
-	actionButtonContainer.appendChild(hideButton);
-
-	// let span = document.createElement("span");
-	// actionButtonContainer.appendChild(span);
+	actionMenuContainer.appendChild(hideButton);
 
 	if (currentComponent.tagName == 'INPUT' && INPUT_TEXT_LIST.includes(currentComponent.type)) {
 		let passwordButton = document.createElement("button");
@@ -317,8 +415,8 @@ function genrateActionButton() {
 		}
 
 		passwordButton.addEventListener('click', changePasswordTypeCurrentComponent);
-		actionButtonContainer.appendChild(passwordButton);
-		actionButtonContainer.classList.add(PASSWORD_CLASS);
+		actionMenuContainer.appendChild(passwordButton);
+		actionMenuContainer.classList.add(PASSWORD_CLASS);
 	}
 
 	let copyButton = document.createElement("button");
@@ -326,17 +424,18 @@ function genrateActionButton() {
 	copyButton.title = "Copy the selected element";
 	copyButton.innerHTML = "Copy";
 	copyButton.addEventListener('click', copyCurrentComponent);
-	actionButtonContainer.appendChild(copyButton);
+	actionMenuContainer.appendChild(copyButton);
 
-	return actionButtonContainer;
+	return actionMenuContainer;
 }
 
 /**
  * Set the top and left value of the element in param from the current component positions
  * 
  * @param {HTMLElement} elm 
+ * @param {String} type Special type of the element example:"action"
  */
-function setPositionFromCurrentComponent(elm) {
+function setPositionFromCurrentComponent(elm, type) {
 	let rect = currentComponent.getBoundingClientRect();
 	let style =  window.getComputedStyle(currentComponent, null);
 
@@ -350,7 +449,17 @@ function setPositionFromCurrentComponent(elm) {
 		elm.classList.remove("hidden");
 	}
 
-	elm.style.left = ((rect.right - (rect.width / 2)) + window.scrollX - ((((currentComponent.tagName == 'INPUT') ? ACTION_BUTTON_CONATINER_WIDTH_BIG : ACTION_BUTTON_CONATINER_WIDTH_SMALL)) / 2)) + "px";
+	if (type === "action") {
+		elm.style.left = ((rect.right - (rect.width / 2)) + window.scrollX - ((((currentComponent.tagName == 'INPUT') ? ACTION_BUTTON_CONATINER_WIDTH_BIG : ACTION_BUTTON_CONATINER_WIDTH_SMALL)) / 2)) + "px";		
+	} else if (type === "inspector") {
+		let elmRect = elm.getBoundingClientRect();
+
+		let inspectorInfosContainerMaxWidth = window.innerWidth > INSPECTOR_INFOS_CONATINER_MEDIA_MAX_WIDTH ? INSPECTOR_INFOS_CONATINER_MAX_WIDTH_BIG : INSPECTOR_INFOS_CONATINER_MAX_WIDTH_SMALL; 
+		let containerWidth = (elm.numberOfChar >= 55 ? inspectorInfosContainerMaxWidth : elmRect.width);
+		
+
+		elm.style.left = ((rect.right - (rect.width / 2)) + window.scrollX - (containerWidth / 2)) + "px";
+	}
 
 	if ((rect.top - ACTION_BUTTON_CONATINER_HEIGHT) > 0) {
 		elm.style.top = (rect.top + window.scrollY - ACTION_BUTTON_CONATINER_HEIGHT) + "px";
