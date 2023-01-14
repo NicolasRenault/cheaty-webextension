@@ -105,6 +105,16 @@ onresize = (e) => {
 // ? Since in chrome and chromium browser the code: @import url("./global.css"); doesn't work, here is a fix
 // ? If you have any idea how to fix this issue please feel free to add an issue here: https://github.com/NicolasRenault/cheaty-webextention/issues/new
 initCSS();
+
+//TODO encapsulate in function initSettings if more than one settings
+function setInspectorMode(item) {
+	if (item.inspectorMode) {
+		inspectorMode = item.inspectorMode;
+	}
+}
+const inspectorModePromise = chrome.storage.sync.get("inspectorMode");
+inspectorModePromise.then(setInspectorMode, onError);
+
 /**
  * Insert custom CSS variables to the page
  */
@@ -689,4 +699,13 @@ function revertActionOnComponent(id, action) {
 	}
 
 	sendDataToPopup();
+}
+
+/**
+ * Error handling
+ * 
+ * @param {Error} error 
+ */
+function onError(error) {
+    console.error(`Error: ${error}`);
 }

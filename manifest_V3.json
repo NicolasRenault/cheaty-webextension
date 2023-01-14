@@ -31,7 +31,8 @@
     },
     "permissions": [
         "activeTab",
-        "clipboardWrite"
+        "clipboardWrite",
+        "storage"
     ],
     "web_accessible_resources": [{ 
         "resources": [
