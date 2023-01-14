@@ -459,17 +459,23 @@ function setPositionFromCurrentComponent(elm, type) {
 		elm.classList.remove("hidden");
 	}
 
+	let left = 0;
+	let containerWidth = 0;
+
 	if (type === "action") {
-		elm.style.left = ((rect.right - (rect.width / 2)) + window.scrollX - ((((currentComponent.tagName == 'INPUT') ? ACTION_BUTTON_CONATINER_WIDTH_BIG : ACTION_BUTTON_CONATINER_WIDTH_SMALL)) / 2)) + "px";		
+		containerWidth = ((currentComponent.tagName == 'INPUT') ? ACTION_BUTTON_CONATINER_WIDTH_BIG : ACTION_BUTTON_CONATINER_WIDTH_SMALL)
 	} else if (type === "inspector") {
 		let elmRect = elm.getBoundingClientRect();
 
 		let inspectorInfosContainerMaxWidth = window.innerWidth > INSPECTOR_INFOS_CONATINER_MEDIA_MAX_WIDTH ? INSPECTOR_INFOS_CONATINER_MAX_WIDTH_BIG : INSPECTOR_INFOS_CONATINER_MAX_WIDTH_SMALL; 
-		let containerWidth = (elm.numberOfChar >= 55 ? inspectorInfosContainerMaxWidth : elmRect.width);
-		
-
-		elm.style.left = ((rect.right - (rect.width / 2)) + window.scrollX - (containerWidth / 2)) + "px";
+		containerWidth = (elm.numberOfChar >= 55 ? inspectorInfosContainerMaxWidth : elmRect.width);
 	}
+	left = ((rect.right - (rect.width / 2)) + window.scrollX - (containerWidth / 2));
+
+	if (left <= 0) left = 5;
+	else if ((left + containerWidth + 5) > window.innerWidth) left = (window.innerWidth - (containerWidth + 15));
+	
+	elm.style.left = left + "px";
 
 	if ((rect.top - ACTION_BUTTON_CONATINER_HEIGHT) > 0) {
 		elm.style.top = (rect.top + window.scrollY - ACTION_BUTTON_CONATINER_HEIGHT) + "px";
