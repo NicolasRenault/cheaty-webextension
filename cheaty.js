@@ -29,7 +29,7 @@ let globalIndex = 0;
 let actionMode = false;
 let currentComponent = null;
 let listOfSelected = null;
-let inspectorMode = false; //TODO change this value in exetenstion parameter
+let inspectorMode = false;
 
 console.log("Cheaty extention working here");
 
@@ -106,14 +106,36 @@ onresize = (e) => {
 // ? If you have any idea how to fix this issue please feel free to add an issue here: https://github.com/NicolasRenault/cheaty-webextention/issues/new
 initCSS();
 
-//TODO encapsulate in function initSettings if more than one settings
+/**
+ * Set the inspectorMode value from storage.sync
+ * 
+ * @see inspectorMode
+ * @param {Object} item 
+ */
 function setInspectorMode(item) {
 	if (item.inspectorMode) {
 		inspectorMode = item.inspectorMode;
 	}
 }
-const inspectorModePromise = chrome.storage.sync.get("inspectorMode");
-inspectorModePromise.then(setInspectorMode, onError);
+
+//TODO encapsulate in function initSettings if more than one settings
+/* Exemple -> Need to be tested;
+ *	chrome.storage.sync.get(['total', 'limit'], function(work) {
+ *		$('#total').text(work.total);
+ *		$('#limit').text(work.limit);
+ *	})
+*/
+//? Code working on Firefox but not on chrome
+// const inspectorModePromise = chrome.storage.sync.get("inspectorMode");
+// inspectorModePromise.then(setInspectorMode, onError);
+//---
+//chrome.storage.sync.get("inspectorMode").then(setInspectorMode, onError);
+//---
+chrome.storage.sync.get("inspectorMode", function(items) {
+	if (!chrome.runtime.error) {
+		setInspectorMode(items);
+	}
+});
 
 /**
  * Insert custom CSS variables to the page
@@ -529,7 +551,7 @@ function changeDisplayCurrentComponent() {
  * 
  * @param {HTMLElement} component
  */
-function changeDisplayComponent(component) { //TODO Change the method name to changeDisplayComponent
+function changeDisplayComponent(component) {
 	component.hidden = !component.hidden;
 	let status = component.hidden ? "OFF" : "ON"; 
 

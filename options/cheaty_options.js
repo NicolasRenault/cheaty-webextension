@@ -1,11 +1,19 @@
+/**
+ * Save data from the settings from to storage.sync
+ * 
+ * @param {Event} e 
+ */
 function saveOptions(e) {
     e.preventDefault();
 
-    browser.storage.sync.set({
+    chrome.storage.sync.set({
         inspectorMode: document.querySelector("#inspector-mode").checked
     });
 }
 
+/**
+ * Get data from storage sync and set it in the form
+ */
 function restoreOptions() {
     function setCurrentChoice(result) {
         document.querySelector("#inspector-mode").checked = result.inspectorMode || false;
@@ -15,8 +23,13 @@ function restoreOptions() {
         document.querySelector("#msg").innerHTML += `Error: ${error}`;
     }
 
-    let getting = browser.storage.sync.get("inspectorMode");
-    getting.then(setCurrentChoice, onError);
+    // chrome.storage.sync.get("inspectorMode").then(setCurrentChoice, onError); //? This is not working in Firefox
+    chrome.storage.sync.get("inspectorMode", function(items) {
+        if (!chrome.runtime.error) {
+            console.log(items);
+            setCurrentChoice(items);
+        }
+    });
 }
 
 document.addEventListener("DOMContentLoaded", restoreOptions);
