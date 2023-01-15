@@ -168,6 +168,7 @@ function init() {
  * Stop all the process
  */
 function stop() {
+	currentComponent = null;
 	selectMode = false;
 	actionMode = false;
 	removeSelectionClass();
@@ -211,22 +212,22 @@ function stopActionMode() {
 
 /**
  * Select the component under the mouse
+ * If the mouse not on the page it select the body
  * 
  * @see currentComponent
- * @returns -1 on error 
  */
 function selectComponent() {
 	let hovers = document.querySelectorAll(":hover");
 
-	if (hovers.length == 0) {
-		console.error("Something is wrong with the selection of a component with the mouse");
-		stop();
-		return -1;
+	if (hovers.length == 0) { //? Mouse not on the page (or not moved yet on Chrome)
+		console.error("The mouse is not hovering the page. Selecting the body");
+
+		if (currentComponent == document.body) return;
+		currentComponent = document.body;
+	} else {
+		if (currentComponent == hovers.item(hovers.length - 1)) return;
+		currentComponent = hovers.item(hovers.length - 1);
 	}
-
-	if (currentComponent == hovers.item(hovers.length - 1)) return;
-
-	currentComponent = hovers.item(hovers.length - 1);
 
 	selectCurrentComponent();
 }
