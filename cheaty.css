@@ -8,6 +8,11 @@
     cursor: var(--cheaty-cursor-pen-url), auto !important;
 }
 
+#cheaty_inspector_infos_bar *,
+#cheaty_action_button_container * {
+    all: unset;
+}
+
 #cheaty_inspector_infos_bar, #cheaty_action_button_container {
     position: absolute;
     -webkit-box-sizing: content-box;
