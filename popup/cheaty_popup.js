@@ -173,7 +173,7 @@ function removeAllChildNodes(parent) {
 /**
  * Display the error message
  *
- * @param {string} message
+ * @param {string|Error} message
  */
 function logError(message) {
 	console.error(message);
