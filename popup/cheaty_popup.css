@@ -47,9 +47,15 @@ body {
 }
 #cheaty_popup_container header #cheaty_header_links {
 	position: absolute;
-	height: 40px;
 	right: 5px;
 	top: 14px;
+}
+#cheaty_popup_container header #cheaty_header_links button {
+	padding: 0;
+}
+#cheaty_popup_container header #cheaty_header_links svg {
+	display: inline-flex;
+	height: 25px;
 }
 #cheaty_popup_container h1 {
 	margin: 0;
