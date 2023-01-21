@@ -1,48 +1,44 @@
 {
-    "name": "Cheaty",
-    "version": "0.1",
-    "description": "Extention for the web that feel illegal",
-    "homepage_url": "https://cheaty.nicolasrenault.com",
-    "manifest_version": 2,
-    "icons": {
-        "16": "icons/pen_16x16.ico",
-        "32": "icons/pen_32x32.ico",
-        "48": "icons/pen_48x48.ico"
-    },
-    "content_scripts": [
-        {
-        "matches": ["<all_urls>"],
-        "js": ["cheaty.js"],
-        "css": ["cheaty.css"]
-        }
-    ],
-    "browser_action": {
-        "default_icon": {
-            "16": "icons/pen_16x16.ico",
-            "32": "icons/pen_32x32.ico",
-            "48": "icons/pen_48x48.ico"
-        },
-        "default_title": "Cheaty",
-        "default_popup": "popup/cheaty_popup.html"
-    },
-    "options_ui": {
-        "page": "options/cheaty_options.html",
-        "browser_style": true
-    },
-    "permissions": [
-        "activeTab",
-        "clipboardWrite",
-        "storage"
-    ],
-    "web_accessible_resources": [
-        "icons/cursor_32x32.png",
-        "icons/pen_16x16.ico",
-        "icons/pen_32x32.ico",
-        "icons/pen_48x48.ico"
-    ],
-    "browser_specific_settings": {
-        "gecko": {
-            "id": "cheaty@mozilla.org"
-        }
-    }
+	"name": "Cheaty",
+	"version": "0.1",
+	"description": "Extention for the web that feel illegal",
+	"homepage_url": "https://cheaty.nicolasrenault.com",
+	"manifest_version": 2,
+	"icons": {
+		"16": "icons/pen_16x16.ico",
+		"32": "icons/pen_32x32.ico",
+		"48": "icons/pen_48x48.ico"
+	},
+	"content_scripts": [
+		{
+			"matches": ["<all_urls>"],
+			"js": ["cheaty.js"],
+			"css": ["cheaty.css", "global.css"]
+		}
+	],
+	"browser_action": {
+		"default_icon": {
+			"16": "icons/pen_16x16.ico",
+			"32": "icons/pen_32x32.ico",
+			"48": "icons/pen_48x48.ico"
+		},
+		"default_title": "Cheaty",
+		"default_popup": "popup/cheaty_popup.html"
+	},
+	"options_ui": {
+		"page": "options/cheaty_options.html",
+		"browser_style": true
+	},
+	"permissions": ["activeTab", "clipboardWrite", "storage"],
+	"web_accessible_resources": [
+		"icons/cursor_32x32.png",
+		"icons/pen_16x16.ico",
+		"icons/pen_32x32.ico",
+		"icons/pen_48x48.ico"
+	],
+	"browser_specific_settings": {
+		"gecko": {
+			"id": "cheaty@mozilla.org"
+		}
+	}
 }

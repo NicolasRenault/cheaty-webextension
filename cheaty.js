@@ -109,10 +109,6 @@ onresize = (e) => {
 	}
 };
 
-// ? Since in chrome and chromium browser the code: @import url("./global.css"); doesn't work, here is a fix
-// ? If you have any idea how to fix this issue please feel free to add an issue here: https://github.com/NicolasRenault/cheaty-webextention/issues/new
-initCSS();
-
 /**
  * Set the inspectorMode value from storage.sync
  *
@@ -143,21 +139,6 @@ chrome.storage.sync.get("inspectorMode", function (items) {
 		setInspectorMode(items);
 	}
 });
-
-/**
- * Insert custom CSS variables to the page
- */
-function initCSS() {
-	let penUrl = "url(" + chrome.runtime.getURL("icons/cursor_32x32.png") + ")";
-
-	GLOBAL_CSS_VARIABLES.forEach((variable) => {
-		variable = variable.split(":");
-
-		if (variable[1] === "[url]") variable[1] = penUrl;
-
-		document.documentElement.style.setProperty(variable[0], variable[1]);
-	});
-}
 
 /**
  * Init the process
