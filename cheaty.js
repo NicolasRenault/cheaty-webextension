@@ -16,13 +16,6 @@ const INSPECTOR_INFOS_CONATINER_MAX_WIDTH_SMALL = 300;
 const INSPECTOR_INFOS_CONATINER_MAX_WIDTH_BIG = 500;
 const INSPECTOR_INFOS_CONATINER_MEDIA_MAX_WIDTH = 520;
 const INPUT_TEXT_LIST = ["text", "email", "password", "search", "tel", "url"];
-const GLOBAL_CSS_VARIABLES = [
-	"--cheaty-primary-color:27, 38, 59",
-	"--cheaty-secondary-color:65, 90, 119",
-	"--cheaty-termary-color:13, 27, 42",
-	"--cheaty-text-color:224, 225, 221",
-	"--cheaty-cursor-pen-url:[url]",
-];
 
 let selectMode = false;
 let globalIndex = 0;
@@ -47,7 +40,7 @@ document.onkeydown = (e) => {
 		} else if (actionMode) {
 			stopActionMode();
 		} else {
-			init();
+			initProcess();
 		}
 	} else if (e.code == "ArrowUp" && selectMode) {
 		// Arrow Up
@@ -109,17 +102,7 @@ onresize = (e) => {
 	}
 };
 
-/**
- * Set the inspectorMode value from storage.sync
- *
- * @see inspectorMode
- * @param {Object} item
- */
-function setInspectorMode(item) {
-	if (item.inspectorMode) {
-		inspectorMode = item.inspectorMode;
-	}
-}
+initCursorsVariable();
 
 //TODO encapsulate in function initSettings if more than one settings
 /* Exemple -> Need to be tested;
@@ -141,9 +124,33 @@ chrome.storage.sync.get("inspectorMode", function (items) {
 });
 
 /**
+ * Set the inspectorMode value from storage.sync
+ *
+ * @see inspectorMode
+ * @param {Object} item
+ */
+function setInspectorMode(item) {
+	if (item.inspectorMode) {
+		inspectorMode = item.inspectorMode;
+	}
+}
+
+/**
+ * Insert cursors custom CSS variables with path url to the page
+ */
+function initCursorsVariable() {
+	let penUrl = "url(" + chrome.runtime.getURL("icons/cursor_32x32.png") + ")";
+
+	document.documentElement.style.setProperty(
+		"--cheaty-cursor-pen-url",
+		penUrl
+	);
+}
+
+/**
  * Init the process
  */
-function init() {
+function initProcess() {
 	selectMode = false;
 	actionMode = false;
 	addSelectionClassToBody();
