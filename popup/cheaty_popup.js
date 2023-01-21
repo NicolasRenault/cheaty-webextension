@@ -6,7 +6,6 @@ const TEXT_VISIBLE_ICON =
 	'<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#98f79899" d="M2.5 4v3h5v12h3V7h5V4h-13zm19 5h-9v3h3v7h3v-7h3V9z"/></svg>';
 const TEXT_NOT_VISIBLE_ICON =
 	'<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#ff000099" d="M2 17h20v2H2v-2zm1.15-4.05L4 11.47l.85 1.48l1.3-.75l-.85-1.48H7v-1.5H5.3l.85-1.47L4.85 7L4 8.47L3.15 7l-1.3.75l.85 1.47H1v1.5h1.7l-.85 1.48l1.3.75zm6.7-.75l1.3.75l.85-1.48l.85 1.48l1.3-.75l-.85-1.48H15v-1.5h-1.7l.85-1.47l-1.3-.75L12 8.47L11.15 7l-1.3.75l.85 1.47H9v1.5h1.7l-.85 1.48zM23 9.22h-1.7l.85-1.47l-1.3-.75L20 8.47L19.15 7l-1.3.75l.85 1.47H17v1.5h1.7l-.85 1.48l1.3.75l.85-1.48l.85 1.48l1.3-.75l-.85-1.48H23v-1.5z"/></svg>';
-const GOOGLE_ICON_CLASS = "material-symbols-outlined";
 
 try {
 	chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
@@ -120,21 +119,18 @@ function createActionButton(componentId, action, status) {
 		reverseComponent(componentId, action);
 	});
 
-	button.classList.add(GOOGLE_ICON_CLASS);
 	if (status === "ON") {
 		if (action === "hide") {
 			button.innerHTML = EYE_OPEN_ICON;
 		} else if (action === "password") {
 			button.innerHTML = TEXT_VISIBLE_ICON;
 		}
-		button.classList.add("on");
 	} else if (status === "OFF") {
 		if (action === "hide") {
 			button.innerHTML = EYE_CLOSE_ICON;
 		} else if (action === "password") {
 			button.innerHTML = TEXT_NOT_VISIBLE_ICON;
 		}
-		button.classList.add("off");
 	}
 
 	return button;
