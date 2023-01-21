@@ -789,7 +789,5 @@ function checkIfNotACheatyElement(element) {
 		INSPECTOR_INFOS_CLASSES_ID,
 	];
 
-	console.log(`ID: ${element.id} : ${cheatyElement.includes(element.id)}`);
-
 	return cheatyElement.includes(element.id);
 }

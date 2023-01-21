@@ -167,16 +167,11 @@ body {
 #cheaty_component_list li button:hover {
 	background-color: rgb(var(--cheaty-primary-color));
 }
-#cheaty_component_list li button span {
+#cheaty_component_list li button svg {
 	margin: 0;
-	font-size: 22px;
-	padding-top: 1px;
-}
-#cheaty_component_list li button.on span {
-	color: rgba(152, 247, 152, 0.6);
-}
-#cheaty_component_list li button.off span {
-	color: rgba(255, 0, 0, 0.6);
+	display: inline-flex;
+	height: 25px;
+	padding-top: 5px;
 }
 
 #cheaty_error {
