@@ -11,14 +11,28 @@ try {
 	chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
 		requestDataFromContentScript(tabs);
 	});
+} catch (error) {
+	errorHandler(
+		error,
+		"main",
+		"Querying on browser tabs to get current tabId",
+		"chrome.tabs.query"
+	);
+}
 
+try {
 	chrome.runtime.onMessage.addListener((message) => {
 		if (message.command === "cheaty_get_data") {
 			displayComponents(message.components);
 		}
 	});
 } catch (error) {
-	logError(error);
+	errorHandler(
+		error,
+		"main",
+		"Content script message listener subscription",
+		"chrome.runtime.onMessage.addListener"
+	);
 }
 
 /**
@@ -34,9 +48,18 @@ document
  * @param {*} tabs
  */
 function requestDataFromContentScript(tabs) {
-	chrome.tabs.sendMessage(tabs[0].id, {
-		command: "cheaty_get_data",
-	});
+	try {
+		chrome.tabs.sendMessage(tabs[0].id, {
+			command: "cheaty_get_data",
+		});
+	} catch (error) {
+		errorHandler(
+			error,
+			"requestDataFromContentScript",
+			"Sending message to current tab",
+			"chrome.tabs.sendMessage"
+		);
+	}
 }
 
 /**
@@ -155,7 +178,11 @@ function reverseComponent(componentId, action) {
 			}
 		);
 	} catch (error) {
-		logError(error);
+		errorHandler(
+			error,
+			"reverseComponent",
+			"Querying browser to get the current tab and send a message"
+		);
 	}
 }
 
@@ -175,9 +202,7 @@ function removeAllChildNodes(parent) {
  *
  * @param {string|Error} message
  */
-function logError(message) {
-	console.error(message);
-
+function displayError(message) {
 	let cheaty_error = document.getElementById("cheaty_error");
 	cheaty_error.classList.add("visible");
 
@@ -185,5 +210,27 @@ function logError(message) {
 	let error = document.createElement("pre");
 	error.innerHTML = message;
 
-	logs.appendChild(error);
+	logs.appendChild(message);
+}
+
+/**
+ * Properly handle error and log them into console.
+ *
+ * @param {Error} error
+ * @param {string} method
+ * @param {string} action
+ * @param {string} codeSample
+ */
+function errorHandler(error, method, action, codeSample = null) {
+	displayError(error.message);
+
+	let errorMessage = `An error occured in the method: ${method} while ${action}.\n`;
+	if (codeSample !== null) {
+		errorMessage += codeSample + ":";
+	} else {
+		errorMessage += "Error: ";
+	}
+	errorMessage += `${error.name}: ${error.message}`;
+
+	console.error(errorMessage);
 }

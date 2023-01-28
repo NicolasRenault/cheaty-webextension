@@ -149,7 +149,12 @@ function initListeners() {
 			}
 		});
 	} catch (error) {
-		console.error(error);
+		errorHandler(
+			error,
+			"initListeners",
+			"Popup message listener subscription",
+			"chrome.runtime.onMessage.addListener"
+		);
 	}
 }
 
@@ -164,7 +169,12 @@ function initStorage() {
 			}
 		});
 	} catch (error) {
-		console.error(error);
+		errorHandler(
+			error,
+			"initStorage",
+			"Geting data from browser store",
+			"chrome.storage.sync.get"
+		);
 	}
 }
 
@@ -236,9 +246,6 @@ function selectComponent() {
 	let hovers = document.querySelectorAll(":hover");
 
 	if (hovers.length == 0) {
-		//? Mouse not on the page (or not moved yet on Chrome)
-		console.error("The mouse is not hovering the page. Selecting the body");
-
 		if (currentComponent == document.body) return;
 		currentComponent = document.body;
 	} else {
@@ -676,8 +683,13 @@ function copyComponent(component) {
 			});
 
 		updateActionButtonsState(component, "copy");
-	} catch (err) {
-		console.error("Something went wrong", err);
+	} catch (error) {
+		errorHandler(
+			error,
+			"copyComponent",
+			"Copying currentComponent to the clipboard",
+			"avigator.clipboard.writeText"
+		);
 	}
 }
 
@@ -714,7 +726,12 @@ function sendDataToPopup() {
 			components: getListOfUpdatedComponents(),
 		});
 	} catch (error) {
-		console.error(error);
+		errorHandler(
+			error,
+			"sendDataToPopup",
+			"Sending data to the popup",
+			"chrome.runtime.sendMessage"
+		);
 	}
 }
 
@@ -785,12 +802,23 @@ function revertActionOnComponent(id, action) {
 }
 
 /**
- * Error handling
+ * Properly handle error and log them into console.
  *
  * @param {Error} error
+ * @param {string} method
+ * @param {string} action
+ * @param {string} codeSample
  */
-function onError(error) {
-	console.error(`Error: ${error}`);
+function errorHandler(error, method, action, codeSample = null) {
+	let errorMessage = `An error occured in the method: ${method} while ${action}.\n`;
+	if (codeSample !== null) {
+		errorMessage += codeSample + ":";
+	} else {
+		errorMessage += "Error: ";
+	}
+	errorMessage += `${error.name}: ${error.message}`;
+
+	console.error(errorMessage);
 }
 
 /**
