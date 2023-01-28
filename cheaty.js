@@ -17,6 +17,7 @@ const INSPECTOR_INFOS_CONATINER_MAX_WIDTH_BIG = 500;
 const INSPECTOR_INFOS_CONATINER_MEDIA_MAX_WIDTH = 520;
 const INPUT_TEXT_LIST = ["text", "email", "password", "search", "tel", "url"];
 
+let firstInit = true;
 let selectMode = false;
 let globalIndex = 0;
 let actionMode = false;
@@ -26,15 +27,16 @@ let inspectorMode = false;
 
 console.log("Cheaty extention working here");
 
+/**
+ * Mandatory listener for the key shortcut
+ *
+ * @param {Event} e
+ */
 document.onkeydown = (e) => {
-	// console.log(e.key + " " + e.code);
-
-	if (selectMode || actionMode) {
-		e.preventDefault();
-	}
-
+	//Ctr + Alt + N
 	if (e.ctrlKey && e.altKey && e.key == "n") {
-		//Ctr + Alt + N
+		initOnce();
+
 		if (selectMode) {
 			stop();
 		} else if (actionMode) {
@@ -42,96 +44,30 @@ document.onkeydown = (e) => {
 		} else {
 			initProcess();
 		}
-	} else if (e.code == "ArrowUp" && selectMode) {
-		// Arrow Up
-		selectParentComponent();
-	} else if (e.code == "ArrowDown" && selectMode) {
-		// Arrow Down
-		selectChildComponent();
-	} else if (e.code == "ArrowLeft" && selectMode) {
-		// Arrow Left
-		selectPreviousSiblingComponent();
-	} else if (e.code == "ArrowRight" && selectMode) {
-		// Arrow Right
-		selectNextSiblingComponent();
-	} else if (e.code == "Escape" && (selectMode || actionMode)) {
-		// Escape
-		if (!actionMode) {
-			stop();
-		} else {
-			stopActionMode();
-		}
-	} else if (e.code == "Enter" && selectMode) {
-		// Enter
-		if (!actionMode) {
-			initActionMode();
-		}
 	}
 };
-
-document.onclick = (e) => {
-	if (selectMode || actionMode) {
-		e.preventDefault();
-		if (!actionMode) initActionMode();
-	}
-};
-
-document.onmousemove = (e) => {
-	if (selectMode && !actionMode) {
-		selectComponent();
-	}
-};
-
-try {
-	chrome.runtime.onMessage.addListener((message) => {
-		if (message.command === "cheaty_get_data") {
-			sendDataToPopup();
-		} else if (message.command === "cheaty_reverse") {
-			revertActionOnComponent(message.componentId, message.action);
-		}
-	});
-} catch (error) {
-	console.error(error);
-}
-
-onresize = (e) => {
-	if (actionMode) {
-		moveActionMenu();
-	} else if (selectMode) {
-		moveInspectorInfosBar();
-	}
-};
-
-initCursorsVariable();
-
-//TODO encapsulate in function initSettings if more than one settings
-/* Exemple -> Need to be tested;
- *	chrome.storage.sync.get(['total', 'limit'], function(work) {
- *		$('#total').text(work.total);
- *		$('#limit').text(work.limit);
- *	})
- */
-//? Code working on Firefox but not on chrome
-// const inspectorModePromise = chrome.storage.sync.get("inspectorMode");
-// inspectorModePromise.then(setInspectorMode, onError);
-//---
-//chrome.storage.sync.get("inspectorMode").then(setInspectorMode, onError);
-//---
-chrome.storage.sync.get("inspectorMode", function (items) {
-	if (!chrome.runtime.error) {
-		setInspectorMode(items);
-	}
-});
 
 /**
- * Set the inspectorMode value from storage.sync
- *
- * @see inspectorMode
- * @param {Object} item
+ * Init the process
  */
-function setInspectorMode(item) {
-	if (item.inspectorMode) {
-		inspectorMode = item.inspectorMode;
+function initProcess() {
+	selectMode = false;
+	actionMode = false;
+	addSelectionClassToBody();
+	selectComponent();
+	initSelectionMode();
+}
+
+/**
+ * Run methods only once. Usefull for method that don't need to be trigger before the extension is being used
+ */
+function initOnce() {
+	if (firstInit) {
+		initListeners();
+		initStorage();
+		initCursorsVariable();
+
+		firstInit = !firstInit;
 	}
 }
 
@@ -148,14 +84,100 @@ function initCursorsVariable() {
 }
 
 /**
- * Init the process
+ * Init listeners
  */
-function initProcess() {
-	selectMode = false;
-	actionMode = false;
-	addSelectionClassToBody();
-	selectComponent();
-	initSelectionMode();
+function initListeners() {
+	document.onkeydown = (e) => {
+		if (selectMode || actionMode) {
+			e.preventDefault();
+		}
+
+		if (e.code == "ArrowUp" && selectMode) {
+			// Arrow Up
+			selectParentComponent();
+		} else if (e.code == "ArrowDown" && selectMode) {
+			// Arrow Down
+			selectChildComponent();
+		} else if (e.code == "ArrowLeft" && selectMode) {
+			// Arrow Left
+			selectPreviousSiblingComponent();
+		} else if (e.code == "ArrowRight" && selectMode) {
+			// Arrow Right
+			selectNextSiblingComponent();
+		} else if (e.code == "Escape" && (selectMode || actionMode)) {
+			// Escape
+			if (!actionMode) {
+				stop();
+			} else {
+				stopActionMode();
+			}
+		} else if (e.code == "Enter" && selectMode) {
+			// Enter
+			if (!actionMode) {
+				initActionMode();
+			}
+		}
+	};
+
+	document.onclick = (e) => {
+		if (selectMode || actionMode) {
+			e.preventDefault();
+			if (!actionMode) initActionMode();
+		}
+	};
+
+	document.onmousemove = () => {
+		if (selectMode && !actionMode) {
+			selectComponent();
+		}
+	};
+
+	onresize = () => {
+		if (actionMode) {
+			moveActionMenu();
+		} else if (selectMode) {
+			moveInspectorInfosBar();
+		}
+	};
+
+	try {
+		chrome.runtime.onMessage.addListener((message) => {
+			if (message.command === "cheaty_get_data") {
+				sendDataToPopup();
+			} else if (message.command === "cheaty_reverse") {
+				revertActionOnComponent(message.componentId, message.action);
+			}
+		});
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+/**
+ * Get data from the browser storage
+ */
+function initStorage() {
+	try {
+		chrome.storage.sync.get("inspectorMode", function (items) {
+			if (!chrome.runtime.error) {
+				setInspectorMode(items);
+			}
+		});
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+/**
+ * Set the inspectorMode value from storage.sync
+ *
+ * @see inspectorMode
+ * @param {Object} item
+ */
+function setInspectorMode(item) {
+	if (item.inspectorMode) {
+		inspectorMode = item.inspectorMode;
+	}
 }
 
 /**
