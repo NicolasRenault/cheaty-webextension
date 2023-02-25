@@ -3,16 +3,13 @@
 <br />
 <div align="center">
   <a href="https://github.com/NicolasRenault/cheaty-webextention">
-    <img src="www.cdn.nicolasrenault.com/cheaty/cheaty-logo.png" alt="Logo" width="60" height="60">
+    <img src="images/cheaty-logo.png" alt="Logo" width="60" height="60">
   </a>
 
   <h3 align="center">Cheaty</h3>
 
   <p align="center">
     Extention for the web that feel illegal
-    <br />
-    <a href="https://github.com/NicolasRenault/cheaty-webextention"><strong>Explore the docs »</strong></a>
-    <br />
     <br />
     <a href="https://cheaty.nicolasrenault.com">View Demo</a>
     ·
@@ -22,20 +19,41 @@
     ·
     <a href="https://github.com/NicolasRenault/cheaty-webextention/issues">Request Feature</a>
   </p>
+</div>
+<br />
 
 ## About
 
-Cheaty is a simple web extension that allow you to do simple action on HTML component witheout going in the inspector console.
+Cheaty is a simple web extension that allows you to do quick actions on HTML components without going into the inspector console.
 
 With Cheaty you can:
-Here's why:
 
--   Hide or display a HTML component on the page.
+-   Hide or display an HTML component on the page.
 -   Switch a text input between text and password type.
--   Copy the outer HTML of a HTML component <sup><a href="">?</a></sup>
+-   Copy the outer HTML of an HTML component <sup><a href="https://developer.mozilla.org/fr/docs/Web/API/Element/outerHTML">?</a></sup>
+
+## Getting Started
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-[cheaty-website-link]: https://cheaty.nicolasrenault.com/
-[cheaty-github-link]: https://github.com/NicolasRenault/cheaty-webextention/
-[mdn-outer-html-link]: https://developer.mozilla.org/fr/docs/Web/API/Element/outerHTML
+## Use the extension
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Contributing
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Contact
+
+Nicolas Renault - [Website](https://nicolasrenault.com) - [Github](https://github.com/NicolasRenault)
+
+Project Link: [https://github.com/NicolasRenault/cheaty-webextention](https://github.com/NicolasRenault/cheaty-webextention)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Ressources
+
+-   [Web Extensions](https://developer.mozilla.org/fr/docs/Mozilla/Add-ons/WebExtensions)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
