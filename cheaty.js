@@ -146,6 +146,9 @@ function initListeners() {
 				sendDataToPopup();
 			} else if (message.command === "cheaty_reverse") {
 				revertActionOnComponent(message.componentId, message.action);
+			} else if (message.command === "cheaty_select") {
+				selectComponentByCheatyId(message.componentId);
+				initActionMode();
 			}
 		});
 	} catch (error) {
@@ -223,6 +226,7 @@ function stopSelectionMode() {
 function initActionMode() {
 	stopSelectionMode();
 	actionMode = true;
+	removeActionMenu();
 	initActionMenu();
 }
 
@@ -297,6 +301,18 @@ function selectNextSiblingComponent() {
 		return;
 	currentComponent = currentComponent.nextElementSibling;
 	selectCurrentComponent();
+}
+
+/**
+ * Select component by it's Cheaty id
+ *
+ * @param {string} Cheaty id of the component
+ */
+function selectComponentByCheatyId(id) {
+	let component = document.querySelector('[data-cheaty_id="' + id + '"]');
+	currentComponent = component;
+
+	addBorderToCurrentComponent();
 }
 
 /**
@@ -448,7 +464,11 @@ function moveActionMenu() {
  * Remove the action menu from the page
  */
 function removeActionMenu() {
-	document.getElementById(ACTION_BUTTON_CONTAINER_ID).remove();
+	try {
+		document.getElementById(ACTION_BUTTON_CONTAINER_ID).remove();
+	} catch (error) {
+		//? Do nothing
+	}
 }
 
 /**

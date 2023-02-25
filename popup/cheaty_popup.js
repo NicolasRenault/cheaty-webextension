@@ -79,7 +79,8 @@ function displayComponents(components) {
 			let li = document.createElement("li");
 			let componentId = el.id;
 
-			let text_container = document.createElement("div");
+			let text_container = document.createElement("button");
+			text_container.title = "Select element";
 			text_container.classList.add("text_container");
 
 			let index = document.createElement("span");
@@ -95,6 +96,10 @@ function displayComponents(components) {
 				html_Id.innerHTML = "#" + el.html_id;
 				text_container.appendChild(html_Id);
 			}
+
+			text_container.addEventListener("click", () => {
+				selectComponent(componentId);
+			});
 
 			li.appendChild(text_container);
 
@@ -145,14 +150,18 @@ function createActionButton(componentId, action, status) {
 	if (status === "ON") {
 		if (action === "hide") {
 			button.innerHTML = EYE_OPEN_ICON;
+			button.title = "Hide element";
 		} else if (action === "password") {
 			button.innerHTML = TEXT_VISIBLE_ICON;
+			button.title = "Hide password";
 		}
 	} else if (status === "OFF") {
 		if (action === "hide") {
 			button.innerHTML = EYE_CLOSE_ICON;
+			button.title = "Show element";
 		} else if (action === "password") {
 			button.innerHTML = TEXT_NOT_VISIBLE_ICON;
+			button.title = "Show password";
 		}
 	}
 
@@ -181,6 +190,31 @@ function reverseComponent(componentId, action) {
 		errorHandler(
 			error,
 			"reverseComponent",
+			"Querying browser to get the current tab and send a message"
+		);
+	}
+}
+
+/**
+ * Send a message the content script to select the component passed in param
+ *
+ * @param {string} componentId
+ */
+function selectComponent(componentId) {
+	try {
+		chrome.tabs.query(
+			{ active: true, currentWindow: true },
+			function (tabs) {
+				chrome.tabs.sendMessage(tabs[0].id, {
+					command: "cheaty_select",
+					componentId: componentId,
+				});
+			}
+		);
+	} catch (error) {
+		errorHandler(
+			error,
+			"selectComponent",
 			"Querying browser to get the current tab and send a message"
 		);
 	}
