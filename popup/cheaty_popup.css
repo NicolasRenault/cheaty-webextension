@@ -140,7 +140,7 @@ body {
 	margin-left: 0;
 }
 #cheaty_component_list li .text_container span:nth-child(3) {
-	margin-left: -4px;
+	margin-left: -1px;
 	color: rgb(114, 192, 84);
 }
 #cheaty_component_list .text_container {
