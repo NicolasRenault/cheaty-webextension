@@ -445,7 +445,7 @@ function generateInspectorInfosBar() {
  * Init and place next to the current component the action menu
  */
 function initActionMenu() {
-	let actionMenu = genrateActionMenu();
+	let actionMenu = generateActionMenu();
 	setPositionFromCurrentComponent(actionMenu, "action");
 
 	document.body.appendChild(actionMenu);
@@ -476,7 +476,7 @@ function removeActionMenu() {
  *
  * @return HTMLElement
  */
-function genrateActionMenu() {
+function generateActionMenu() {
 	let actionMenuContainer = document.createElement("div");
 	actionMenuContainer.id = ACTION_BUTTON_CONTAINER_ID;
 
@@ -597,7 +597,7 @@ function setPositionFromCurrentComponent(elm, type) {
 function updateActionButtonsState(component, action) {
 	if (document.getElementById(ACTION_BUTTON_CONTAINER_ID) != null) {
 		if (action === "hide") {
-			if (component.style.display == "none") {
+			if (component.hidden) {
 				document.getElementById(HIDE_BUTTON_ID).innerHTML = "Show";
 			} else {
 				document.getElementById(HIDE_BUTTON_ID).innerHTML = "Hide";
