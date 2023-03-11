@@ -11,14 +11,28 @@ try {
 	chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
 		requestDataFromContentScript(tabs);
 	});
+} catch (error) {
+	errorHandler(
+		error,
+		"main",
+		"Querying on browser tabs to get current tabId",
+		"chrome.tabs.query"
+	);
+}
 
+try {
 	chrome.runtime.onMessage.addListener((message) => {
 		if (message.command === "cheaty_get_data") {
 			displayComponents(message.components);
 		}
 	});
 } catch (error) {
-	logError(error);
+	errorHandler(
+		error,
+		"main",
+		"Content script message listener subscription",
+		"chrome.runtime.onMessage.addListener"
+	);
 }
 
 /**
@@ -34,9 +48,18 @@ document
  * @param {*} tabs
  */
 function requestDataFromContentScript(tabs) {
-	chrome.tabs.sendMessage(tabs[0].id, {
-		command: "cheaty_get_data",
-	});
+	try {
+		chrome.tabs.sendMessage(tabs[0].id, {
+			command: "cheaty_get_data",
+		});
+	} catch (error) {
+		errorHandler(
+			error,
+			"requestDataFromContentScript",
+			"Sending message to current tab",
+			"chrome.tabs.sendMessage"
+		);
+	}
 }
 
 /**
@@ -56,7 +79,8 @@ function displayComponents(components) {
 			let li = document.createElement("li");
 			let componentId = el.id;
 
-			let text_container = document.createElement("div");
+			let text_container = document.createElement("button");
+			text_container.title = "Select element";
 			text_container.classList.add("text_container");
 
 			let index = document.createElement("span");
@@ -72,6 +96,10 @@ function displayComponents(components) {
 				html_Id.innerHTML = "#" + el.html_id;
 				text_container.appendChild(html_Id);
 			}
+
+			text_container.addEventListener("click", () => {
+				selectComponent(componentId);
+			});
 
 			li.appendChild(text_container);
 
@@ -122,14 +150,18 @@ function createActionButton(componentId, action, status) {
 	if (status === "ON") {
 		if (action === "hide") {
 			button.innerHTML = EYE_OPEN_ICON;
+			button.title = "Hide element";
 		} else if (action === "password") {
 			button.innerHTML = TEXT_VISIBLE_ICON;
+			button.title = "Hide password";
 		}
 	} else if (status === "OFF") {
 		if (action === "hide") {
 			button.innerHTML = EYE_CLOSE_ICON;
+			button.title = "Show element";
 		} else if (action === "password") {
 			button.innerHTML = TEXT_NOT_VISIBLE_ICON;
+			button.title = "Show password";
 		}
 	}
 
@@ -155,7 +187,36 @@ function reverseComponent(componentId, action) {
 			}
 		);
 	} catch (error) {
-		logError(error);
+		errorHandler(
+			error,
+			"reverseComponent",
+			"Querying browser to get the current tab and send a message"
+		);
+	}
+}
+
+/**
+ * Send a message the content script to select the component passed in param
+ *
+ * @param {string} componentId
+ */
+function selectComponent(componentId) {
+	try {
+		chrome.tabs.query(
+			{ active: true, currentWindow: true },
+			function (tabs) {
+				chrome.tabs.sendMessage(tabs[0].id, {
+					command: "cheaty_select",
+					componentId: componentId,
+				});
+			}
+		);
+	} catch (error) {
+		errorHandler(
+			error,
+			"selectComponent",
+			"Querying browser to get the current tab and send a message"
+		);
 	}
 }
 
@@ -175,9 +236,7 @@ function removeAllChildNodes(parent) {
  *
  * @param {string|Error} message
  */
-function logError(message) {
-	console.error(message);
-
+function displayError(message) {
 	let cheaty_error = document.getElementById("cheaty_error");
 	cheaty_error.classList.add("visible");
 
@@ -185,5 +244,27 @@ function logError(message) {
 	let error = document.createElement("pre");
 	error.innerHTML = message;
 
-	logs.appendChild(error);
+	logs.appendChild(message);
+}
+
+/**
+ * Properly handle error and log them into console.
+ *
+ * @param {Error} error
+ * @param {string} method
+ * @param {string} action
+ * @param {string} codeSample
+ */
+function errorHandler(error, method, action, codeSample = null) {
+	displayError(error.message);
+
+	let errorMessage = `An error occured in the method: ${method} while ${action}.\n`;
+	if (codeSample !== null) {
+		errorMessage += codeSample + ":";
+	} else {
+		errorMessage += "Error: ";
+	}
+	errorMessage += `${error.name}: ${error.message}`;
+
+	console.error(errorMessage);
 }

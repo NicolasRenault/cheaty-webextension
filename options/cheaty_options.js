@@ -1,3 +1,8 @@
+document.addEventListener("DOMContentLoaded", restoreOptions);
+document
+	.getElementById("inspector-mode")
+	.addEventListener("change", saveOptions);
+
 /**
  * Save data from the settings from to storage.sync
  *
@@ -11,7 +16,12 @@ function saveOptions(e) {
 			inspectorMode: document.querySelector("#inspector-mode").checked,
 		});
 	} catch (error) {
-		logError(error);
+		errorHandler(
+			error,
+			"saveOptions",
+			"Saving data to browser storage sync",
+			"chrome.storage.sync.set"
+		);
 	}
 }
 
@@ -33,7 +43,12 @@ function restoreOptions() {
 			}
 		});
 	} catch (error) {
-		logError(error);
+		errorHandler(
+			error,
+			"restoreOptions",
+			"Geting data from browser store",
+			"chrome.storage.sync.get"
+		);
 	}
 }
 
@@ -42,9 +57,7 @@ function restoreOptions() {
  *
  * @param {string|Error} message
  */
-function logError(message) {
-	console.error(message);
-
+function displayError(message) {
 	let cheaty_error = document.getElementById("cheaty_error");
 	cheaty_error.classList.add("visible");
 
@@ -52,10 +65,27 @@ function logError(message) {
 	let error = document.createElement("pre");
 	error.innerHTML = message;
 
-	logs.appendChild(error);
+	logs.appendChild(message);
 }
 
-document.addEventListener("DOMContentLoaded", restoreOptions);
-document
-	.getElementById("inspector-mode")
-	.addEventListener("change", saveOptions);
+/**
+ * Properly handle error and log them into console.
+ *
+ * @param {Error} error
+ * @param {string} method
+ * @param {string} action
+ * @param {string} codeSample
+ */
+function errorHandler(error, method, action, codeSample = null) {
+	displayError(error.message);
+
+	let errorMessage = `An error occured in the method: ${method} while ${action}.\n`;
+	if (codeSample !== null) {
+		errorMessage += codeSample + ":";
+	} else {
+		errorMessage += "Error: ";
+	}
+	errorMessage += `${error.name}: ${error.message}`;
+
+	console.error(errorMessage);
+}
