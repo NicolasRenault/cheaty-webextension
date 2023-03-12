@@ -29,21 +29,15 @@ console.log("Cheaty extention working here");
 
 /**
  * Mandatory listener for the key shortcut
+ * Run only once because overwrited in @initListeners
  *
+ * @see initListeners
  * @param {Event} e
  */
 document.onkeydown = (e) => {
 	//Ctr + Alt + N
 	if (e.ctrlKey && e.altKey && e.key == "n") {
 		initOnce();
-
-		if (selectMode) {
-			stop();
-		} else if (actionMode) {
-			stopActionMode();
-		} else {
-			initProcess();
-		}
 	}
 };
 
@@ -90,6 +84,17 @@ function initListeners() {
 	document.onkeydown = (e) => {
 		if (selectMode || actionMode) {
 			e.preventDefault();
+		}
+
+		//Ctrl + Alt + N
+		if (e.ctrlKey && e.altKey && e.key == "n") {
+			if (selectMode) {
+				stop();
+			} else if (actionMode) {
+				stopActionMode();
+			} else {
+				initProcess();
+			}
 		}
 
 		if (e.code == "ArrowUp" && selectMode) {
