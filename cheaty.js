@@ -25,7 +25,7 @@ let currentComponent = null;
 let listOfSelected = null;
 let inspectorMode = false;
 
-console.log("Cheaty extention working here");
+console.info("Cheaty extension is enable");
 
 /**
  * Mandatory listener for the key shortcut
