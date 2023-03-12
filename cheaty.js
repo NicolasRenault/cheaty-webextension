@@ -38,6 +38,7 @@ document.onkeydown = (e) => {
 	//Ctr + Alt + N
 	if (e.ctrlKey && e.altKey && e.key == "n") {
 		initOnce();
+		initProcess();
 	}
 };
 
