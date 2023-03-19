@@ -112,7 +112,10 @@ body {
 	max-height: 15rem;
 	max-width: 95%;
 	padding-left: 10px;
+	padding-right: 10px;
 	margin-top: 0;
+	scrollbar-color: rgba(255, 255, 255, 0.2) rgb(var(--cheaty-termary-color));
+	scrollbar-width: thin;
 }
 #cheaty_component_list li {
 	display: -webkit-box;

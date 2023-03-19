@@ -22,7 +22,11 @@
 		{
 			"matches": ["<all_urls>"],
 			"js": ["cheaty.js"],
-			"css": ["cheaty.css", "global.css"]
+			"css": ["cheaty.css", "global.css"],
+			"exclude_matches": [
+				"https://www.cheaty.nicolasrenault.com/",
+				"https://cheaty.nicolasrenault.com/"
+			]
 		}
 	],
 	"options_ui": {
