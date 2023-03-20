@@ -147,3 +147,7 @@ Project Link: [https://github.com/NicolasRenault/cheaty-webextention](https://gi
 ## Resources
 
 -   [Web Extensions](https://developer.mozilla.org/en/docs/Mozilla/Add-ons/WebExtensions)
+
+## License
+
+[MIT](https://github.com/NicolasRenault/cheaty-webextention/blob/main/LICENCE) © [Nicolas Renault](https://github.com/NicolasRenault)
