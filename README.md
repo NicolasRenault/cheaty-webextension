@@ -35,6 +35,8 @@ With Cheaty you can:
 
 Install the extension [here](https://cheaty.nicolasrenault.com/#download) and make sure to enable it in your browser's settings. **Be careful, the extension is not meant to work on mobile devices!**
 
+## Using the extension
+
 ### Starting the process
 
 You can start using the extension by using this shortcut:
@@ -49,7 +51,7 @@ This will enable the **Selection mode**, change your cursor and add a border aro
 
 Note that all your keys will be disabled while you're in this mode. Press **Escape** to leave it.
 
-### Use the extension
+### Select a component
 
 Once you are in **Selection mode**, you can pick the HTML component you want by hovering it with your mouse or using the arrow keys.
 <br/>
