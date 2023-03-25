@@ -608,7 +608,11 @@ function updateActionButtonsState(component, action) {
 			} else {
 				document.getElementById(HIDE_BUTTON_ID).innerHTML = "Hide";
 			}
-		} else if (action === "password") {
+		} else if (
+			action === "password" &&
+			document.getElementById(PASSWORD_BUTTON_ID) !== null
+		) {
+			console.log("yes");
 			if (component.type == "password") {
 				document.getElementById(PASSWORD_BUTTON_ID).innerHTML =
 					"Show password";
