@@ -84,16 +84,16 @@ function displayComponents(components) {
 			text_container.classList.add("text_container");
 
 			let index = document.createElement("span");
-			index.innerHTML = parseInt(el.index) + 1 + ".";
+			index.innerText = parseInt(el.index) + 1 + ".";
 			text_container.appendChild(index);
 
 			let type = document.createElement("span");
-			type.innerHTML = el.type.toLowerCase();
+			type.innerText = el.type.toLowerCase();
 			text_container.appendChild(type);
 
 			if (el.html_id != "") {
 				let html_Id = document.createElement("span");
-				html_Id.innerHTML = "#" + el.html_id;
+				html_Id.innerText = "#" + el.html_id;
 				text_container.appendChild(html_Id);
 			}
 
@@ -142,6 +142,7 @@ function displayComponents(components) {
  */
 function createActionButton(componentId, action, status) {
 	let button = document.createElement("button");
+	const parser = new DOMParser();
 
 	button.addEventListener("click", () => {
 		reverseComponent(componentId, action);
@@ -149,18 +150,30 @@ function createActionButton(componentId, action, status) {
 
 	if (status === "ON") {
 		if (action === "hide") {
-			button.innerHTML = EYE_OPEN_ICON;
+			button.appendChild(
+				parser.parseFromString(EYE_OPEN_ICON, "image/svg+xml")
+					.documentElement
+			);
 			button.title = "Hide element";
 		} else if (action === "password") {
-			button.innerHTML = TEXT_VISIBLE_ICON;
+			button.appendChild(
+				parser.parseFromString(TEXT_VISIBLE_ICON, "image/svg+xml")
+					.documentElement
+			);
 			button.title = "Hide password";
 		}
 	} else if (status === "OFF") {
 		if (action === "hide") {
-			button.innerHTML = EYE_CLOSE_ICON;
+			button.appendChild(
+				parser.parseFromString(EYE_CLOSE_ICON, "image/svg+xml")
+					.documentElement
+			);
 			button.title = "Show element";
 		} else if (action === "password") {
-			button.innerHTML = TEXT_NOT_VISIBLE_ICON;
+			button.appendChild(
+				parser.parseFromString(TEXT_NOT_VISIBLE_ICON, "image/svg+xml")
+					.documentElement
+			);
 			button.title = "Show password";
 		}
 	}
@@ -242,7 +255,7 @@ function displayError(message) {
 
 	let logs = document.getElementById("logs");
 	let error = document.createElement("pre");
-	error.innerHTML = message;
+	error.innerText = message;
 
 	logs.appendChild(message);
 }

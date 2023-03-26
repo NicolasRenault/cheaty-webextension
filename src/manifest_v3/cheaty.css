@@ -1,0 +1,103 @@
+.cheaty-selected {
+	border-color: transparent;
+	outline: 2px dotted orange !important;
+	outline-offset: -2px;
+
+	cursor: var(--cheaty-cursor-pen-url), auto !important;
+}
+
+#cheaty_inspector_infos_bar *,
+#cheaty_action_button_container * {
+	all: unset;
+}
+
+#cheaty_inspector_infos_bar,
+#cheaty_action_button_container {
+	position: absolute;
+	-webkit-box-sizing: content-box;
+	box-sizing: content-box;
+	z-index: 99999 !important;
+	background-color: rgb(var(--cheaty-secondary-color));
+	color: rgb(var(--cheaty-text-color));
+	padding: 5px;
+	border-radius: 5px;
+	min-height: 28px;
+	max-height: 28px;
+	font-family: Arial, sans-serif;
+	font-size: 16px;
+}
+
+#cheaty_action_button_container {
+	width: 150px;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: row;
+	flex-direction: row;
+	-ms-flex-pack: distribute;
+	justify-content: space-around;
+}
+#cheaty_action_button_container:after {
+	position: absolute;
+	content: "";
+	-webkit-box-sizing: content-box;
+	box-sizing: content-box;
+	left: 50%;
+	margin-left: -10px;
+	top: 38px;
+	border: 10px solid transparent;
+	border-top: 10px solid rgb(var(--cheaty-secondary-color));
+}
+#cheaty_action_button_container.bottom:after {
+	top: -10px;
+	border-top: transparent;
+	border-bottom: 10px solid rgb(var(--cheaty-secondary-color));
+}
+#cheaty_action_button_container.hidden:after {
+	border: transparent;
+}
+#cheaty_action_button_container.cheaty_input {
+	width: 250px;
+}
+#cheaty_action_button_container button {
+	all: unset;
+	-webkit-box-sizing: content-box;
+	box-sizing: content-box;
+	color: white;
+	background-color: transparent;
+	border: none;
+	border-bottom: 1px solid;
+	height: 100%;
+}
+#cheaty_action_button_container button:hover {
+	background-color: rgb(var(--cheaty-text-color), 0.3);
+}
+
+#cheaty_inspector_infos_bar {
+	max-width: 500px;
+	overflow: hidden;
+	-o-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+#cheaty_inspector_infos_bar #cheaty_inspector_infos_tagname {
+	color: rgb(223, 128, 202);
+}
+#cheaty_inspector_infos_bar #cheaty_inspector_infos_id {
+	color: rgb(133, 251, 86);
+}
+
+@media screen and (max-width: 520px) {
+	#cheaty_inspector_infos_bar {
+		max-width: 300px;
+	}
+}
+
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/

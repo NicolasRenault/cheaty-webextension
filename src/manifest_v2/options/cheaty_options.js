@@ -37,8 +37,7 @@ function restoreOptions() {
 
 		// chrome.storage.sync.get("inspectorMode").then(setCurrentChoice, onError); //? This is not working in Firefox
 		chrome.storage.sync.get("inspectorMode", function (items) {
-			if (!chrome.runtime.error) {
-				console.log(items);
+			if (!chrome.runtime.lastError) {
 				setCurrentChoice(items);
 			}
 		});
@@ -63,7 +62,7 @@ function displayError(message) {
 
 	let logs = document.getElementById("logs");
 	let error = document.createElement("pre");
-	error.innerHTML = message;
+	error.innerText = message;
 
 	logs.appendChild(message);
 }

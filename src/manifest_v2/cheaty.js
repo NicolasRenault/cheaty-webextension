@@ -173,7 +173,7 @@ function initListeners() {
 function initStorage() {
 	try {
 		chrome.storage.sync.get("inspectorMode", function (items) {
-			if (!chrome.runtime.error) {
+			if (!chrome.runtime.lastError) {
 				setInspectorMode(items);
 			}
 		});
@@ -407,18 +407,18 @@ function generateInspectorInfosBar() {
 
 	let currentComponentTagName = document.createElement("span");
 	currentComponentTagName.id = INSPECTOR_INFOS_TAGNAME_ID;
-	currentComponentTagName.innerHTML = currentComponent.tagName.toLowerCase();
+	currentComponentTagName.innerText = currentComponent.tagName.toLowerCase();
 	inspectorInfosContainer.appendChild(currentComponentTagName);
 
-	numberOfChar += currentComponentTagName.innerHTML.length;
+	numberOfChar += currentComponentTagName.innerText.length;
 
 	if (currentComponent.id !== "") {
 		let currentComponentId = document.createElement("span");
 		currentComponentId.id = INSPECTOR_INFOS_ID_ID;
-		currentComponentId.innerHTML = "#" + currentComponent.id;
+		currentComponentId.innerText = "#" + currentComponent.id;
 		inspectorInfosContainer.appendChild(currentComponentId);
 
-		numberOfChar += currentComponentId.innerHTML.length;
+		numberOfChar += currentComponentId.innerText.length;
 	}
 
 	if (currentComponent.classList.length !== 0) {
@@ -436,10 +436,10 @@ function generateInspectorInfosBar() {
 			}
 		});
 
-		currentComponentClasses.innerHTML = classList;
+		currentComponentClasses.innerText = classList;
 		inspectorInfosContainer.appendChild(currentComponentClasses);
 
-		numberOfChar += currentComponentClasses.innerHTML.length;
+		numberOfChar += currentComponentClasses.innerText.length;
 	}
 
 	inspectorInfosContainer.numberOfChar = numberOfChar;
@@ -491,10 +491,10 @@ function generateActionMenu() {
 
 	if (currentComponent.style.display == "none") {
 		hideButton.title = "Show the selected element";
-		hideButton.innerHTML = "Show";
+		hideButton.innerText = "Show";
 	} else {
 		hideButton.title = "Hide the selected element";
-		hideButton.innerHTML = "Hide";
+		hideButton.innerText = "Hide";
 	}
 
 	hideButton.addEventListener("click", changeDisplayCurrentComponent);
@@ -509,10 +509,10 @@ function generateActionMenu() {
 
 		if (currentComponent.type == "password") {
 			passwordButton.title = "Change the type of the selected element";
-			passwordButton.innerHTML = "Show password";
+			passwordButton.innerText = "Show password";
 		} else {
 			passwordButton.title = "Change the type of the selected element";
-			passwordButton.innerHTML = "Hide as password";
+			passwordButton.innerText = "Hide as password";
 		}
 
 		passwordButton.addEventListener(
@@ -526,7 +526,7 @@ function generateActionMenu() {
 	let copyButton = document.createElement("button");
 	copyButton.id = COPY_BUTTON_ID;
 	copyButton.title = "Copy the selected element";
-	copyButton.innerHTML = "Copy";
+	copyButton.innerText = "Copy";
 	copyButton.addEventListener("click", copyCurrentComponent);
 	actionMenuContainer.appendChild(copyButton);
 
@@ -604,24 +604,23 @@ function updateActionButtonsState(component, action) {
 	if (document.getElementById(ACTION_BUTTON_CONTAINER_ID) != null) {
 		if (action === "hide") {
 			if (component.hidden) {
-				document.getElementById(HIDE_BUTTON_ID).innerHTML = "Show";
+				document.getElementById(HIDE_BUTTON_ID).innerText = "Show";
 			} else {
-				document.getElementById(HIDE_BUTTON_ID).innerHTML = "Hide";
+				document.getElementById(HIDE_BUTTON_ID).innerText = "Hide";
 			}
 		} else if (
 			action === "password" &&
 			document.getElementById(PASSWORD_BUTTON_ID) !== null
 		) {
-			console.log("yes");
 			if (component.type == "password") {
-				document.getElementById(PASSWORD_BUTTON_ID).innerHTML =
+				document.getElementById(PASSWORD_BUTTON_ID).innerText =
 					"Show password";
 			} else {
-				document.getElementById(PASSWORD_BUTTON_ID).innerHTML =
+				document.getElementById(PASSWORD_BUTTON_ID).innerText =
 					"Hide as password";
 			}
 		} else if (action === "copy") {
-			document.getElementById(COPY_BUTTON_ID).innerHTML = "Copied";
+			document.getElementById(COPY_BUTTON_ID).innerText = "Copied";
 		}
 	}
 }
