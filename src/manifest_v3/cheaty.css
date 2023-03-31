@@ -22,13 +22,12 @@
 	padding: 5px;
 	border-radius: 5px;
 	min-height: 28px;
-	max-height: 28px;
 	font-family: Arial, sans-serif;
 	font-size: 16px;
 }
 
 #cheaty_action_button_container {
-	width: 150px;
+	min-width: 150px;
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
@@ -37,7 +36,8 @@
 	-ms-flex-direction: row;
 	flex-direction: row;
 	-ms-flex-pack: distribute;
-	justify-content: space-around;
+	justify-content: space-evenly;
+	gap: 1rem;
 }
 #cheaty_action_button_container:after {
 	position: absolute;
@@ -46,7 +46,7 @@
 	box-sizing: content-box;
 	left: 50%;
 	margin-left: -10px;
-	top: 38px;
+	top: 100%;
 	border: 10px solid transparent;
 	border-top: 10px solid rgb(var(--cheaty-secondary-color));
 }
@@ -57,9 +57,6 @@
 }
 #cheaty_action_button_container.hidden:after {
 	border: transparent;
-}
-#cheaty_action_button_container.cheaty_input {
-	width: 250px;
 }
 #cheaty_action_button_container button {
 	all: unset;

@@ -7,6 +7,13 @@ const TEXT_VISIBLE_ICON =
 const TEXT_NOT_VISIBLE_ICON =
 	'<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#ff000099" d="M2 17h20v2H2v-2zm1.15-4.05L4 11.47l.85 1.48l1.3-.75l-.85-1.48H7v-1.5H5.3l.85-1.47L4.85 7L4 8.47L3.15 7l-1.3.75l.85 1.47H1v1.5h1.7l-.85 1.48l1.3.75zm6.7-.75l1.3.75l.85-1.48l.85 1.48l1.3-.75l-.85-1.48H15v-1.5h-1.7l.85-1.47l-1.3-.75L12 8.47L11.15 7l-1.3.75l.85 1.47H9v1.5h1.7l-.85 1.48zM23 9.22h-1.7l.85-1.47l-1.3-.75L20 8.47L19.15 7l-1.3.75l.85 1.47H17v1.5h1.7l-.85 1.48l1.3.75l.85-1.48l.85 1.48l1.3-.75l-.85-1.48H23v-1.5z"/></svg>';
 
+document.onkeydown = (e) => {
+	//Ctr + Alt + N
+	if (e.ctrlKey && e.altKey && e.key == "n") {
+		initSelectionMode();
+	}
+};
+
 try {
 	chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
 		requestDataFromContentScript(tabs);
@@ -39,8 +46,15 @@ try {
  * Set link to option page for the option button
  */
 document
-	.getElementById("optionsButton")
+	.getElementById("cheaty_option_button")
 	.addEventListener("click", () => chrome.runtime.openOptionsPage());
+
+/**
+ * Send a request message to the content script to init the selection mode
+ */
+document
+	.getElementById("cheaty_init_selection_button")
+	.addEventListener("click", initSelectionMode);
 
 /**
  * Send a request message to the content script to get the data informations of updated component by the extension
@@ -206,6 +220,30 @@ function reverseComponent(componentId, action) {
 			"Querying browser to get the current tab and send a message"
 		);
 	}
+}
+
+/**
+ * Send a message the content script to init the selection mode
+ */
+function initSelectionMode() {
+	try {
+		chrome.tabs.query(
+			{ active: true, currentWindow: true },
+			function (tabs) {
+				chrome.tabs.sendMessage(tabs[0].id, {
+					command: "cheaty_init_selection",
+				});
+			}
+		);
+	} catch (error) {
+		errorHandler(
+			error,
+			"initSelectionMode",
+			"Querying browser to get the current tab and send a message"
+		);
+	}
+	window.close();
+	// setTimeout(window.close, 500);
 }
 
 /**

@@ -1,5 +1,9 @@
 @import url("../global.css");
 
+:root {
+	--hover-color: 255, 255, 255, 0.2;
+}
+
 html,
 body {
 	background-color: transparent;
@@ -11,6 +15,14 @@ body {
 	min-width: 20rem;
 	max-width: 30rem;
 	max-height: 20rem;
+}
+
+button {
+	transition: all 0.2s ease-in-out;
+}
+
+button:not(:disabled):active {
+	transform: translateY(2px);
 }
 
 .visible {
@@ -95,7 +107,8 @@ body {
 	-ms-flex-pack: center;
 	justify-content: center;
 }
-#cheaty_main #empty_list p {
+#cheaty_main #empty_list p,
+#cheaty_main #empty_list button {
 	display: inherit;
 	outline: 2px solid rgb(var(--cheaty-secondary-color));
 	background-color: rgba(var(--cheaty-primary-color), 0.6);
@@ -103,6 +116,9 @@ body {
 	padding: 5px;
 	font-size: 20px;
 	font-weight: bold;
+}
+#cheaty_main #empty_list button:hover {
+	background-color: rgba(var(--hover-color));
 }
 
 #cheaty_component_list {
@@ -114,7 +130,7 @@ body {
 	padding-left: 10px;
 	padding-right: 10px;
 	margin-top: 0;
-	scrollbar-color: rgba(255, 255, 255, 0.2) rgb(var(--cheaty-termary-color));
+	scrollbar-color: rgba(var(--hover-color)) rgb(var(--cheaty-termary-color));
 	scrollbar-width: thin;
 }
 #cheaty_component_list li {
@@ -157,7 +173,7 @@ body {
 	text-overflow: clip;
 }
 #cheaty_component_list .text_container:hover {
-	background-color: rgba(255, 255, 255, 0.2);
+	background-color: rgba(var(--hover-color));
 }
 #cheaty_component_list .button_container {
 	display: -webkit-box;

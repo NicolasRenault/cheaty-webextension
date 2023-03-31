@@ -3,7 +3,6 @@ const CSS_CLASS_NAME_SELECTED = "cheaty-selected";
 const ACTION_BUTTON_CONTAINER_ID = "cheaty_action_button_container";
 const HIDE_BUTTON_ID = "cheaty_hide_button";
 const PASSWORD_BUTTON_ID = "cheaty_password_button";
-const PASSWORD_CLASS = "cheaty_input";
 const COPY_BUTTON_ID = "cheaty_copy_button";
 const INSPECTOR_INFOS_BAR_ID = "cheaty_inspector_infos_bar";
 const INSPECTOR_INFOS_TAGNAME_ID = "cheaty_inspector_infos_tagname";
@@ -43,11 +42,36 @@ document.onkeydown = (e) => {
 };
 
 /**
+ * Mandatory listener for listening popup message
+ * Run only once because overwrited in @initListeners
+ *
+ * @see initListeners
+ */
+try {
+	chrome.runtime.onMessage.addListener((message) => {
+		if (message.command === "cheaty_init_selection") {
+			console.log("yes");
+			initOnce();
+			initProcess();
+		}
+	});
+} catch (error) {
+	errorHandler(
+		error,
+		"initListeners",
+		"Popup message listener subscription",
+		"chrome.runtime.onMessage.addListener"
+	);
+}
+
+/**
  * Init the process
  */
 function initProcess() {
 	selectMode = false;
 	actionMode = false;
+	removeActionMenu();
+	removeInspectorInfosBar();
 	addSelectionClassToBody();
 	selectComponent();
 	initSelectionMode();
@@ -152,6 +176,9 @@ function initListeners() {
 				sendDataToPopup();
 			} else if (message.command === "cheaty_reverse") {
 				revertActionOnComponent(message.componentId, message.action);
+			} else if (message.command === "cheaty_init_selection") {
+				console.log("yes");
+				initProcess();
 			} else if (message.command === "cheaty_select") {
 				selectComponentByCheatyId(message.componentId);
 				initActionMode();
@@ -520,7 +547,6 @@ function generateActionMenu() {
 			changePasswordTypeCurrentComponent
 		);
 		actionMenuContainer.appendChild(passwordButton);
-		actionMenuContainer.classList.add(PASSWORD_CLASS);
 	}
 
 	let copyButton = document.createElement("button");
@@ -534,7 +560,11 @@ function generateActionMenu() {
 }
 
 /**
- * Set the top and left value of the element in param from the current component positions
+ * Set the positions of the element in param from the current component positions
+ * - If the current component is hidden, the possition is top: 1px, left: 1px
+ * - If there is space upside the current component, the element is placed on top centered with the bottom and left position
+ * - If there is space bellow the current component, the element is placed bellow centered with the top and left position
+ * - If there is no space bellow or upside the current component, the element is placed on the top and left inside the current component
  *
  * @param {HTMLElement} elm
  * @param {String} type Special type of the element example:"action"
@@ -543,6 +573,7 @@ function setPositionFromCurrentComponent(elm, type) {
 	let rect = currentComponent.getBoundingClientRect();
 	let style = window.getComputedStyle(currentComponent, null);
 
+	//? If the current component is hidden, the possition is top: 1px, left: 1px
 	if (style.getPropertyValue("display") == "none") {
 		elm.style.left = "1px";
 		elm.style.top = "1px";
@@ -556,6 +587,7 @@ function setPositionFromCurrentComponent(elm, type) {
 	let left = 0;
 	let containerWidth = 0;
 
+	//? Set the minimum width of the container
 	if (type === "action") {
 		containerWidth =
 			currentComponent.tagName == "INPUT"
@@ -573,6 +605,8 @@ function setPositionFromCurrentComponent(elm, type) {
 				? inspectorInfosContainerMaxWidth
 				: elmRect.width;
 	}
+
+	//? Set the X position of the element with the left position
 	left = rect.right - rect.width / 2 + window.scrollX - containerWidth / 2;
 
 	if (left <= 0) left = 5;
@@ -581,9 +615,10 @@ function setPositionFromCurrentComponent(elm, type) {
 
 	elm.style.left = left + "px";
 
+	//? Set the Y position of the element with the top or bottom position
 	if (rect.top - ACTION_BUTTON_CONATINER_HEIGHT > 0) {
-		elm.style.top =
-			rect.top + window.scrollY - ACTION_BUTTON_CONATINER_HEIGHT + "px";
+		elm.style.bottom =
+			window.innerHeight - (rect.top + window.scrollY) + 11 + "px";
 	} else {
 		if (rect.bottom + ACTION_BUTTON_CONATINER_HEIGHT > window.innerHeight) {
 			elm.style.top = rect.top + window.scrollY + 9 + "px";
