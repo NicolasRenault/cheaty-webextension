@@ -42,11 +42,36 @@ document.onkeydown = (e) => {
 };
 
 /**
+ * Mandatory listener for listening popup message
+ * Run only once because overwrited in @initListeners
+ *
+ * @see initListeners
+ */
+try {
+	chrome.runtime.onMessage.addListener((message) => {
+		if (message.command === "cheaty_init_selection") {
+			console.log("yes");
+			initOnce();
+			initProcess();
+		}
+	});
+} catch (error) {
+	errorHandler(
+		error,
+		"initListeners",
+		"Popup message listener subscription",
+		"chrome.runtime.onMessage.addListener"
+	);
+}
+
+/**
  * Init the process
  */
 function initProcess() {
 	selectMode = false;
 	actionMode = false;
+	removeActionMenu();
+	removeInspectorInfosBar();
 	addSelectionClassToBody();
 	selectComponent();
 	initSelectionMode();
@@ -151,6 +176,9 @@ function initListeners() {
 				sendDataToPopup();
 			} else if (message.command === "cheaty_reverse") {
 				revertActionOnComponent(message.componentId, message.action);
+			} else if (message.command === "cheaty_init_selection") {
+				console.log("yes");
+				initProcess();
 			} else if (message.command === "cheaty_select") {
 				selectComponentByCheatyId(message.componentId);
 				initActionMode();

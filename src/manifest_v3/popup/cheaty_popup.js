@@ -39,8 +39,15 @@ try {
  * Set link to option page for the option button
  */
 document
-	.getElementById("optionsButton")
+	.getElementById("cheaty_option_button")
 	.addEventListener("click", () => chrome.runtime.openOptionsPage());
+
+/**
+ * Send a request message to the content script to init the selection mode
+ */
+document
+	.getElementById("cheaty_init_selection_button")
+	.addEventListener("click", initSelectionMode);
 
 /**
  * Send a request message to the content script to get the data informations of updated component by the extension
@@ -206,6 +213,30 @@ function reverseComponent(componentId, action) {
 			"Querying browser to get the current tab and send a message"
 		);
 	}
+}
+
+/**
+ * Send a message the content script to init the selection mode
+ */
+function initSelectionMode() {
+	try {
+		chrome.tabs.query(
+			{ active: true, currentWindow: true },
+			function (tabs) {
+				chrome.tabs.sendMessage(tabs[0].id, {
+					command: "cheaty_init_selection",
+				});
+			}
+		);
+	} catch (error) {
+		errorHandler(
+			error,
+			"initSelectionMode",
+			"Querying browser to get the current tab and send a message"
+		);
+	}
+	window.close();
+	// setTimeout(window.close, 500);
 }
 
 /**
