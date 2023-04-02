@@ -12,7 +12,7 @@
 		<script type="module" src="/main.js" defer></script>
 	</head>
 	<body class="bg-primary text-secondary">
-		<header class="sticky top-0 flex pt-4 pr-2 justify-end">
+		<header class="sticky top-0 flex justify-end pr-2 pt-4">
 			<a
 				href="https://nicolasrenault.com"
 				target="_blank"
@@ -45,7 +45,7 @@
 					/></svg
 			></a>
 
-			<div class="dropdown inline-block relative">
+			<div class="dropdown relative inline-block">
 				<button class="flex items-center" title="Download">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -69,9 +69,9 @@
 					</svg>
 				</button>
 				<ul
-					class="dropdown-menu hidden absolute bg-primaryDark rounded-lg z-10 justify-center"
+					class="dropdown-menu absolute z-10 hidden justify-center rounded-lg bg-primaryDark"
 				>
-					<li class="py-2 px-1 hover:bg-tertiary rounded-lg">
+					<li class="rounded-lg px-1 py-2 hover:bg-tertiary">
 						<a
 							id="chrome-download"
 							target="_blank"
@@ -85,7 +85,7 @@
 							/>
 						</a>
 					</li>
-					<li class="py-2 px-1 hover:bg-tertiary rounded-lg">
+					<li class="rounded-lg px-1 py-2 hover:bg-tertiary">
 						<a
 							id="firefox-download"
 							target="_blank"
@@ -95,11 +95,11 @@
 							<img
 								src="./firefox-logo.svg"
 								alt="Firefox logo"
-								class="w-[32px] py"
+								class="py w-[32px]"
 							/>
 						</a>
 					</li>
-					<li class="py-2 px-1 hover:bg-tertiary rounded-lg">
+					<li class="rounded-lg px-1 py-2 hover:bg-tertiary">
 						<a
 							id="edge-download"
 							target="_blank"
@@ -117,9 +117,9 @@
 				</ul>
 			</div>
 		</header>
-		<div class="w-full flex justify-center items-center">
-			<section id="tittle" class="w-1/2">
-				<div class="w-fit mt-20 relative">
+		<div class="flex w-full flex-col items-center justify-center">
+			<section id="tittle" class="mt-20 w-2/3">
+				<div class="relative w-fit">
 					<div class="cheaty-selected-static outline">
 						<div
 							class="cheaty_action_button_container_static"
@@ -154,7 +154,7 @@
 						</h1>
 					</div>
 				</div>
-				<h2 class="text-3xl font-semibold mt-5 mb-3">
+				<h2 class="mb-3 mt-5 text-3xl font-semibold">
 					Extention for the web that feels illegal
 				</h2>
 				<p class="text-lg">
@@ -163,8 +163,22 @@
 					the inspector console.
 				</p>
 			</section>
-			<section id="download" class="hidden">
-				<a
+
+			<section id="download" class="mt-10 w-2/3">
+				<div class="grid grid-cols-2 gap-40">
+					<a
+						class="h-fit rounded-md bg-primaryDark px-5 py-1 text-center text-2xl text-primaryLight"
+						>Download on chrome
+						<span class="text-lg font-thin">(free)</span></a
+					>
+					<a
+						href="/sandbox"
+						class="h-fit rounded-md bg-primaryDark px-5 py-1 text-center text-2xl text-primaryLight"
+						>Try it yourself !</a
+					>
+				</div>
+
+				<!-- <a
 					id="chrome-download"
 					target="_blank"
 					href="https://chrome.google.com/webstore/detail/cheaty/hmnpfcbdneiomcedoanfmddlejilpieh"
@@ -190,7 +204,7 @@
 					<img src="./edge-logo.svg" alt="Edge logo" />
 					Download on Edge
 					<span class="text-sm">(free)</span>
-				</a>
+				</a> -->
 			</section>
 			<section id="try-it"></section>
 		</div>
