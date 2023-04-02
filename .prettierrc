@@ -3,5 +3,7 @@
 	"tabWidth": 4,
 	"useTabs": true,
 	"semi": true,
-	"singleQuote": false
+	"singleQuote": false,
+	"plugins": ["prettier-plugin-tailwindcss"],
+	"tailwindConfig": "./website/tailwind.config.cjs"
 }
