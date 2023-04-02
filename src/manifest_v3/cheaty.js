@@ -656,6 +656,10 @@ function updateActionButtonsState(component, action) {
 			}
 		} else if (action === "copy") {
 			document.getElementById(COPY_BUTTON_ID).innerText = "Copied";
+
+			setTimeout(() => {
+				document.getElementById(COPY_BUTTON_ID).innerText = "Copy";
+			}, 2000);
 		}
 	}
 }
