@@ -752,7 +752,7 @@ function copyComponent(component) {
 			error,
 			"copyComponent",
 			"Copying currentComponent to the clipboard",
-			"avigator.clipboard.writeText"
+			"navigator.clipboard.writeText"
 		);
 	}
 }
