@@ -1,0 +1,87 @@
+:root {
+	--cheaty-primary-color: 27, 38, 59;
+	--cheaty-secondary-color: 65, 90, 119;
+	--cheaty-termary-color: 13, 27, 42;
+	--cheaty-text-color: 224, 225, 221;
+}
+
+.cheaty-selected,
+.cheaty-selected-static {
+	border-color: transparent;
+	outline: 3px dotted orange !important;
+	/* outline-offset: -2px; */
+
+	cursor: url("./cursor_32x32.png"), auto !important;
+}
+
+.cheaty_action_button_container_static *,
+#cheaty_action_button_container * {
+	all: unset;
+}
+
+.cheaty_action_button_container_static,
+#cheaty_action_button_container {
+	position: absolute;
+	-webkit-box-sizing: content-box;
+	box-sizing: content-box;
+	z-index: 99999 !important;
+	background-color: rgb(var(--cheaty-secondary-color));
+	color: rgb(var(--cheaty-text-color));
+	padding: 5px;
+	border-radius: 5px;
+	min-height: 28px;
+	font-family: Arial, sans-serif;
+	font-size: 16px;
+}
+
+.cheaty_action_button_container_static,
+#cheaty_action_button_container {
+	min-width: 150px;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: row;
+	flex-direction: row;
+	-ms-flex-pack: distribute;
+	justify-content: space-evenly;
+	gap: 1rem;
+}
+.cheaty_action_button_container_static:after,
+#cheaty_action_button_container:after {
+	position: absolute;
+	content: "";
+	-webkit-box-sizing: content-box;
+	box-sizing: content-box;
+	left: 50%;
+	margin-left: -10px;
+	top: 100%;
+	border: 10px solid transparent;
+	border-top: 10px solid rgb(var(--cheaty-secondary-color));
+}
+.cheaty_action_button_container_static.bottom:after,
+#cheaty_action_button_container.bottom:after {
+	top: -10px;
+	border-top: transparent;
+	border-bottom: 10px solid rgb(var(--cheaty-secondary-color));
+}
+.cheaty_action_button_container_static.hidden:after,
+#cheaty_action_button_container.hidden:after {
+	border: transparent;
+}
+.cheaty_action_button_container_static button,
+#cheaty_action_button_container button {
+	all: unset;
+	-webkit-box-sizing: content-box;
+	box-sizing: content-box;
+	color: white;
+	background-color: transparent;
+	border: none;
+	border-bottom: 1px solid;
+	height: 100%;
+}
+.cheaty_action_button_container_static button:hover,
+#cheaty_action_button_container button:hover {
+	background-color: rgb(var(--cheaty-text-color), 0.3);
+}
