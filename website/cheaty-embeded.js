@@ -584,6 +584,13 @@ function updateActionButtonsState(component, action) {
 	}
 }
 
+/**
+ * Update an action menu button by it's ID and action
+ *
+ * @param {HTMLElement} component
+ * @param {string} buttonId
+ * @param {string} action
+ */
 function updateStaticActionButtonsState(component, buttonId, action) {
 	if (document.getElementById(buttonId) != null) {
 		if (action === "hide") {
@@ -636,6 +643,7 @@ function changeDisplayComponent(component) {
 
 /**
  * Hide/show the component in param by setting the hidden attribut to true/false
+ * Call the method updateStaticActionButtonsState for the button by it's ID
  *
  * @param {HTMLElement} componentId
  * @param {string} buttonId
@@ -689,6 +697,15 @@ function changePasswordTypeComponent(component) {
 	updateActionButtonsState(component, "password");
 }
 
+/**
+ * Hide/show the text input for the component in param by setting the input type to password or it's old value
+ * Call the method updateStaticActionButtonsState for a button by it's ID
+ *
+ * @see updateStaticActionButtonsState
+ * @param {string} componentId
+ * @param {string} value
+ * @param {string} buttonId
+ */
 function changePasswordTypeStaticComponent(componentId, value, buttonId) {
 	let component = document.getElementById(componentId);
 
@@ -738,6 +755,13 @@ function copyComponent(component) {
 	}
 }
 
+/**
+ * Copy the component to the clipboard
+ * Call the method updateStaticActionButtonsState for a button by
+ *
+ * @param {string} componentId
+ * @param {string} buttonId
+ */
 function copyStaticComponent(componentId, buttonId) {
 	try {
 		//Copy to the clipboard
