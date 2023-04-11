@@ -66,7 +66,7 @@ You have 2 buttons that allow you to **Copy** the outerHTML<sup><a href="https:/
 
 <img src="images/hide-action.png" alt="Hide Action" width="500" height="312">
 
-You can click on **Show** to make the HTLM component reappear.
+You can click on **Show** to make the HTML component reappear.
 
 ### Passwords
 
