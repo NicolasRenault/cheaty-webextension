@@ -50,7 +50,6 @@ document.onkeydown = (e) => {
 try {
 	chrome.runtime.onMessage.addListener((message) => {
 		if (message.command === "cheaty_init_selection") {
-			console.log("yes");
 			initOnce();
 			initProcess();
 		}
@@ -177,7 +176,6 @@ function initListeners() {
 			} else if (message.command === "cheaty_reverse") {
 				revertActionOnComponent(message.componentId, message.action);
 			} else if (message.command === "cheaty_init_selection") {
-				console.log("yes");
 				initProcess();
 			} else if (message.command === "cheaty_select") {
 				selectComponentByCheatyId(message.componentId);
