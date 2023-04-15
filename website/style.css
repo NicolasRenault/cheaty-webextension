@@ -6,3 +6,8 @@
 .dropdown:focus-within .dropdown-menu {
 	display: block;
 }
+
+.dropdown:hover #placeholder-link,
+.dropdown:focus-within #placeholder-link {
+	@apply bg-tertiary;
+}

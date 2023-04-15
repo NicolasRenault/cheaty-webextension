@@ -12,124 +12,72 @@
 		<script type="module" src="/main.js" defer></script>
 	</head>
 	<body class="bg-primary text-secondary">
-		<header class="sticky top-0 flex justify-end pr-2 pt-4">
-			<a
-				href="https://nicolasrenault.com"
-				target="_blank"
-				class="flex items-center"
-				><svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="32"
-					height="32"
-					viewBox="0 0 24 24"
-				>
-					<path
-						fill="currentColor"
-						d="M12 12q-1.65 0-2.825-1.175T8 8q0-1.65 1.175-2.825T12 4q1.65 0 2.825 1.175T16 8q0 1.65-1.175 2.825T12 12Zm-8 8v-2.8q0-.85.438-1.563T5.6 14.55q1.55-.775 3.15-1.163T12 13q1.65 0 3.25.388t3.15 1.162q.725.375 1.163 1.088T20 17.2V20H4Z"
-					/></svg
-			></a>
+		<header
+			class="top-0 hidden items-center justify-end pr-2 pt-4 sm:flex xl:mr-20 xl:mt-10 2xl:mr-44"
+		>
 			<a
 				href="https://github.com/NicolasRenault/cheaty-webextention"
 				target="_blank"
-				class="flex items-center"
+				class="flex items-center rounded-lg p-1 hover:bg-tertiaryLight"
+				title="Github"
 				><svg
 					xmlns="http://www.w3.org/2000/svg"
-					width="27"
-					height="27"
 					viewBox="0 0 24 24"
+					class="h-6 xl:w-6"
 				>
 					<path
 						fill="currentColor"
 						fill-rule="evenodd"
 						d="M11.999 1C5.926 1 1 5.925 1 12c0 4.86 3.152 8.983 7.523 10.437c.55.102.75-.238.75-.53c0-.26-.009-.952-.014-1.87c-3.06.664-3.706-1.475-3.706-1.475c-.5-1.27-1.221-1.61-1.221-1.61c-.999-.681.075-.668.075-.668c1.105.078 1.685 1.134 1.685 1.134c.981 1.68 2.575 1.195 3.202.914c.1-.71.384-1.195.698-1.47c-2.442-.278-5.01-1.222-5.01-5.437c0-1.2.428-2.183 1.132-2.952c-.114-.278-.491-1.397.108-2.91c0 0 .923-.297 3.025 1.127A10.536 10.536 0 0 1 12 6.32a10.49 10.49 0 0 1 2.754.37c2.1-1.424 3.022-1.128 3.022-1.128c.6 1.514.223 2.633.11 2.911c.705.769 1.13 1.751 1.13 2.952c0 4.226-2.572 5.156-5.022 5.428c.395.34.747 1.01.747 2.037c0 1.47-.014 2.657-.014 3.017c0 .295.199.637.756.53C19.851 20.979 23 16.859 23 12c0-6.075-4.926-11-11.001-11"
-					/></svg
-			></a>
-
-			<div class="dropdown relative inline-block">
-				<button class="flex items-center" title="Download">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="32"
-						height="32"
-						viewBox="0 0 24 24"
-					>
-						<path
-							fill="currentColor"
-							d="M12 15.575q-.2 0-.375-.062T11.3 15.3l-3.6-3.6q-.275-.275-.275-.7t.275-.7q.275-.275.713-.287t.712.262L11 12.15V5q0-.425.288-.713T12 4q.425 0 .713.288T13 5v7.15l1.875-1.875q.275-.275.713-.263t.712.288q.275.275.275.7t-.275.7l-3.6 3.6q-.15.15-.325.213t-.375.062ZM6 20q-.825 0-1.413-.588T4 18v-2q0-.425.288-.713T5 15q.425 0 .713.288T6 16v2h12v-2q0-.425.288-.713T19 15q.425 0 .713.288T20 16v2q0 .825-.588 1.413T18 20H6Z"
-						/>
-					</svg>
-					<svg
-						class="fill-current h-4 w-4"
-						xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 20 20"
-					>
-						<path
-							d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-						/>
-					</svg>
-				</button>
-				<ul
-					class="dropdown-menu absolute z-10 hidden justify-center rounded-lg bg-primaryDark"
-				>
-					<li class="rounded-lg px-1 py-2 hover:bg-tertiary">
-						<a
-							id="chrome-download"
-							target="_blank"
-							href="https://chrome.google.com/webstore/detail/cheaty/hmnpfcbdneiomcedoanfmddlejilpieh"
-							title="Download for Chrome"
-						>
-							<img
-								src="./chrome-logo.svg"
-								alt="Chrome logo"
-								class="w-[32px]"
-							/>
-						</a>
-					</li>
-					<li class="rounded-lg px-1 py-2 hover:bg-tertiary">
-						<a
-							id="firefox-download"
-							target="_blank"
-							href="https://addons.mozilla.org/fr/firefox/addon/cheaty/"
-							title="Download for Firefox"
-						>
-							<img
-								src="./firefox-logo.svg"
-								alt="Firefox logo"
-								class="py w-[32px]"
-							/>
-						</a>
-					</li>
-					<li class="rounded-lg px-1 py-2 hover:bg-tertiary">
-						<a
-							id="edge-download"
-							target="_blank"
-							href="https://microsoftedge.microsoft.com/addons/detail/cheaty/nfahmchdficdjoboiofifeakpngggaho"
-							title="Download for Edge"
-							class=""
-						>
-							<img
-								src="./edge-logo.svg"
-								alt="Edge logo"
-								class="w-[32px]"
-							/>
-						</a>
-					</li>
-				</ul>
-			</div>
+					/>
+				</svg>
+			</a>
+			<a
+				class="h-fit items-center rounded-md px-3 py-1 text-xl text-secondary underline hover:bg-tertiaryLight"
+				href="/sandbox"
+				target="_blank"
+				>Try it
+			</a>
+			<a
+				id="placeholder-link"
+				class="flex flex-nowrap items-center rounded-md bg-primaryDark px-3 py-1 text-xl text-primaryLight"
+				href="/download"
+				target="_blank"
+				title="Download"
+			>
+				<p class="pr-2">Download</p>
+				<div class="grid grid-cols-3 gap-1.5">
+					<img
+						src="./chrome-logo.svg"
+						alt="Chrome logo"
+						class="w-[24px]"
+					/>
+					<img
+						src="./firefox-logo.svg"
+						alt="Firefox logo"
+						class="w-[24px]"
+					/>
+					<img
+						src="./edge-logo.svg"
+						alt="Edge logo"
+						class="w-[24px]"
+					/>
+				</div>
+			</a>
 		</header>
 		<div class="flex w-full flex-col items-center justify-center">
-			<section id="tittle" class="mt-20 w-2/3">
+			<section id="tittle" class="mt-20 w-10/12 lg:w-3/5">
 				<div class="relative w-fit">
 					<div class="cheaty-selected-static outline">
 						<div
-							class="cheaty_action_button_container_static"
-							style="left: 17%; top: -48px"
+							class="cheaty_action_button_container_static left-[10px] top-[-51px] sm:left-[54px] sm:top-[-48px]"
 						>
 							<button
 								id="cheaty_hide_button_static_title"
 								title="Hide the selected element"
 								data-target_id="cheaty_title_static"
 								data-action="hide"
+								tabindex="-1"
 							>
 								Hide</button
 							><button
@@ -138,6 +86,7 @@
 								data-target_id="cheaty_title_static"
 								data-action="password"
 								data-value="Cheaty"
+								tabindex="-1"
 							>
 								Hide as password</button
 							><button
@@ -145,11 +94,16 @@
 								title="Copy the selected element"
 								data-target_id="cheaty_title_static"
 								data-action="copy"
+								tabindex="-1"
 							>
 								Copy
 							</button>
 						</div>
-						<h1 id="cheaty_title_static" class="text-8xl font-bold">
+						<h1
+							id="cheaty_title_static"
+							class="text-7xl font-bold sm:text-8xl"
+							style="opacity: 1"
+						>
 							Cheaty
 						</h1>
 					</div>
@@ -164,51 +118,177 @@
 				</p>
 			</section>
 
-			<section id="download" class="mt-10 w-2/3">
-				<div class="grid grid-cols-2 gap-40">
-					<a
-						class="h-fit rounded-md bg-primaryDark px-5 py-1 text-center text-2xl text-primaryLight"
-						>Download on chrome
-						<span class="text-lg font-thin">(free)</span></a
+			<section id="download" class="mt-10 w-11/12 lg:w-3/5">
+				<div class="relative text-center sm:text-left">
+					<div
+						id="download-links-container"
+						class="dropdown relative inline-block min-w-[270px] sm:min-w-[370px]"
 					>
-					<a
+						<div id="first-link-container">
+							<div
+								id="placeholder-link"
+								class="text-md flex h-fit w-full flex-nowrap rounded-md bg-primaryDark px-5 py-1 text-primaryLight sm:text-2xl"
+							>
+								<p class="px-3">Download for free</p>
+								<div class="grid grid-cols-3 gap-1">
+									<img
+										src="./chrome-logo.svg"
+										alt="Chrome logo"
+										class="w-[24px] sm:w-[32px]"
+									/>
+									<img
+										src="./firefox-logo.svg"
+										alt="Firefox logo"
+										class="w-[24px] sm:w-[32px]"
+									/>
+									<img
+										src="./edge-logo.svg"
+										alt="Edge logo"
+										class="w-[24px] sm:w-[32px]"
+									/>
+								</div>
+							</div>
+						</div>
+						<div
+							id="other-links-container"
+							class="dropdown-menu absolute z-10 hidden w-full gap-1"
+						>
+							<div class="mt-2 flex flex-col gap-2">
+								<a
+									id="chrome-download-link"
+									class="flex h-fit w-full flex-nowrap rounded-md bg-primaryDark px-5 py-1 text-center text-lg text-primaryLight hover:bg-tertiary sm:text-2xl"
+									target="_blank"
+									href="https://chrome.google.com/webstore/detail/cheaty/hmnpfcbdneiomcedoanfmddlejilpieh"
+									title="Download for Chrome"
+								>
+									<img
+										src="./chrome-logo.svg"
+										alt="Chrome logo"
+										class="w-[24px] sm:w-[32px]"
+									/>
+									<p class="pl-3">Download on Chrome</p>
+								</a>
+								<a
+									id="firefox-download-link"
+									class="flex h-fit w-full flex-nowrap rounded-md bg-primaryDark px-5 py-1 text-center text-lg text-primaryLight hover:bg-tertiary sm:text-2xl"
+									target="_blank"
+									href="https://addons.mozilla.org/fr/firefox/addon/cheaty/"
+									title="Download for Firefox"
+								>
+									<img
+										src="./firefox-logo.svg"
+										alt="Firefox logo"
+										class="w-[24px] sm:w-[32px]"
+									/>
+									<p class="pl-3">Download on Firefox</p>
+								</a>
+								<a
+									id="edge-download-link"
+									class="flex h-fit w-full flex-nowrap rounded-md bg-primaryDark px-5 py-1 text-center text-lg text-primaryLight hover:bg-tertiary sm:text-2xl"
+									target="_blank"
+									href="https://microsoftedge.microsoft.com/addons/detail/cheaty/nfahmchdficdjoboiofifeakpngggaho"
+									title="Download for Edge"
+								>
+									<img
+										src="./edge-logo.svg"
+										alt="Edge logo"
+										class="w-[24px] sm:w-[32px]"
+									/>
+									<p class="pl-3">Download on Edge</p>
+								</a>
+							</div>
+						</div>
+					</div>
+					<!-- <a
 						href="/sandbox"
-						class="h-fit rounded-md bg-primaryDark px-5 py-1 text-center text-2xl text-primaryLight"
+						class="h-fit rounded-md bg-primaryDark px-5 py-1 text-center text-2xl text-primaryLight hover:bg-tertiary"
 						>Try it yourself !</a
-					>
+					> -->
 				</div>
-
-				<!-- <a
-					id="chrome-download"
-					target="_blank"
-					href="https://chrome.google.com/webstore/detail/cheaty/hmnpfcbdneiomcedoanfmddlejilpieh"
-				>
-					<img src="./chrome-logo.svg" alt="Chrome logo" />
-					Download on Chrome
-					<span class="text-sm">(free)</span>
-				</a>
-				<a
-					id="firefox-download"
-					target="_blank"
-					href="https://addons.mozilla.org/fr/firefox/addon/cheaty/"
-				>
-					<img src="./firefox-logo.svg" alt="Firefox logo" />
-					Download on Firefox
-					<span class="text-sm">(free)</span>
-				</a>
-				<a
-					id="edge-download"
-					target="_blank"
-					href="https://microsoftedge.microsoft.com/addons/detail/cheaty/nfahmchdficdjoboiofifeakpngggaho"
-				>
-					<img src="./edge-logo.svg" alt="Edge logo" />
-					Download on Edge
-					<span class="text-sm">(free)</span>
-				</a> -->
 			</section>
-			<section id="try-it"></section>
+			<section id="exemples" class="h-[550px]"></section>
 		</div>
 
-		<footer></footer>
+		<footer
+			class="text-md relative bottom-0 mb-5 flex w-full flex-col items-center justify-center text-secondaryLight lg:flex-row"
+		>
+			<ul class="flex flex-col items-center gap-2 sm:flex-row">
+				<li>
+					<a
+						href="https://github.com/NicolasRenault/cheaty-webextention"
+						target="_blank"
+						class="hover:underline"
+					>
+						Github
+					</a>
+				</li>
+				<p class="hidden text-xs sm:block">●</p>
+				<li>
+					<a
+						href="https://github.com/NicolasRenault/cheaty-webextention"
+						target="_blank"
+						class="hover:underline"
+					>
+						Report Bug
+					</a>
+				</li>
+				<p class="hidden text-xs sm:block">●</p>
+				<li>
+					<a
+						href="mailto:contact@nicolasrenault.com"
+						target="_blank"
+						class="hover:underline"
+					>
+						Contact
+					</a>
+				</li>
+				<p class="hidden text-xs sm:block">●</p>
+				<li>
+					<div class="flex flex-row">
+						<p class="pr-2">Download</p>
+						<div class="grid grid-cols-3 gap-1.5">
+							<a
+								href="https://chrome.google.com/webstore/detail/cheaty/hmnpfcbdneiomcedoanfmddlejilpieh"
+								target="_blank"
+								title="Download for Chrome"
+								><img
+									src="./chrome-logo.svg"
+									alt="Chrome logo"
+									class="w-[24px]"
+								/>
+							</a>
+							<a
+								href="https://addons.mozilla.org/fr/firefox/addon/cheaty/"
+								target="_blank"
+								title="Download for Firefox"
+								><img
+									src="./firefox-logo.svg"
+									alt="Firefox logo"
+									class="w-[24px]"
+								/>
+							</a>
+							<a
+								href="https://microsoftedge.microsoft.com/addons/detail/cheaty/nfahmchdficdjoboiofifeakpngggaho"
+								target="_blank"
+								title="Download for Edge"
+								><img
+									src="./edge-logo.svg"
+									alt="Edge logo"
+									class="w-[24px]"
+								/>
+							</a>
+						</div>
+					</div>
+				</li>
+			</ul>
+
+			<a
+				class="bottom-2 mt-1 hover:underline lg:absolute lg:bottom-0 lg:right-2 lg:mt-0"
+				href="https://nicolasrenault.com"
+				target="_blank"
+			>
+				Made by Nicolas Renault
+			</a>
+		</footer>
 	</body>
 </html>
