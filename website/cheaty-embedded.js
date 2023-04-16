@@ -21,6 +21,9 @@ const STATIC_ACTION_MENUE_BUTTONS = [
 	"cheaty_hide_button_static_title",
 	"cheaty_password_button_static_title",
 	"cheaty_copy_button_static_title",
+	"cheaty_hide_button_example_static",
+	"cheaty_password_button_example_static",
+	"cheaty_copy_button_example_static",
 ];
 
 let selectMode = false;
@@ -119,7 +122,15 @@ function initStaticListeners() {
 					buttonId
 				);
 			} else if (button.dataset.action == "copy") {
-				copyStaticComponent(button.dataset.target_id, buttonId);
+				if (button.dataset.copy_target !== undefined) {
+					copyExampleStaticComponent(
+						button.dataset.target_id,
+						button.dataset.copy_target,
+						buttonId
+					);
+				} else {
+					copyStaticComponent(button.dataset.target_id, buttonId);
+				}
 			}
 		});
 	});
@@ -603,18 +614,31 @@ function updateStaticActionButtonsState(component, buttonId, action) {
 			action === "password" &&
 			document.getElementById(buttonId) !== null
 		) {
-			if (component.innerText.includes("•")) {
-				document.getElementById(buttonId).innerText = "Show password";
+			if (component.tagName === "INPUT") {
+				if (component.type == "password") {
+					document.getElementById(buttonId).innerText =
+						"Show password";
+				} else {
+					document.getElementById(buttonId).innerText =
+						"Hide as password";
+				}
 			} else {
-				document.getElementById(buttonId).innerText =
-					"Hide as password";
+				if (component.innerText.includes("•")) {
+					document.getElementById(buttonId).innerText =
+						"Show password";
+				} else {
+					document.getElementById(buttonId).innerText =
+						"Hide as password";
+				}
 			}
-		} else if (action === "copy") {
+		} else if (action === "copy" || action === "copy-example") {
 			document.getElementById(buttonId).innerText = "Copied";
 			//set timout of 10 seconds
-			setTimeout(() => {
-				document.getElementById(buttonId).innerText = "Copy";
-			}, 2000);
+			if (action === "copy") {
+				setTimeout(() => {
+					document.getElementById(buttonId).innerText = "Copy";
+				}, 2000);
+			}
 		}
 	}
 }
@@ -709,10 +733,22 @@ function changePasswordTypeComponent(component) {
 function changePasswordTypeStaticComponent(componentId, value, buttonId) {
 	let component = document.getElementById(componentId);
 
-	if (component.innerText === value) {
-		component.innerText = "•".repeat(value.length + 2);
+	if (component.tagName === "INPUT") {
+		if (component.type == "password") {
+			if (component.dataset.cheaty_password_default === "password") {
+				component.type = "text";
+			} else {
+				component.type = component.dataset.cheaty_password_default;
+			}
+		} else {
+			component.type = "password";
+		}
 	} else {
-		component.innerText = value;
+		if (component.innerText === value) {
+			component.innerText = "•".repeat(value.length + 2);
+		} else {
+			component.innerText = value;
+		}
 	}
 
 	updateStaticActionButtonsState(component, buttonId, "password");
@@ -778,6 +814,37 @@ function copyStaticComponent(componentId, buttonId) {
 			document.getElementById(componentId),
 			buttonId,
 			"copy"
+		);
+	} catch (error) {
+		errorHandler(
+			error,
+			"copyComponent",
+			"Copying currentComponent to the clipboard",
+			"avigator.clipboard.writeText"
+		);
+	}
+}
+
+function copyExampleStaticComponent(componentId, targetId, buttonId) {
+	let target = document.getElementById(targetId);
+
+	target.hidden = false;
+
+	try {
+		//Copy to the clipboard
+		navigator.clipboard
+			.writeText(document.getElementById(componentId).outerHTML)
+			.then(() => {
+				console.info("HTML Component copied to clipboard");
+			})
+			.catch((err) => {
+				throw new Error(err);
+			});
+
+		updateStaticActionButtonsState(
+			document.getElementById(componentId),
+			buttonId,
+			"copy-example"
 		);
 	} catch (error) {
 		errorHandler(

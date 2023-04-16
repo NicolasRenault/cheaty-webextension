@@ -11,3 +11,21 @@
 .dropdown:focus-within #placeholder-link {
 	@apply bg-tertiary;
 }
+#custom_code_block {
+	color: #948a8b;
+}
+#custom_code_block .type {
+	color: #cb3d3a;
+}
+#custom_code_block .attribut {
+	color: #85dacc;
+}
+#custom_code_block .id-value {
+	color: #f38d70;
+}
+#custom_code_block .class-value {
+	color: #9bdb79;
+}
+#custom_code_block .text {
+	color: #fff0f3;
+}

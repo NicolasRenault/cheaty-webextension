@@ -18,7 +18,7 @@
 			<a
 				href="https://github.com/NicolasRenault/cheaty-webextention"
 				target="_blank"
-				class="flex items-center rounded-lg p-1 hover:bg-tertiaryLight"
+				class="flex items-center rounded-lg p-1 transition-all duration-100 hover:translate-y-[-1px] hover:bg-tertiaryLight"
 				title="Github"
 				><svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -33,15 +33,15 @@
 				</svg>
 			</a>
 			<a
-				class="h-fit items-center rounded-md px-3 py-1 text-xl text-secondary underline hover:bg-tertiaryLight"
-				href="/sandbox"
+				class="h-fit items-center rounded-md px-3 py-1 text-xl text-secondary underline transition-all duration-100 hover:translate-y-[-1px] hover:bg-tertiaryLight"
+				href="/sandbox/"
 				target="_blank"
 				>Try it
 			</a>
 			<a
 				id="placeholder-link"
-				class="flex flex-nowrap items-center rounded-md bg-primaryDark px-3 py-1 text-xl text-primaryLight"
-				href="/download"
+				class="flex flex-nowrap items-center rounded-md bg-primaryDark px-3 py-1 text-xl text-primaryLight shadow-md transition-all duration-100 hover:translate-y-[-1px]"
+				href="/download/"
 				target="_blank"
 				title="Download"
 			>
@@ -111,7 +111,7 @@
 				<h2 class="mb-3 mt-5 text-3xl font-semibold">
 					Extention for the web that feels illegal
 				</h2>
-				<p class="text-lg">
+				<p class="w-2/3 text-lg">
 					Cheaty is a simple open-source web extension that allows you
 					to do quick actions on HTML components without going into
 					the inspector console.
@@ -122,12 +122,12 @@
 				<div class="relative text-center sm:text-left">
 					<div
 						id="download-links-container"
-						class="dropdown relative inline-block min-w-[270px] sm:min-w-[370px]"
+						class="dropdown relative inline-block min-w-[280px] sm:min-w-[370px]"
 					>
 						<div id="first-link-container">
 							<div
 								id="placeholder-link"
-								class="text-md flex h-fit w-full flex-nowrap rounded-md bg-primaryDark px-5 py-1 text-primaryLight sm:text-2xl"
+								class="text-md flex h-fit w-full flex-nowrap rounded-md bg-primaryDark px-5 py-1 text-primaryLight shadow-md sm:text-2xl"
 							>
 								<p class="px-3">Download for free</p>
 								<div class="grid grid-cols-3 gap-1">
@@ -151,12 +151,12 @@
 						</div>
 						<div
 							id="other-links-container"
-							class="dropdown-menu absolute z-10 hidden w-full gap-1"
+							class="dropdown-menu absolute z-10 hidden w-full gap-1 bg-primary"
 						>
 							<div class="mt-2 flex flex-col gap-2">
 								<a
 									id="chrome-download-link"
-									class="flex h-fit w-full flex-nowrap rounded-md bg-primaryDark px-5 py-1 text-center text-lg text-primaryLight hover:bg-tertiary sm:text-2xl"
+									class="flex h-fit w-full flex-nowrap rounded-md bg-primaryDark px-5 py-1 text-center text-lg text-primaryLight shadow-md hover:bg-tertiary sm:text-2xl"
 									target="_blank"
 									href="https://chrome.google.com/webstore/detail/cheaty/hmnpfcbdneiomcedoanfmddlejilpieh"
 									title="Download for Chrome"
@@ -170,7 +170,7 @@
 								</a>
 								<a
 									id="firefox-download-link"
-									class="flex h-fit w-full flex-nowrap rounded-md bg-primaryDark px-5 py-1 text-center text-lg text-primaryLight hover:bg-tertiary sm:text-2xl"
+									class="flex h-fit w-full flex-nowrap rounded-md bg-primaryDark px-5 py-1 text-center text-lg text-primaryLight shadow-md hover:bg-tertiary sm:text-2xl"
 									target="_blank"
 									href="https://addons.mozilla.org/fr/firefox/addon/cheaty/"
 									title="Download for Firefox"
@@ -184,7 +184,7 @@
 								</a>
 								<a
 									id="edge-download-link"
-									class="flex h-fit w-full flex-nowrap rounded-md bg-primaryDark px-5 py-1 text-center text-lg text-primaryLight hover:bg-tertiary sm:text-2xl"
+									class="flex h-fit w-full flex-nowrap rounded-md bg-primaryDark px-5 py-1 text-center text-lg text-primaryLight shadow-md hover:bg-tertiary sm:text-2xl"
 									target="_blank"
 									href="https://microsoftedge.microsoft.com/addons/detail/cheaty/nfahmchdficdjoboiofifeakpngggaho"
 									title="Download for Edge"
@@ -202,15 +202,166 @@
 					<!-- <a
 						href="/sandbox"
 						class="h-fit rounded-md bg-primaryDark px-5 py-1 text-center text-2xl text-primaryLight hover:bg-tertiary"
-						>Try it yourself !</a
+						>Try it yourself</a
 					> -->
 				</div>
 			</section>
-			<section id="exemples" class="h-[550px]"></section>
+			<section id="exemples" class="mt-10 w-11/12 lg:w-3/5">
+				<p class="mb-5 text-2xl font-semibold">How it's work?</p>
+				<div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+					<div class="relative sm:col-span-2">
+						<p class="text-xl font-semibold">The basics</p>
+						<div class="mt-5 px-5">
+							<div>
+								<p
+									class="text-underline my-1 text-xl font-medium"
+								>
+									Hide/Show a component
+								</p>
+								<p class="my-1 text-lg">
+									The "Hide" button allow you to hide or show
+									the HTML component on the page.
+								</p>
+								<div
+									class="cheaty_action_button_container_static cheaty_hidden cheaty_cursor relative"
+								>
+									<button
+										id="cheaty_hide_button_example_static"
+										title="Hide the selected element"
+										data-target_id="hide_example_static"
+										data-action="hide"
+										tabindex="-1"
+									>
+										Hide
+									</button>
+									<button disabled>Copy</button>
+								</div>
+								<div
+									class="relative m-3 flex h-[164px] w-[250px] items-center justify-center border-2 p-3 sm:w-[380px]"
+								>
+									<div class="relative">
+										<div
+											class="m-8 items-center justify-center p-2 text-lg"
+										>
+											I was behind
+										</div>
+									</div>
+									<div class="absolute">
+										<div
+											id="hide_example_static"
+											class="cheaty-selected-static items-center justify-center bg-primary p-10 text-lg"
+											style="opacity: 1"
+										>
+											Hide me
+										</div>
+									</div>
+								</div>
+							</div>
+							<div>
+								<p
+									class="text-underline my-1 text-xl font-medium"
+								>
+									Show/Hide password
+								</p>
+								<p class="my-1 text-lg">
+									When selecting an input text you have a new
+									button in the action menu that allows you to
+									hide or show the password.
+								</p>
+								<div
+									class="cheaty_action_button_container_static cheaty_hidden cheaty_cursor relative"
+								>
+									<button disabled>Hide</button>
+									<button
+										id="cheaty_password_button_example_static"
+										title="Change the type of the selected element"
+										data-target_id="password_example_static"
+										data-action="password"
+										data-value="I was hidden"
+										tabindex="-1"
+									>
+										Show password
+									</button>
+									<button disabled>Copy</button>
+								</div>
+								<div
+									class="relative m-3 flex h-[164px] w-[250px] items-center justify-center border-2 p-3 sm:w-[380px]"
+								>
+									<input
+										id="password_example_static"
+										type="password"
+										value="I was hidden"
+										class="cheaty-selected-static w-[80%] items-center justify-center bg-primary text-lg sm:w-[60%]"
+									/>
+								</div>
+							</div>
+							<div>
+								<p
+									class="text-underline my-1 text-xl font-medium"
+								>
+									Copy a component
+								</p>
+								<p class="my-1 text-lg">
+									The "Copy" button allow you to copy the
+									outerHTML of the component.
+								</p>
+								<div
+									class="cheaty_action_button_container_static cheaty_hidden cheaty_cursor relative"
+								>
+									<button disabled>Hide</button>
+									<button
+										id="cheaty_copy_button_example_static"
+										title="Copy the selected element"
+										data-target_id="copy_example_static"
+										data-action="copy"
+										data-copy_target="copy_result_example_static"
+										tabindex="-1"
+									>
+										Copy
+									</button>
+								</div>
+								<div class="relative">
+									<div
+										class="relative m-3 flex h-[164px] w-[250px] items-center justify-center border-2 p-3 sm:w-[380px]"
+									>
+										<div
+											id="copy_example_static"
+											class="cheaty-selected-static items-center justify-center bg-primary p-5 text-lg"
+										>
+											Copy me
+										</div>
+									</div>
+									<div
+										id="copy_result_example_static"
+										class="left-[250px] top-0 mx-3 w-[250px] sm:left-[380px] sm:w-[380px] lg:absolute lg:ml-10"
+										hidden
+									>
+										<p class="underline">Result of copy:</p>
+										<pre
+											id="custom_code_block"
+											class="overflow-auto bg-secondaryDark p-2"
+										>
+&lt;<text class="type">div</text> <text class="attribut">id</text>="<text class="id-value">copy_example_static</text>" <text class="attribut">class</text>="<text class="class-value">cheaty-selected-static items-center justify-center bg-primary p-5 text-lg</text>"&gt;
+	<text class="text">Copy me</text>
+&lt;<text class="type">/div</text>&gt;
+									</pre>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div>
+						<p class="text-xl font-semibold">Selection mode</p>
+					</div>
+					<div>
+						<p class="text-xl font-semibold">Popup</p>
+					</div>
+				</div>
+			</section>
 		</div>
 
 		<footer
-			class="text-md relative bottom-0 mb-5 flex w-full flex-col items-center justify-center text-secondaryLight lg:flex-row"
+			class="text-md relative bottom-0 mb-5 mt-10 flex w-full flex-col items-center justify-center text-secondaryLight lg:flex-row"
 		>
 			<ul class="flex flex-col items-center gap-2 sm:flex-row">
 				<li>
@@ -245,12 +396,18 @@
 				<p class="hidden text-xs sm:block">●</p>
 				<li>
 					<div class="flex flex-row">
-						<p class="pr-2">Download</p>
+						<a
+							href="/download/"
+							target="_blank"
+							class="pr-2 hover:underline"
+							>Download</a
+						>
 						<div class="grid grid-cols-3 gap-1.5">
 							<a
 								href="https://chrome.google.com/webstore/detail/cheaty/hmnpfcbdneiomcedoanfmddlejilpieh"
 								target="_blank"
 								title="Download for Chrome"
+								class="transition-all duration-100 hover:translate-y-[-1px]"
 								><img
 									src="./chrome-logo.svg"
 									alt="Chrome logo"
@@ -261,6 +418,7 @@
 								href="https://addons.mozilla.org/fr/firefox/addon/cheaty/"
 								target="_blank"
 								title="Download for Firefox"
+								class="transition-all duration-100 hover:translate-y-[-1px]"
 								><img
 									src="./firefox-logo.svg"
 									alt="Firefox logo"
@@ -271,6 +429,7 @@
 								href="https://microsoftedge.microsoft.com/addons/detail/cheaty/nfahmchdficdjoboiofifeakpngggaho"
 								target="_blank"
 								title="Download for Edge"
+								class="transition-all duration-100 hover:translate-y-[-1px]"
 								><img
 									src="./edge-logo.svg"
 									alt="Edge logo"
