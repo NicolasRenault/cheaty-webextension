@@ -119,7 +119,8 @@ function initStaticListeners() {
 				changePasswordTypeStaticComponent(
 					button.dataset.target_id,
 					button.dataset.value,
-					buttonId
+					buttonId,
+					button.dataset.type_detail_id
 				);
 			} else if (button.dataset.action == "copy") {
 				if (button.dataset.copy_target !== undefined) {
@@ -729,13 +730,22 @@ function changePasswordTypeComponent(component) {
  * @param {string} componentId
  * @param {string} value
  * @param {string} buttonId
+ * @param {string} type_detail_id
  */
-function changePasswordTypeStaticComponent(componentId, value, buttonId) {
+function changePasswordTypeStaticComponent(
+	componentId,
+	value,
+	buttonId,
+	type_detail_id
+) {
 	let component = document.getElementById(componentId);
 
 	if (component.tagName === "INPUT") {
 		if (component.type == "password") {
-			if (component.dataset.cheaty_password_default === "password") {
+			if (
+				component.dataset.cheaty_password_default === "password" ||
+				component.dataset.cheaty_password_default === undefined
+			) {
 				component.type = "text";
 			} else {
 				component.type = component.dataset.cheaty_password_default;
@@ -752,6 +762,15 @@ function changePasswordTypeStaticComponent(componentId, value, buttonId) {
 	}
 
 	updateStaticActionButtonsState(component, buttonId, "password");
+
+	/**
+	 * Custom code to update the type detail of the component for the static example
+	 */
+	if (type_detail_id !== undefined) {
+		let typeDetail = document.getElementById(type_detail_id);
+
+		typeDetail.innerHTML = component.type;
+	}
 }
 
 /**

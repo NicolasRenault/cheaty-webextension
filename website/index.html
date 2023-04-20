@@ -237,7 +237,7 @@
 									<button disabled>Copy</button>
 								</div>
 								<div
-									class="relative m-3 flex h-[164px] w-[250px] items-center justify-center border-2 p-3 sm:w-[380px]"
+									class="cheaty_cursor relative m-3 flex h-[164px] w-[250px] items-center justify-center border-2 p-3 shadow-lg sm:w-[380px]"
 								>
 									<div class="relative">
 										<div
@@ -277,7 +277,7 @@
 										title="Change the type of the selected element"
 										data-target_id="password_example_static"
 										data-action="password"
-										data-value="I was hidden"
+										data-type_detail_id="password_example_static_input_type"
 										tabindex="-1"
 									>
 										Show password
@@ -285,14 +285,26 @@
 									<button disabled>Copy</button>
 								</div>
 								<div
-									class="relative m-3 flex h-[164px] w-[250px] items-center justify-center border-2 p-3 sm:w-[380px]"
+									class="cheaty_cursor relative m-3 flex h-[164px] w-[250px] items-center justify-center border-2 p-3 shadow-lg sm:w-[380px]"
 								>
 									<input
 										id="password_example_static"
 										type="password"
 										value="I was hidden"
-										class="cheaty-selected-static w-[80%] items-center justify-center bg-primary text-lg sm:w-[60%]"
+										class="cheaty-selected-static w-[80%] items-center justify-center px-2 text-lg sm:w-[60%]"
 									/>
+									<label
+										for="password_example_static"
+										class="absolute left-[15%] top-[70%] font-medium sm:left-[22%]"
+									>
+										Input type:
+										<span
+											id="password_example_static_input_type"
+											class="underline"
+										>
+											password
+										</span>
+									</label>
 								</div>
 							</div>
 							<div>
@@ -322,7 +334,7 @@
 								</div>
 								<div class="relative">
 									<div
-										class="relative m-3 flex h-[164px] w-[250px] items-center justify-center border-2 p-3 sm:w-[380px]"
+										class="cheaty_cursor relative m-3 flex h-[164px] w-[250px] items-center justify-center border-2 p-3 shadow-lg sm:w-[380px]"
 									>
 										<div
 											id="copy_example_static"
@@ -341,9 +353,9 @@
 											id="custom_code_block"
 											class="overflow-auto bg-secondaryDark p-2"
 										>
-&lt;<text class="type">div</text> <text class="attribut">id</text>="<text class="id-value">copy_example_static</text>" <text class="attribut">class</text>="<text class="class-value">cheaty-selected-static items-center justify-center bg-primary p-5 text-lg</text>"&gt;
-	<text class="text">Copy me</text>
-&lt;<text class="type">/div</text>&gt;
+&lt;<span class="type">div</span> <span class="attribut">id</span>="<span class="id-value">copy_example_static</span>" <span class="attribut">class</span>="<span class="class-value">cheaty-selected-static items-center justify-center bg-primary p-5 text-lg</span>"&gt;
+	<span class="text">Copy me</span>
+&lt;<span class="type">/div</span>&gt;
 									</pre>
 									</div>
 								</div>
