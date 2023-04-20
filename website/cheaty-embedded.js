@@ -26,6 +26,8 @@ const STATIC_ACTION_MENUE_BUTTONS = [
 	"cheaty_copy_button_example_static",
 ];
 
+const STATIC_SELECTION_DIV = ["selection_mode_example_static"];
+
 let selectMode = false;
 let globalIndex = 0;
 let actionMode = false;
@@ -41,48 +43,45 @@ initStaticListeners();
  * @see initListeners
  * @param {Event} e
  */
-// document.onkeydown = (e) => {
-// 	if (selectMode || actionMode) {
-// 		e.preventDefault();
-// 	}
+document.onkeydown = (e) => {
+	//Ctrl + Alt + N
+	//TODO Clippy easter egg
+	// if (e.ctrlKey && e.altKey && e.key == "n") {
+	// 	if (selectMode) {
+	// 		stop();
+	// 	} else if (actionMode) {
+	// 		stopActionMode();
+	// 	} else {
+	// 		initProcess();
+	// 	}
+	// }
+	//if (e.code == "Escape" && (selectMode || actionMode)) {
+	// 	// Escape
+	// 	if (!actionMode) {
+	// 		stop();
+	// 	} else {
+	// 		stopActionMode();
+	// 	}
+	// }
 
-// 	//Ctrl + Alt + N
-// 	if (e.ctrlKey && e.altKey && e.key == "n") {
-// 		if (selectMode) {
-// 			stop();
-// 		} else if (actionMode) {
-// 			stopActionMode();
-// 		} else {
-// 			initProcess();
-// 		}
-// 	}
-
-// 	if (e.code == "ArrowUp" && selectMode) {
-// 		// Arrow Up
-// 		selectParentComponent();
-// 	} else if (e.code == "ArrowDown" && selectMode) {
-// 		// Arrow Down
-// 		selectChildComponent();
-// 	} else if (e.code == "ArrowLeft" && selectMode) {
-// 		// Arrow Left
-// 		selectPreviousSiblingComponent();
-// 	} else if (e.code == "ArrowRight" && selectMode) {
-// 		// Arrow Right
-// 		selectNextSiblingComponent();
-// 	} else if (e.code == "Escape" && (selectMode || actionMode)) {
-// 		// Escape
-// 		if (!actionMode) {
-// 			stop();
-// 		} else {
-// 			stopActionMode();
-// 		}
-// 	} else if (e.code == "Enter" && selectMode) {
-// 		// Enter
-// 		if (!actionMode) {
-// 			initActionMode();
-// 		}
-// 	}
-// };
+	if (e.code == "ArrowUp" && selectMode) {
+		// Arrow Up
+		e.preventDefault();
+		selectParentComponentStatic();
+	} else if (e.code == "ArrowDown" && selectMode) {
+		// Arrow Down
+		e.preventDefault();
+		selectChildComponentStatic();
+	} else if (e.code == "ArrowLeft" && selectMode) {
+		// Arrow Left
+		e.preventDefault();
+		selectPreviousSiblingComponentStatic();
+	} else if (e.code == "ArrowRight" && selectMode) {
+		// Arrow Right
+		e.preventDefault();
+		selectNextSiblingComponentStatic();
+	}
+};
 
 // document.onclick = (e) => {
 // 	if (selectMode || actionMode) {
@@ -91,11 +90,9 @@ initStaticListeners();
 // 	}
 // };
 
-// document.onmousemove = () => {
-// 	if (selectMode && !actionMode) {
-// 		selectComponent();
-// 	}
-// };
+document.onmousemove = () => {
+	selectComponentStatic();
+};
 
 // onresize = () => {
 // 	if (actionMode) {
@@ -230,6 +227,30 @@ function selectComponent() {
 }
 
 /**
+ * Select the component under the mouse if one of his parents it in the STATIC_SELECTION_DIV array
+ *
+ * @see STATIC_SELECTION_DIV
+ */ removeAllBorder();
+function selectComponentStatic() {
+	let hovers = document.querySelectorAll(":hover");
+
+	if (hovers.length !== 0) {
+		let hover = hovers.item(hovers.length - 1);
+
+		if (
+			hover.closest("section") !== null &&
+			STATIC_SELECTION_DIV.includes(hover.closest("section").id)
+		) {
+			selectMode = true;
+			addBorderToComponentStatic(hover);
+		} else {
+			selectMode = false;
+			removeAllBorder();
+		}
+	}
+}
+
+/**
  * Select the parent of the current component
  */
 function selectParentComponent() {
@@ -240,6 +261,30 @@ function selectParentComponent() {
 }
 
 /**
+ * Select the parent of the component with the class CSS_CLASS_NAME_SELECTED if one of his parents it in the STATIC_SELECTION_DIV array
+ *
+ * @see STATIC_SELECTION_DIV
+ * @see CSS_CLASS_NAME_SELECTED
+ */
+function selectParentComponentStatic() {
+	let selectedComponent = document.querySelector(
+		"." + CSS_CLASS_NAME_SELECTED
+	);
+
+	if (
+		selectedComponent !== null &&
+		selectedComponent.parentElement !== null &&
+		STATIC_SELECTION_DIV.includes(
+			selectedComponent.parentElement.closest("section").id
+		)
+	) {
+		selectedComponent = selectedComponent.parentElement;
+		selectMode = true;
+		addBorderToComponentStatic(selectedComponent);
+	}
+}
+
+/**
  * Select the child of the current component
  */
 function selectChildComponent() {
@@ -247,6 +292,30 @@ function selectChildComponent() {
 		return;
 	currentComponent = currentComponent.firstElementChild;
 	selectCurrentComponent();
+}
+
+/**
+ * Select the child of the component with the class CSS_CLASS_NAME_SELECTED if one of his parents it in the STATIC_SELECTION_DIV array
+ *
+ * @see STATIC_SELECTION_DIV
+ * @see CSS_CLASS_NAME_SELECTED
+ */
+function selectChildComponentStatic() {
+	let selectedComponent = document.querySelector(
+		"." + CSS_CLASS_NAME_SELECTED
+	);
+
+	if (
+		selectedComponent !== null &&
+		selectedComponent.firstElementChild !== null &&
+		STATIC_SELECTION_DIV.includes(
+			selectedComponent.firstElementChild.closest("section").id
+		)
+	) {
+		selectedComponent = selectedComponent.firstElementChild;
+		selectMode = true;
+		addBorderToComponentStatic(selectedComponent);
+	}
 }
 
 /**
@@ -263,6 +332,30 @@ function selectPreviousSiblingComponent() {
 }
 
 /**
+ * Select the previous sibling of the component with the class CSS_CLASS_NAME_SELECTED if one of his parents it in the STATIC_SELECTION_DIV array
+ *
+ * @see STATIC_SELECTION_DIV
+ * @see CSS_CLASS_NAME_SELECTED
+ */
+function selectPreviousSiblingComponentStatic() {
+	let selectedComponent = document.querySelector(
+		"." + CSS_CLASS_NAME_SELECTED
+	);
+
+	if (
+		selectedComponent !== null &&
+		selectedComponent.previousElementSibling !== null &&
+		STATIC_SELECTION_DIV.includes(
+			selectedComponent.previousElementSibling.closest("section").id
+		)
+	) {
+		selectedComponent = selectedComponent.previousElementSibling;
+		selectMode = true;
+		addBorderToComponentStatic(selectedComponent);
+	}
+}
+
+/**
  * Select the next sibling of the current component
  */
 function selectNextSiblingComponent() {
@@ -270,6 +363,30 @@ function selectNextSiblingComponent() {
 		return;
 	currentComponent = currentComponent.nextElementSibling;
 	selectCurrentComponent();
+}
+
+/**
+ * Select the next sibling of the component with the class CSS_CLASS_NAME_SELECTED if one of his parents it in the STATIC_SELECTION_DIV array
+ *
+ * @see STATIC_SELECTION_DIV
+ * @see CSS_CLASS_NAME_SELECTED
+ */
+function selectNextSiblingComponentStatic() {
+	let selectedComponent = document.querySelector(
+		"." + CSS_CLASS_NAME_SELECTED
+	);
+
+	if (
+		selectedComponent !== null &&
+		selectedComponent.nextElementSibling !== null &&
+		STATIC_SELECTION_DIV.includes(
+			selectedComponent.nextElementSibling.closest("section").id
+		)
+	) {
+		selectedComponent = selectedComponent.nextElementSibling;
+		selectMode = true;
+		addBorderToComponentStatic(selectedComponent);
+	}
 }
 
 /**
@@ -316,6 +433,11 @@ function selectCurrentComponent() {
 function addBorderToCurrentComponent() {
 	removeAllBorder();
 	currentComponent.classList.add(CSS_CLASS_NAME_SELECTED);
+}
+
+function addBorderToComponentStatic(component) {
+	removeAllBorder();
+	component.classList.add(CSS_CLASS_NAME_SELECTED);
 }
 
 /**
