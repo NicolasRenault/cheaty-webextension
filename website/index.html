@@ -288,6 +288,7 @@
 										type="password"
 										value="I'm hidden"
 										class="cheaty-selected-static w-[80%] items-center justify-center px-2 text-lg sm:w-[60%]"
+										tabindex="-1"
 									/>
 									<label
 										for="password_example_static"
@@ -355,8 +356,13 @@
 							</div>
 						</div>
 					</section>
-					<section id="selection_mode_example_static">
-						<p class="text-xl font-semibold">Selection mode</p>
+					<section
+						id="selection_mode_example_static"
+						class="cheaty_cursor"
+					>
+						<p id="selection_mode" class="text-xl font-semibold">
+							Selection mode
+						</p>
 						<div class="mt-5 px-5">
 							<div>
 								<p class="my-1 text-xl font-medium">
@@ -412,7 +418,7 @@
 						</div>
 					</section>
 					<section>
-						<p class="text-xl font-semibold">Popup</p>
+						<p class="text-xl font-semibold" id="popup">Popup</p>
 						<div class="mt-5 px-5">
 							<div>
 								<p class="my-1 text-xl font-medium">
@@ -422,6 +428,7 @@
 									You can open the extension popup by clicking
 									on
 									<img
+										id="extension-logo"
 										src="/cheaty-logo.png"
 										alt="Cheaty logo to open the popup"
 										class="mt-[-2px] inline-block h-6 w-6"
@@ -431,12 +438,210 @@
 								<p class="my-1 text-xl font-medium">
 									Revert your changes
 								</p>
-								<p class="my-1 text-lg">
+								<p
+									id="popup-input-paragraphe"
+									class="my-1 text-lg"
+								>
 									You can find all the components you updated
 									with the extension in the popup. For each
 									one of your changes you can revert it by
 									clicking on the buttons next to it.
 								</p>
+								<div
+									id="cheaty_popup_container"
+									class="relative mx-5 mt-5 w-[318px]"
+								>
+									<header>
+										<h1>
+											<a
+												title="Cheaty"
+												href="https://cheaty.nicolasrenault.com/"
+												target="_blank"
+												tabindex="-1"
+											>
+												Cheaty
+											</a>
+										</h1>
+										<div id="cheaty_header_links">
+											<a
+												title="Selection"
+												href="https://cheaty.nicolasrenault.com/#section-mode"
+												tabindex="-1"
+											>
+												<svg
+													xmlns="http://www.w3.org/2000/svg"
+													width="32"
+													height="32"
+													viewBox="0 0 256 256"
+												>
+													<path
+														fill="currentColor"
+														d="m230.14 70.54l-44.68-44.69a20 20 0 0 0-28.29 0L33.86 149.17A19.85 19.85 0 0 0 28 163.31V208a20 20 0 0 0 20 20h44.69a19.86 19.86 0 0 0 14.14-5.86L230.14 98.82a20 20 0 0 0 0-28.28ZM91 204H52v-39l84-84l39 39Zm101-101l-39-39l18.34-18.34l39 39Z"
+													/>
+												</svg>
+											</a>
+											<a
+												title="Parameters"
+												href="https://github.com/NicolasRenault/cheaty-webextention#inspector-mode"
+												target="_blank"
+												tabindex="-1"
+											>
+												<svg
+													xmlns="http://www.w3.org/2000/svg"
+													width="32"
+													height="32"
+													viewBox="0 0 24 24"
+												>
+													<path
+														fill="currentColor"
+														d="M19.43 12.98c.04-.32.07-.64.07-.98c0-.34-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46a.5.5 0 0 0-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65A.488.488 0 0 0 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1a.566.566 0 0 0-.18-.03c-.17 0-.34.09-.43.25l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98c0 .33.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46a.5.5 0 0 0 .61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.06.02.12.03.18.03c.17 0 .34-.09.43-.25l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zm-1.98-1.71c.04.31.05.52.05.73c0 .21-.02.43-.05.73l-.14 1.13l.89.7l1.08.84l-.7 1.21l-1.27-.51l-1.04-.42l-.9.68c-.43.32-.84.56-1.25.73l-1.06.43l-.16 1.13l-.2 1.35h-1.4l-.19-1.35l-.16-1.13l-1.06-.43c-.43-.18-.83-.41-1.23-.71l-.91-.7l-1.06.43l-1.27.51l-.7-1.21l1.08-.84l.89-.7l-.14-1.13c-.03-.31-.05-.54-.05-.74s.02-.43.05-.73l.14-1.13l-.89-.7l-1.08-.84l.7-1.21l1.27.51l1.04.42l.9-.68c.43-.32.84-.56 1.25-.73l1.06-.43l.16-1.13l.2-1.35h1.39l.19 1.35l.16 1.13l1.06.43c.43.18.83.41 1.23.71l.91.7l1.06-.43l1.27-.51l.7 1.21l-1.07.85l-.89.7l.14 1.13zM12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4s4-1.79 4-4s-1.79-4-4-4zm0 6c-1.1 0-2-.9-2-2s.9-2 2-2s2 .9 2 2s-.9 2-2 2z"
+													/>
+												</svg>
+											</a>
+											<a
+												title="About"
+												href="https://cheaty.nicolasrenault.com"
+												target="_blank"
+												tabindex="-1"
+											>
+												<svg
+													xmlns="http://www.w3.org/2000/svg"
+													width="32"
+													height="32"
+													viewBox="0 0 24 24"
+												>
+													<path
+														fill="currentColor"
+														d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5c0-2.21-1.79-4-4-4z"
+													/>
+												</svg>
+											</a>
+										</div>
+									</header>
+									<section id="cheaty_main">
+										<ul id="cheaty_component_list">
+											<li>
+												<button
+													title="Select element"
+													class="text_container"
+													data-target_id="popup"
+													data-action="revert-select"
+													tabindex="-1"
+												>
+													<span>1.</span><span>p</span
+													><span>#popup</span>
+												</button>
+												<div class="button_container">
+													<button
+														title="Hide element"
+														data-target_id="popup"
+														data-action="revert-hide"
+														tabindex="-1"
+													>
+														<svg
+															xmlns="http://www.w3.org/2000/svg"
+															width="32"
+															height="32"
+															viewBox="0 0 24 24"
+														>
+															<path
+																fill="#98f79899"
+																d="M12 6a9.77 9.77 0 0 1 8.82 5.5C19.17 14.87 15.79 17 12 17s-7.17-2.13-8.82-5.5A9.77 9.77 0 0 1 12 6m0-2C7 4 2.73 7.11 1 11.5C2.73 15.89 7 19 12 19s9.27-3.11 11-7.5C21.27 7.11 17 4 12 4zm0 5a2.5 2.5 0 0 1 0 5a2.5 2.5 0 0 1 0-5m0-2c-2.48 0-4.5 2.02-4.5 4.5S9.52 16 12 16s4.5-2.02 4.5-4.5S14.48 7 12 7z"
+															></path>
+														</svg>
+													</button>
+												</div>
+											</li>
+											<li>
+												<button
+													title="Select element"
+													class="text_container"
+													data-target_id="popup-input-paragraphe"
+													data-action="revert-select"
+													tabindex="-1"
+												>
+													<span>2.</span><span>p</span
+													><span
+														>#popup-input-paragraphe</span
+													>
+												</button>
+												<div class="button_container">
+													<button
+														title="Hide element"
+														data-target_id="popup-input-paragraphe"
+														data-action="revert-hide"
+														tabindex="-1"
+													>
+														<svg
+															xmlns="http://www.w3.org/2000/svg"
+															width="32"
+															height="32"
+															viewBox="0 0 24 24"
+														>
+															<path
+																fill="#98f79899"
+																d="M12 6a9.77 9.77 0 0 1 8.82 5.5C19.17 14.87 15.79 17 12 17s-7.17-2.13-8.82-5.5A9.77 9.77 0 0 1 12 6m0-2C7 4 2.73 7.11 1 11.5C2.73 15.89 7 19 12 19s9.27-3.11 11-7.5C21.27 7.11 17 4 12 4zm0 5a2.5 2.5 0 0 1 0 5a2.5 2.5 0 0 1 0-5m0-2c-2.48 0-4.5 2.02-4.5 4.5S9.52 16 12 16s4.5-2.02 4.5-4.5S14.48 7 12 7z"
+															></path>
+														</svg></button
+													><button
+														title="Show password"
+														data-target_id="popup-input-paragraphe"
+														data-action="revert-password"
+														data-value="You can find all the components you updated with the extension in the popup. For each one of your changes you can revert it by clicking on the buttons next to it."
+														tabindex="-1"
+													>
+														<svg
+															xmlns="http://www.w3.org/2000/svg"
+															width="32"
+															height="32"
+															viewBox="0 0 24 24"
+														>
+															<path
+																fill="#ff000099"
+																d="M2 17h20v2H2v-2zm1.15-4.05L4 11.47l.85 1.48l1.3-.75l-.85-1.48H7v-1.5H5.3l.85-1.47L4.85 7L4 8.47L3.15 7l-1.3.75l.85 1.47H1v1.5h1.7l-.85 1.48l1.3.75zm6.7-.75l1.3.75l.85-1.48l.85 1.48l1.3-.75l-.85-1.48H15v-1.5h-1.7l.85-1.47l-1.3-.75L12 8.47L11.15 7l-1.3.75l.85 1.47H9v1.5h1.7l-.85 1.48zM23 9.22h-1.7l.85-1.47l-1.3-.75L20 8.47L19.15 7l-1.3.75l.85 1.47H17v1.5h1.7l-.85 1.48l1.3.75l.85-1.48l.85 1.48l1.3-.75l-.85-1.48H23v-1.5z"
+															></path>
+														</svg>
+													</button>
+												</div>
+											</li>
+											<li>
+												<button
+													title="Select element"
+													class="text_container"
+													data-target_id="extension-logo"
+													data-action="revert-select"
+													tabindex="-1"
+												>
+													<span>3.</span
+													><span>img</span
+													><span
+														>#extension-logo</span
+													>
+												</button>
+												<div class="button_container">
+													<button
+														title="Hide element"
+														data-target_id="extension-logo"
+														data-action="revert-hide"
+														tabindex="-1"
+													>
+														<svg
+															xmlns="http://www.w3.org/2000/svg"
+															width="32"
+															height="32"
+															viewBox="0 0 24 24"
+														>
+															<path
+																fill="#98f79899"
+																d="M12 6a9.77 9.77 0 0 1 8.82 5.5C19.17 14.87 15.79 17 12 17s-7.17-2.13-8.82-5.5A9.77 9.77 0 0 1 12 6m0-2C7 4 2.73 7.11 1 11.5C2.73 15.89 7 19 12 19s9.27-3.11 11-7.5C21.27 7.11 17 4 12 4zm0 5a2.5 2.5 0 0 1 0 5a2.5 2.5 0 0 1 0-5m0-2c-2.48 0-4.5 2.02-4.5 4.5S9.52 16 12 16s4.5-2.02 4.5-4.5S14.48 7 12 7z"
+															></path>
+														</svg>
+													</button>
+												</div>
+											</li>
+										</ul>
+									</section>
+								</div>
 							</div>
 						</div>
 					</section>
