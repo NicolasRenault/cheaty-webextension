@@ -5,7 +5,7 @@
  *
  */
 
-import "./cheaty-embedded.css";
+import "./cheaty-static.css";
 
 const CSS_CLASS_NAME_SELECTION = "cheaty-selection";
 const CSS_CLASS_NAME_SELECTED = "cheaty-selected";
