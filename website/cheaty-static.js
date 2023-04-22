@@ -29,7 +29,7 @@ const STATIC_BUTTONS = [
 	"cheaty_password_button_example_static",
 	"cheaty_copy_button_example_static",
 	"cheaty_popup_select_static_1",
-	"cheaty_popup_hide_static_1",
+	"cheaty_popup_password_static_1",
 	"cheaty_popup_select_static_2",
 	"cheaty_popup_hide_static_2",
 	"cheaty_popup_select_static_3",
