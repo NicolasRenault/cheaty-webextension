@@ -7,7 +7,7 @@ export default defineConfig({
 			input: {
 				main: resolve(__dirname, "index.html"),
 				download: resolve(__dirname, "download/index.html"),
-				sandbox: resolve(__dirname, "sandbox/index.html"),
+				playground: resolve(__dirname, "playground/index.html"),
 			},
 		},
 	},
