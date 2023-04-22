@@ -217,7 +217,7 @@
 									Hide/Show a component
 								</p>
 								<p class="my-1 text-lg">
-									The "Hide" button allow you to hide or show
+									The "Hide" button allows you to hide or show
 									the HTML component on the page.
 								</p>
 								<div
@@ -309,7 +309,7 @@
 									Copy a component
 								</p>
 								<p class="my-1 text-lg">
-									The "Copy" button allow you to copy the
+									The "Copy" button allows you to copy the
 									outerHTML of the component.
 								</p>
 								<div
@@ -369,8 +369,8 @@
 									Enter selection mode
 								</p>
 								<span class="my-1 text-lg">
-									To start the process and enter in selection
-									mode you have to use the shortcut:
+									To start the process and enter in Selection
+									Mode you have to use the shortcut:
 									<span class="whitespace-nowrap">
 										<kdb
 											class="rounded-lg border px-2 py-1.5 text-sm font-medium"
@@ -411,8 +411,8 @@
 									Once you are in Selection mode, you can pick
 									the HTML component you want by hovering it
 									with your mouse or using the arrow keys. The
-									current component select will be higlighted
-									with a dotted oranged border.
+									current component selected will be
+									highlighted with a dotted orange border.
 								</p>
 							</div>
 						</div>
@@ -451,7 +451,7 @@
 								>
 									You can find all the components you updated
 									with the extension in the popup. For each
-									one of your changes you can revert it by
+									one of your changes, you can revert it by
 									clicking on the buttons next to it.
 								</p>
 								<div
@@ -466,8 +466,9 @@
 										id="popup-input-paragraphe"
 										class="my-1 max-w-full resize-none overflow-hidden break-words bg-primary text-lg"
 										style="opacity: 1"
-										readonly
 										rows="4"
+										readonly
+										tabindex="-1"
 									>
 ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••
 									</textarea
@@ -545,7 +546,10 @@
 										</div>
 									</header>
 									<div id="cheaty_main">
-										<ul id="cheaty_component_list">
+										<ul
+											id="cheaty_component_list"
+											tabindex="-1"
+										>
 											<li>
 												<button
 													id="cheaty_popup_select_static_1"
@@ -690,7 +694,7 @@
 														title="Show password"
 														data-target_id="popup-input-paragraphe"
 														data-action="revert-password"
-														data-value="You can reselect a component on the page by clicking on it's name in the popup."
+														data-value="You can reselect a component on the page by clicking on its name in the popup."
 														tabindex="-1"
 													>
 														<svg
