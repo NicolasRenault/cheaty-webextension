@@ -192,7 +192,7 @@ button:not(:disabled):active {
 	margin: 0 2px;
 }
 #cheaty_component_list li .button_container button:hover {
-	background-color: rgb(var(--cheaty-primary-color));
+	background-color: rgba(var(--hover-color));
 }
 #cheaty_component_list li .button_container button svg {
 	margin: 0;
