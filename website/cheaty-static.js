@@ -41,9 +41,8 @@ const STATIC_BUTTONS = [
 const STATIC_SELECTION_DIV = ["selection_mode_example_static"];
 
 let selectMode = false;
-let globalIndex = 0;
 
-initStaticListeners();
+initListeners();
 
 /**
  * Mandatory listener for the key shortcut
@@ -56,70 +55,69 @@ document.onkeydown = (e) => {
 	if (e.code == "ArrowUp" && selectMode) {
 		// Arrow Up
 		e.preventDefault();
-		selectParentComponentStatic();
+		selectParentComponent();
 	} else if (e.code == "ArrowDown" && selectMode) {
 		// Arrow Down
 		e.preventDefault();
-		selectChildComponentStatic();
+		selectChildComponent();
 	} else if (e.code == "ArrowLeft" && selectMode) {
 		// Arrow Left
 		e.preventDefault();
-		selectPreviousSiblingComponentStatic();
+		selectPreviousSiblingComponent();
 	} else if (e.code == "ArrowRight" && selectMode) {
 		// Arrow Right
 		e.preventDefault();
-		selectNextSiblingComponentStatic();
+		selectNextSiblingComponent();
 	}
 };
 
 document.onmousemove = () => {
-	selectComponentStatic();
+	selectComponent();
 };
 
-function initStaticListeners() {
+function initListeners() {
 	STATIC_BUTTONS.forEach((buttonId) => {
 		let button = document.getElementById(buttonId);
 
 		button.addEventListener("click", (e) => {
 			if (button.dataset.action === "hide") {
-				changeDisplayStaticComponent(
-					button.dataset.target_id,
-					buttonId
-				);
+				changeOpacityComponent(button.dataset.target_id, buttonId);
 			} else if (button.dataset.action === "password") {
-				changePasswordTypeStaticComponent(
+				changePasswordTypeComponent(
 					button.dataset.target_id,
 					button.dataset.value,
 					buttonId,
+					false,
 					button.dataset.type_detail_id
 				);
 			} else if (button.dataset.action === "copy") {
 				if (button.dataset.copy_target !== undefined) {
-					copyExampleStaticComponent(
+					copyExampleComponent(
 						button.dataset.target_id,
 						button.dataset.copy_target,
 						buttonId
 					);
 				} else {
-					copyStaticComponent(button.dataset.target_id, buttonId);
+					copyComponent(button.dataset.target_id, buttonId);
 				}
 			} else if (button.dataset.action === "revert-select") {
-				selectComponentTempStatic(button.dataset.target_id);
+				selectComponentTemp(button.dataset.target_id);
 			} else if (button.dataset.action === "revert-hide") {
-				changeDisplayComponentFromPopup(
+				changeOpacityComponentFromPopup(
 					button.dataset.target_id,
 					buttonId
 				);
 			} else if (button.dataset.action === "revert-hide-hard") {
-				changeHardDisplayComponentFromPopup(
+				changeDisplayComponentFromPopup(
 					button.dataset.target_id,
 					buttonId
 				);
 			} else if (button.dataset.action === "revert-password") {
-				changePasswordTypeStaticComponentFromPopup(
+				changePasswordTypeComponent(
 					button.dataset.target_id,
 					button.dataset.value,
 					buttonId,
+					true,
 					button.dataset.type_detail_id
 				);
 			}
@@ -132,7 +130,7 @@ function initStaticListeners() {
  *
  * @see STATIC_SELECTION_DIV
  */
-function selectComponentStatic() {
+function selectComponent() {
 	let hovers = document.querySelectorAll(":hover");
 
 	if (hovers.length !== 0) {
@@ -143,7 +141,7 @@ function selectComponentStatic() {
 			STATIC_SELECTION_DIV.includes(hover.closest("section").id)
 		) {
 			selectMode = true;
-			addBorderToComponentStatic(hover);
+			addBorderToComponent(hover);
 		} else {
 			selectMode = false;
 			removeAllBorder();
@@ -156,7 +154,7 @@ function selectComponentStatic() {
  *
  * @param {string} id
  */
-function selectComponentTempStatic(id) {
+function selectComponentTemp(id) {
 	let component = document.getElementById(id);
 
 	if (
@@ -178,7 +176,7 @@ function selectComponentTempStatic(id) {
  * @see STATIC_SELECTION_DIV
  * @see CSS_CLASS_NAME_SELECTED
  */
-function selectParentComponentStatic() {
+function selectParentComponent() {
 	let selectedComponent = document.querySelector(
 		"." + CSS_CLASS_NAME_SELECTED
 	);
@@ -192,7 +190,7 @@ function selectParentComponentStatic() {
 	) {
 		selectedComponent = selectedComponent.parentElement;
 		selectMode = true;
-		addBorderToComponentStatic(selectedComponent);
+		addBorderToComponent(selectedComponent);
 	}
 }
 
@@ -202,7 +200,7 @@ function selectParentComponentStatic() {
  * @see STATIC_SELECTION_DIV
  * @see CSS_CLASS_NAME_SELECTED
  */
-function selectChildComponentStatic() {
+function selectChildComponent() {
 	let selectedComponent = document.querySelector(
 		"." + CSS_CLASS_NAME_SELECTED
 	);
@@ -216,7 +214,7 @@ function selectChildComponentStatic() {
 	) {
 		selectedComponent = selectedComponent.firstElementChild;
 		selectMode = true;
-		addBorderToComponentStatic(selectedComponent);
+		addBorderToComponent(selectedComponent);
 	}
 }
 
@@ -226,7 +224,7 @@ function selectChildComponentStatic() {
  * @see STATIC_SELECTION_DIV
  * @see CSS_CLASS_NAME_SELECTED
  */
-function selectPreviousSiblingComponentStatic() {
+function selectPreviousSiblingComponent() {
 	let selectedComponent = document.querySelector(
 		"." + CSS_CLASS_NAME_SELECTED
 	);
@@ -240,7 +238,7 @@ function selectPreviousSiblingComponentStatic() {
 	) {
 		selectedComponent = selectedComponent.previousElementSibling;
 		selectMode = true;
-		addBorderToComponentStatic(selectedComponent);
+		addBorderToComponent(selectedComponent);
 	}
 }
 
@@ -250,7 +248,7 @@ function selectPreviousSiblingComponentStatic() {
  * @see STATIC_SELECTION_DIV
  * @see CSS_CLASS_NAME_SELECTED
  */
-function selectNextSiblingComponentStatic() {
+function selectNextSiblingComponent() {
 	let selectedComponent = document.querySelector(
 		"." + CSS_CLASS_NAME_SELECTED
 	);
@@ -264,11 +262,11 @@ function selectNextSiblingComponentStatic() {
 	) {
 		selectedComponent = selectedComponent.nextElementSibling;
 		selectMode = true;
-		addBorderToComponentStatic(selectedComponent);
+		addBorderToComponent(selectedComponent);
 	}
 }
 
-function addBorderToComponentStatic(component) {
+function addBorderToComponent(component) {
 	removeAllBorder();
 	component.classList.add(CSS_CLASS_NAME_SELECTED);
 }
@@ -283,44 +281,13 @@ function removeAllBorder() {
 }
 
 /**
- * Update the action menu button by action
- *
- * @param {HTMLElement} component
- * @param {string} action
- */
-function updateActionButtonsState(component, action) {
-	if (document.getElementById(ACTION_BUTTON_CONTAINER_ID) != null) {
-		if (action === "hide") {
-			if (component.hidden) {
-				document.getElementById(HIDE_BUTTON_ID).innerText = "Show";
-			} else {
-				document.getElementById(HIDE_BUTTON_ID).innerText = "Hide";
-			}
-		} else if (
-			action === "password" &&
-			document.getElementById(PASSWORD_BUTTON_ID) !== null
-		) {
-			if (component.type == "password") {
-				document.getElementById(PASSWORD_BUTTON_ID).innerText =
-					"Show password";
-			} else {
-				document.getElementById(PASSWORD_BUTTON_ID).innerText =
-					"Hide as password";
-			}
-		} else if (action === "copy") {
-			document.getElementById(COPY_BUTTON_ID).innerText = "Copied";
-		}
-	}
-}
-
-/**
  * Update an action menu button by it's ID and action
  *
  * @param {HTMLElement} component
  * @param {string} buttonId
  * @param {string} action
  */
-function updateStaticActionButtonsState(component, buttonId, action) {
+function updateActionButtonsState(component, buttonId, action) {
 	if (document.getElementById(buttonId) != null) {
 		if (action === "hide") {
 			if (component.style.opacity == 0) {
@@ -414,7 +381,7 @@ function updatePopupButton(buttonId, action, status) {
  * @param {HTMLElement} componentId
  * @param {string} buttonId
  */
-function changeDisplayStaticComponent(componentId, buttonId) {
+function changeOpacityComponent(componentId, buttonId) {
 	let component = document.getElementById(componentId);
 	if (component.style.opacity == 1) {
 		component.style.opacity = 0;
@@ -422,7 +389,7 @@ function changeDisplayStaticComponent(componentId, buttonId) {
 		component.style.opacity = 1;
 	}
 
-	updateStaticActionButtonsState(component, buttonId, "hide");
+	updateActionButtonsState(component, buttonId, "hide");
 }
 
 /**
@@ -432,7 +399,7 @@ function changeDisplayStaticComponent(componentId, buttonId) {
  * @param {HTMLElement} componentId
  * @param {string} buttonId
  */
-function changeDisplayComponentFromPopup(componentId, buttonId) {
+function changeOpacityComponentFromPopup(componentId, buttonId) {
 	let component = document.getElementById(componentId);
 	let status = undefined;
 
@@ -454,7 +421,7 @@ function changeDisplayComponentFromPopup(componentId, buttonId) {
  * @param {HTMLElement} componentId
  * @param {string} buttonId
  */
-function changeHardDisplayComponentFromPopup(componentId, buttonId) {
+function changeDisplayComponentFromPopup(componentId, buttonId) {
 	let component = document.getElementById(componentId);
 
 	component.hidden = !component.hidden;
@@ -467,67 +434,18 @@ function changeHardDisplayComponentFromPopup(componentId, buttonId) {
  * Hide/show the text input for the component in param by setting the input type to password or it's old value
  * Call the method updateStaticActionButtonsState for a button by it's ID
  *
- * @see updateStaticActionButtonsState
+ * @see updateActionButtonsState
  * @param {string} componentId
  * @param {string} value
  * @param {string} buttonId
+ * @
  * @param {string} type_detail_id
  */
-function changePasswordTypeStaticComponent(
+function changePasswordTypeComponent(
 	componentId,
 	value,
 	buttonId,
-	type_detail_id
-) {
-	let component = document.getElementById(componentId);
-
-	if (component.tagName === "INPUT") {
-		if (component.type == "password") {
-			if (
-				component.dataset.cheaty_password_default === "password" ||
-				component.dataset.cheaty_password_default === undefined
-			) {
-				component.type = "text";
-			} else {
-				component.type = component.dataset.cheaty_password_default;
-			}
-		} else {
-			component.type = "password";
-		}
-	} else {
-		if (component.innerText === value) {
-			component.innerText = "•".repeat(value.length + 2);
-		} else {
-			component.innerText = value;
-		}
-	}
-
-	updateStaticActionButtonsState(component, buttonId, "password");
-
-	/**
-	 * Custom code to update the type detail of the component for the static example
-	 */
-	if (type_detail_id !== undefined) {
-		let typeDetail = document.getElementById(type_detail_id);
-
-		typeDetail.innerHTML = component.type;
-	}
-}
-
-/**
- * Hide/show the text input for the component in param by setting the input type to password or it's old value
- * Call the method updateStaticActionButtonsState for a button by it's ID
- *
- * @see updateStaticActionButtonsState
- * @param {string} componentId
- * @param {string} value
- * @param {string} buttonId
- * @param {string} type_detail_id
- */
-function changePasswordTypeStaticComponentFromPopup(
-	componentId,
-	value,
-	buttonId,
+	popup,
 	type_detail_id
 ) {
 	let component = document.getElementById(componentId);
@@ -565,7 +483,11 @@ function changePasswordTypeStaticComponentFromPopup(
 		}
 	}
 
-	updatePopupButton(buttonId, "password", status);
+	if (popup) {
+		updatePopupButton(buttonId, "password", status);
+	} else {
+		updateActionButtonsState(component, buttonId, "password");
+	}
 
 	/**
 	 * Custom code to update the type detail of the component for the static example
@@ -579,12 +501,12 @@ function changePasswordTypeStaticComponentFromPopup(
 
 /**
  * Copy the component to the clipboard
- * Call the method updateStaticActionButtonsState for a button by
+ * Call the method updateStaticActionButtonsState for a button by id
  *
  * @param {string} componentId
  * @param {string} buttonId
  */
-function copyStaticComponent(componentId, buttonId) {
+function copyComponent(componentId, buttonId) {
 	try {
 		//Copy to the clipboard
 		navigator.clipboard
@@ -596,7 +518,7 @@ function copyStaticComponent(componentId, buttonId) {
 				throw new Error(err);
 			});
 
-		updateStaticActionButtonsState(
+		updateActionButtonsState(
 			document.getElementById(componentId),
 			buttonId,
 			"copy"
@@ -606,12 +528,21 @@ function copyStaticComponent(componentId, buttonId) {
 			error,
 			"copyComponent",
 			"Copying currentComponent to the clipboard",
-			"avigator.clipboard.writeText"
+			"navigator.clipboard.writeText"
 		);
 	}
 }
 
-function copyExampleStaticComponent(componentId, targetId, buttonId) {
+/**
+ * Copy the component to the clipboard
+ * Call the method updateStaticActionButtonsState for a button by id
+ * Display the targetId element
+ *
+ * @param {string} componentId
+ * @param {string} targetId
+ * @param {string} buttonId
+ */
+function copyExampleComponent(componentId, targetId, buttonId) {
 	let target = document.getElementById(targetId);
 
 	target.hidden = false;
@@ -627,7 +558,7 @@ function copyExampleStaticComponent(componentId, targetId, buttonId) {
 				throw new Error(err);
 			});
 
-		updateStaticActionButtonsState(
+		updateActionButtonsState(
 			document.getElementById(componentId),
 			buttonId,
 			"copy-example"
@@ -637,7 +568,7 @@ function copyExampleStaticComponent(componentId, targetId, buttonId) {
 			error,
 			"copyComponent",
 			"Copying currentComponent to the clipboard",
-			"avigator.clipboard.writeText"
+			"navigator.clipboard.writeText"
 		);
 	}
 }
