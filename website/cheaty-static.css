@@ -3,6 +3,7 @@
 	--cheaty-secondary-color: 65, 90, 119;
 	--cheaty-termary-color: 13, 27, 42;
 	--cheaty-text-color: 224, 225, 221;
+	--hover-color: 255, 255, 255, 0.2;
 }
 
 .cheaty_cursor,
@@ -226,7 +227,7 @@
 	margin: 0 2px;
 }
 #cheaty_component_list li .button_container button:hover {
-	background-color: rgb(var(--cheaty-primary-color));
+	background-color: rgba(var(--hover-color));
 }
 #cheaty_component_list li .button_container button svg {
 	margin: 0;

@@ -418,7 +418,13 @@
 						</div>
 					</section>
 					<section>
-						<p class="text-xl font-semibold" id="popup">Popup</p>
+						<p
+							class="text-xl font-semibold"
+							id="popup"
+							style="opacity: 1"
+						>
+							Popup
+						</p>
 						<div class="mt-5 px-5">
 							<div>
 								<p class="my-1 text-xl font-medium">
@@ -432,6 +438,7 @@
 										src="/cheaty-logo.png"
 										alt="Cheaty logo to open the popup"
 										class="mt-[-2px] inline-block h-6 w-6"
+										style="opacity: 1"
 									/>
 									in the extension bar of your browser.
 								</p>
@@ -439,14 +446,33 @@
 									Revert your changes
 								</p>
 								<p
-									id="popup-input-paragraphe"
-									class="my-1 text-lg"
+									class="my-1 break-words text-lg"
+									style="opacity: 1"
 								>
 									You can find all the components you updated
 									with the extension in the popup. For each
 									one of your changes you can revert it by
 									clicking on the buttons next to it.
 								</p>
+								<div
+									id="re-select"
+									class="mb-[-1rem]"
+									hidden="true"
+								>
+									<p class="my-1 text-xl font-medium">
+										Re-Select component
+									</p>
+									<textarea
+										id="popup-input-paragraphe"
+										class="my-1 max-w-full resize-none overflow-hidden break-words bg-primary text-lg"
+										style="opacity: 1"
+										readonly
+										rows="4"
+									>
+••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••
+									</textarea
+									>
+								</div>
 								<div
 									id="cheaty_popup_container"
 									class="relative mx-5 mt-5 w-[318px]"
@@ -518,10 +544,11 @@
 											</a>
 										</div>
 									</header>
-									<section id="cheaty_main">
+									<div id="cheaty_main">
 										<ul id="cheaty_component_list">
 											<li>
 												<button
+													id="cheaty_popup_select_static_1"
 													title="Select element"
 													class="text_container"
 													data-target_id="popup"
@@ -533,6 +560,7 @@
 												</button>
 												<div class="button_container">
 													<button
+														id="cheaty_popup_hide_static_1"
 														title="Hide element"
 														data-target_id="popup"
 														data-action="revert-hide"
@@ -554,65 +582,14 @@
 											</li>
 											<li>
 												<button
-													title="Select element"
-													class="text_container"
-													data-target_id="popup-input-paragraphe"
-													data-action="revert-select"
-													tabindex="-1"
-												>
-													<span>2.</span><span>p</span
-													><span
-														>#popup-input-paragraphe</span
-													>
-												</button>
-												<div class="button_container">
-													<button
-														title="Hide element"
-														data-target_id="popup-input-paragraphe"
-														data-action="revert-hide"
-														tabindex="-1"
-													>
-														<svg
-															xmlns="http://www.w3.org/2000/svg"
-															width="32"
-															height="32"
-															viewBox="0 0 24 24"
-														>
-															<path
-																fill="#98f79899"
-																d="M12 6a9.77 9.77 0 0 1 8.82 5.5C19.17 14.87 15.79 17 12 17s-7.17-2.13-8.82-5.5A9.77 9.77 0 0 1 12 6m0-2C7 4 2.73 7.11 1 11.5C2.73 15.89 7 19 12 19s9.27-3.11 11-7.5C21.27 7.11 17 4 12 4zm0 5a2.5 2.5 0 0 1 0 5a2.5 2.5 0 0 1 0-5m0-2c-2.48 0-4.5 2.02-4.5 4.5S9.52 16 12 16s4.5-2.02 4.5-4.5S14.48 7 12 7z"
-															></path>
-														</svg></button
-													><button
-														title="Show password"
-														data-target_id="popup-input-paragraphe"
-														data-action="revert-password"
-														data-value="You can find all the components you updated with the extension in the popup. For each one of your changes you can revert it by clicking on the buttons next to it."
-														tabindex="-1"
-													>
-														<svg
-															xmlns="http://www.w3.org/2000/svg"
-															width="32"
-															height="32"
-															viewBox="0 0 24 24"
-														>
-															<path
-																fill="#ff000099"
-																d="M2 17h20v2H2v-2zm1.15-4.05L4 11.47l.85 1.48l1.3-.75l-.85-1.48H7v-1.5H5.3l.85-1.47L4.85 7L4 8.47L3.15 7l-1.3.75l.85 1.47H1v1.5h1.7l-.85 1.48l1.3.75zm6.7-.75l1.3.75l.85-1.48l.85 1.48l1.3-.75l-.85-1.48H15v-1.5h-1.7l.85-1.47l-1.3-.75L12 8.47L11.15 7l-1.3.75l.85 1.47H9v1.5h1.7l-.85 1.48zM23 9.22h-1.7l.85-1.47l-1.3-.75L20 8.47L19.15 7l-1.3.75l.85 1.47H17v1.5h1.7l-.85 1.48l1.3.75l.85-1.48l.85 1.48l1.3-.75l-.85-1.48H23v-1.5z"
-															></path>
-														</svg>
-													</button>
-												</div>
-											</li>
-											<li>
-												<button
+													id="cheaty_popup_select_static_2"
 													title="Select element"
 													class="text_container"
 													data-target_id="extension-logo"
 													data-action="revert-select"
 													tabindex="-1"
 												>
-													<span>3.</span
+													<span>2.</span
 													><span>img</span
 													><span
 														>#extension-logo</span
@@ -620,6 +597,7 @@
 												</button>
 												<div class="button_container">
 													<button
+														id="cheaty_popup_hide_static_2"
 														title="Hide element"
 														data-target_id="extension-logo"
 														data-action="revert-hide"
@@ -639,8 +617,98 @@
 													</button>
 												</div>
 											</li>
+											<li>
+												<button
+													id="cheaty_popup_select_static_3"
+													title="Select element"
+													class="text_container"
+													data-target_id="re-select"
+													data-action="revert-select"
+													tabindex="-1"
+												>
+													<span>3.</span
+													><span>div</span
+													><span>#re-select</span>
+												</button>
+												<div class="button_container">
+													<button
+														id="cheaty_popup_hide_static_3"
+														title="Hide element"
+														data-target_id="re-select"
+														data-action="revert-hide-hard"
+														tabindex="-1"
+													>
+														<svg
+															xmlns="http://www.w3.org/2000/svg"
+															width="32"
+															height="32"
+															viewBox="0 0 24 24"
+														>
+															<path
+																fill="#ff000099"
+																d="M12 6a9.77 9.77 0 0 1 8.82 5.5a9.647 9.647 0 0 1-2.41 3.12l1.41 1.41c1.39-1.23 2.49-2.77 3.18-4.53C21.27 7.11 17 4 12 4c-1.27 0-2.49.2-3.64.57l1.65 1.65C10.66 6.09 11.32 6 12 6zm-1.07 1.14L13 9.21c.57.25 1.03.71 1.28 1.28l2.07 2.07c.08-.34.14-.7.14-1.07C16.5 9.01 14.48 7 12 7c-.37 0-.72.05-1.07.14zM2.01 3.87l2.68 2.68A11.738 11.738 0 0 0 1 11.5C2.73 15.89 7 19 12 19c1.52 0 2.98-.29 4.32-.82l3.42 3.42l1.41-1.41L3.42 2.45L2.01 3.87zm7.5 7.5l2.61 2.61c-.04.01-.08.02-.12.02a2.5 2.5 0 0 1-2.5-2.5c0-.05.01-.08.01-.13zm-3.4-3.4l1.75 1.75a4.6 4.6 0 0 0-.36 1.78a4.507 4.507 0 0 0 6.27 4.14l.98.98c-.88.24-1.8.38-2.75.38a9.77 9.77 0 0 1-8.82-5.5c.7-1.43 1.72-2.61 2.93-3.53z"
+															/>
+														</svg>
+													</button>
+												</div>
+											</li>
+											<li>
+												<button
+													id="cheaty_popup_select_static_4"
+													title="Select element"
+													class="text_container"
+													data-target_id="popup-input-paragraphe"
+													data-action="revert-select"
+													tabindex="-1"
+												>
+													<span>4.</span><span>p</span
+													><span
+														>#popup-input-paragraphe</span
+													>
+												</button>
+												<div class="button_container">
+													<button
+														id="cheaty_popup_hide_static_4"
+														title="Hide element"
+														data-target_id="popup-input-paragraphe"
+														data-action="revert-hide"
+														tabindex="-1"
+													>
+														<svg
+															xmlns="http://www.w3.org/2000/svg"
+															width="32"
+															height="32"
+															viewBox="0 0 24 24"
+														>
+															<path
+																fill="#98f79899"
+																d="M12 6a9.77 9.77 0 0 1 8.82 5.5C19.17 14.87 15.79 17 12 17s-7.17-2.13-8.82-5.5A9.77 9.77 0 0 1 12 6m0-2C7 4 2.73 7.11 1 11.5C2.73 15.89 7 19 12 19s9.27-3.11 11-7.5C21.27 7.11 17 4 12 4zm0 5a2.5 2.5 0 0 1 0 5a2.5 2.5 0 0 1 0-5m0-2c-2.48 0-4.5 2.02-4.5 4.5S9.52 16 12 16s4.5-2.02 4.5-4.5S14.48 7 12 7z"
+															></path>
+														</svg></button
+													><button
+														id="cheaty_popup_password_static_4"
+														title="Show password"
+														data-target_id="popup-input-paragraphe"
+														data-action="revert-password"
+														data-value="You can reselect a component on the page by clicking on it's name in the popup."
+														tabindex="-1"
+													>
+														<svg
+															xmlns="http://www.w3.org/2000/svg"
+															width="32"
+															height="32"
+															viewBox="0 0 24 24"
+														>
+															<path
+																fill="#ff000099"
+																d="M2 17h20v2H2v-2zm1.15-4.05L4 11.47l.85 1.48l1.3-.75l-.85-1.48H7v-1.5H5.3l.85-1.47L4.85 7L4 8.47L3.15 7l-1.3.75l.85 1.47H1v1.5h1.7l-.85 1.48l1.3.75zm6.7-.75l1.3.75l.85-1.48l.85 1.48l1.3-.75l-.85-1.48H15v-1.5h-1.7l.85-1.47l-1.3-.75L12 8.47L11.15 7l-1.3.75l.85 1.47H9v1.5h1.7l-.85 1.48zM23 9.22h-1.7l.85-1.47l-1.3-.75L20 8.47L19.15 7l-1.3.75l.85 1.47H17v1.5h1.7l-.85 1.48l1.3.75l.85-1.48l.85 1.48l1.3-.75l-.85-1.48H23v-1.5z"
+															/>
+														</svg>
+													</button>
+												</div>
+											</li>
 										</ul>
-									</section>
+									</div>
 								</div>
 							</div>
 						</div>
