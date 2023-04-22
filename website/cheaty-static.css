@@ -50,6 +50,7 @@
 	-ms-flex-direction: row;
 	flex-direction: row;
 	-ms-flex-pack: distribute;
+	-webkit-box-pack: space-evenly;
 	justify-content: space-evenly;
 	gap: 1rem;
 }
@@ -236,3 +237,10 @@
 	display: inline-flex;
 	height: 25px;
 }
+
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
