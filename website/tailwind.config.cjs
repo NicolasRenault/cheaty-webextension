@@ -18,6 +18,7 @@ module.exports = {
 		},
 		fontFamily: {
 			sans: ["Poppins", "sans-serif"],
+			monospace: ["Roboto Mono", "monospace"],
 		},
 	},
 	plugins: [],
