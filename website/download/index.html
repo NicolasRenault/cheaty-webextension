@@ -8,11 +8,22 @@
 		<title>Download redirection</title>
 		<script type="module" src="./main.js" defer></script>
 	</head>
-	<body class="h-[100vh] w-[100vw] bg-primary text-secondary">
-		<div class="mt-2 flex flex-col gap-2">
+	<body
+		class="flex h-[100vh] w-[100vw] flex-col items-center justify-center bg-primary text-secondary"
+	>
+		<h1 class="mx-2 mt-5 text-center text-xl font-semibold sm:text-4xl">
+			Redirecting to the download page
+		</h1>
+		<p class="mx-2 mb-3 mt-5 text-center text-lg font-semibold sm:text-xl">
+			If you're not redirected automatically, click on the download link
+			below
+		</p>
+		<div
+			class="mt-2 flex flex-col items-center justify-center gap-2 lg:flex-row"
+		>
 			<a
 				id="chrome-download-link"
-				class="flex h-fit w-full flex-nowrap rounded-md bg-primaryDark px-5 py-1 text-center text-lg text-primaryLight hover:bg-tertiary sm:text-2xl"
+				class="flex h-fit w-[252px] flex-nowrap rounded-md bg-primaryDark px-5 py-1 text-center text-lg text-primaryLight hover:bg-tertiary sm:w-[320px] sm:text-2xl"
 				target="_blank"
 				href="https://chrome.google.com/webstore/detail/cheaty/hmnpfcbdneiomcedoanfmddlejilpieh"
 				title="Download for Chrome"
@@ -22,11 +33,11 @@
 					alt="Chrome logo"
 					class="w-[24px] sm:w-[32px]"
 				/>
-				<p class="pl-3">Download on Chrome</p>
+				<p class="pl-3">Download for Chrome</p>
 			</a>
 			<a
 				id="firefox-download-link"
-				class="flex h-fit w-full flex-nowrap rounded-md bg-primaryDark px-5 py-1 text-center text-lg text-primaryLight hover:bg-tertiary sm:text-2xl"
+				class="flex h-fit w-[252px] flex-nowrap rounded-md bg-primaryDark px-5 py-1 text-center text-lg text-primaryLight hover:bg-tertiary sm:w-[320px] sm:text-2xl"
 				target="_blank"
 				href="https://addons.mozilla.org/fr/firefox/addon/cheaty/"
 				title="Download for Firefox"
@@ -36,11 +47,11 @@
 					alt="Firefox logo"
 					class="w-[24px] sm:w-[32px]"
 				/>
-				<p class="pl-3">Download on Firefox</p>
+				<p class="pl-3">Download for Firefox</p>
 			</a>
 			<a
 				id="edge-download-link"
-				class="flex h-fit w-full flex-nowrap rounded-md bg-primaryDark px-5 py-1 text-center text-lg text-primaryLight hover:bg-tertiary sm:text-2xl"
+				class="flex h-fit w-[252px] flex-nowrap rounded-md bg-primaryDark px-5 py-1 text-center text-lg text-primaryLight hover:bg-tertiary sm:w-[320px] sm:text-2xl"
 				target="_blank"
 				href="https://microsoftedge.microsoft.com/addons/detail/cheaty/nfahmchdficdjoboiofifeakpngggaho"
 				title="Download for Edge"
@@ -50,8 +61,15 @@
 					alt="Edge logo"
 					class="w-[24px] sm:w-[32px]"
 				/>
-				<p class="pl-3">Download on Edge</p>
+				<p class="pl-3">Download for Edge</p>
 			</a>
 		</div>
+		<a
+			href="https://cheaty.nicolasrenault.com"
+			title="Cheaty home page"
+			class="absolute bottom-5 border-spacing-3 text-center text-lg font-bold underline"
+		>
+			Back to home page
+		</a>
 	</body>
 </html>

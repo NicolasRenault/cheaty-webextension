@@ -7,7 +7,7 @@ const FIREFOX_LINK = "https://addons.mozilla.org/fr/firefox/addon/cheaty/";
 const EDGE_LINK =
 	"https://microsoftedge.microsoft.com/addons/detail/cheaty/nfahmchdficdjoboiofifeakpngggaho";
 
-// redirectToDownloadPage();
+redirectToDownloadPage();
 
 function redirectToDownloadPage() {
 	let browser = getBrowser();
