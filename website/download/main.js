@@ -1,3 +1,4 @@
+import "./style.css";
 import { getBrowser } from "/browser.js";
 
 const CHROME_LINK =
