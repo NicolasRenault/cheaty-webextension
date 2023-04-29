@@ -10,7 +10,7 @@
     <br />
     <a href="https://cheaty.nicolasrenault.com">Website</a>
     ·
-    <a href="https://cheaty.nicolasrenault.com/sandbox">Demo</a>
+    <a href="https://cheaty.nicolasrenault.com/playground">Demo</a>
     ·
     <a href="https://cheaty.nicolasrenault.com/#download">Download</a>
     ·
