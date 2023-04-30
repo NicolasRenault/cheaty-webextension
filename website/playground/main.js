@@ -14,7 +14,8 @@ tutorialButton.addEventListener("click", () => {
 /**
  * Close the tutorial section
  */
-tutorialSection.addEventListener("click", () => {
+tutorialSection.addEventListener("click", function (e) {
+	if (e.target !== this) return;
 	tutorialSection.hidden = true;
 });
 document.addEventListener("keydown", (e) => {

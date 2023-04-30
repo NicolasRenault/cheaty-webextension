@@ -6,6 +6,42 @@
 
 import "./cheaty_embedded.css";
 
+/**
+ * PLAYGROUND
+ */
+
+const popupButton = document.getElementById("popup-button");
+const popupContainer = document.getElementById("popup-container");
+const optionButton = document.getElementById("cheaty_option_button");
+const optionSection = document.getElementById("option");
+const optionContainer = document.getElementById("option_container");
+
+popupButton.addEventListener("click", () => {
+	popupContainer.hidden = !popupContainer.hidden;
+	//TODO add popup code
+});
+
+optionButton.addEventListener("click", () => {
+	optionSection.hidden = false;
+});
+
+/**
+ * Close the tutorial section
+ */
+optionContainer.addEventListener("click", function (e) {
+	if (e.target !== this) return;
+	optionSection.hidden = true;
+});
+document.addEventListener("keydown", (e) => {
+	if (e.code == "Escape" && !optionSection.hidden) {
+		optionSection.hidden = true;
+	}
+});
+
+/**
+ * CHEATY
+ */
+
 const CSS_CLASS_NAME_SELECTION = "cheaty-selection";
 const CSS_CLASS_NAME_SELECTED = "cheaty-selected";
 const ACTION_BUTTON_CONTAINER_ID = "cheaty_action_button_container";
@@ -23,8 +59,6 @@ const INSPECTOR_INFOS_CONATINER_MAX_WIDTH_SMALL = 300;
 const INSPECTOR_INFOS_CONATINER_MAX_WIDTH_BIG = 500;
 const INSPECTOR_INFOS_CONATINER_MEDIA_MAX_WIDTH = 520;
 const INPUT_TEXT_LIST = ["text", "email", "password", "search", "tel", "url"];
-const popupButton = document.getElementById("popup-button");
-const popupContainer = document.getElementById("popup-container");
 
 let firstInit = true;
 let selectMode = false;
@@ -50,11 +84,6 @@ document.onkeydown = (e) => {
 		initProcess();
 	}
 };
-
-popupButton.addEventListener("click", () => {
-	popupContainer.hidden = !popupContainer.hidden;
-	//TODO add popup code
-});
 
 /**
  * Mandatory listener for listening popup message
@@ -927,3 +956,24 @@ function checkIfNotACheatyElement(element) {
 
 	return cheatyElement.includes(element.id);
 }
+
+/**
+ * POPUP
+ */
+
+/**
+ * OPTION
+ */
+
+/**
+ * Open the tutorial section
+ */
+
+/**
+ * Inspector mode listener
+ */
+// document
+// 	.getElementById("inspector-mode")
+// 	.addEventListener("change", setInspectorMode);
+
+// function setInspectorMode(e) {}

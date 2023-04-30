@@ -10,7 +10,7 @@
 	</head>
 	<body class="relative h-[100vh] w-[100vw] bg-primary text-secondary">
 		<header
-			class="relative top-0 z-40 grid w-full grid-cols-3 items-center border-b border-b-secondary px-5 py-2 text-center"
+			class="sticky top-0 z-40 grid w-full grid-cols-3 items-center border-b border-b-secondary px-5 py-2 text-center"
 		>
 			<div class="left-0 flex justify-start text-2xl">
 				<a
@@ -19,7 +19,9 @@
 					>Go back</a
 				>
 			</div>
-			<h1 class="text-4xl font-bold">Cheaty Playground</h1>
+			<h1 class="whitespace-nowrap text-4xl font-bold">
+				Cheaty Playground
+			</h1>
 			<div class="right-0 flex justify-end">
 				<button
 					id="tutorial-button"
@@ -55,13 +57,7 @@
 					<div id="cheaty_popup_container">
 						<header>
 							<h1>
-								<a
-									title="Cheaty"
-									href="https://cheaty.nicolasrenault.com"
-									target="_blank"
-								>
-									Cheaty
-								</a>
+								<a tabindex="-1" disabled>Cheaty</a>
 							</h1>
 							<div id="cheaty_header_links">
 								<button
@@ -113,11 +109,7 @@
 										/>
 									</svg>
 								</a> -->
-								<a
-									title="About"
-									href="https://cheaty.nicolasrenault.com"
-									target="_blank"
-								>
+								<a tabindex="-1" disabled>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										width="32"
@@ -136,13 +128,11 @@
 							<span id="empty_list" class="visible">
 								There is nothing here at the moment. Select an
 								element on the page using the shortcut
-								<span
-									><p>Ctrl</p>
-									+
-									<p>Alt</p>
-									+
-									<p>N</p></span
-								>
+								<kdb>Ctrl</kdb>
+								+
+								<kdb>Alt</kdb>
+								+
+								<kdb>N</kdb>
 								or click on the
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
@@ -183,14 +173,73 @@
 		</header>
 		<section
 			id="tutorial"
-			class="absolute left-0 top-0 z-50 h-full w-full bg-secondaryDark opacity-80"
-			hidden="false"
+			class="absolute left-0 top-0 z-50 h-full w-full bg-[#000000cc] text-primaryLight"
+			hidden
 		></section>
 		<section
 			id="option"
-			class="absolute left-0 top-0 z-50 h-full w-full bg-secondaryDark opacity-70"
-			hidden="true"
-		></section>
+			class="absolute left-0 top-0 z-50 h-full w-full bg-[#000000cc] text-primaryLight"
+			hidden
+		>
+			<div
+				id="option_container"
+				class="flex h-full w-full items-center justify-center"
+			>
+				<div id="cheaty_option_container">
+					<header>
+						<h1>
+							<a
+								title="Cheaty"
+								href="https://cheaty.nicolasrenault.com"
+								target="_blank"
+							>
+								Cheaty
+							</a>
+						</h1>
+						<!-- <div id="cheaty_header_links">
+							<a
+								title="About"
+								href="https://cheaty.nicolasrenault.com"
+								target="_blank"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="32"
+									height="32"
+									viewBox="0 0 24 24"
+								>
+									<path
+										fill="currentColor"
+										d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5c0-2.21-1.79-4-4-4z"
+									/>
+								</svg>
+							</a>
+						</div> -->
+					</header>
+					<section id="cheaty_main_option">
+						<form>
+							<label for="inspector-mode">
+								<div class="switch">
+									<input
+										type="checkbox"
+										id="inspector-mode"
+									/>
+									<span class="slider"></span>
+								</div>
+								Inspector Mode
+								<sup>
+									<a
+										href="https://github.com/NicolasRenault/cheaty-webextention#inspector-mode"
+										target="_blank"
+										>?</a
+									>
+								</sup>
+							</label>
+						</form>
+					</section>
+				</div>
+			</div>
+		</section>
 		<!-- <section id="playground"></section> -->
 	</body>
 </html>
