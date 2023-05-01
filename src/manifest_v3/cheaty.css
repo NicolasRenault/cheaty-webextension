@@ -1,3 +1,7 @@
+[hidden] {
+	display: none !important;
+}
+
 .cheaty-selected {
 	border-color: transparent;
 	outline: 2px dotted orange !important;
