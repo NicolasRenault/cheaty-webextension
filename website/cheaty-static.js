@@ -339,18 +339,18 @@ function updatePopupButton(buttonId, action, status) {
 	let button = document.getElementById(buttonId);
 	button.innerHTML = "";
 
-	const parser = new DOMParser();
+	const PARSER = new DOMParser();
 
 	if (status === "ON") {
 		if (action === "hide") {
 			button.appendChild(
-				parser.parseFromString(EYE_OPEN_ICON, "image/svg+xml")
+				PARSER.parseFromString(EYE_OPEN_ICON, "image/svg+xml")
 					.documentElement
 			);
 			button.title = "Hide element";
 		} else if (action === "password") {
 			button.appendChild(
-				parser.parseFromString(TEXT_VISIBLE_ICON, "image/svg+xml")
+				PARSER.parseFromString(TEXT_VISIBLE_ICON, "image/svg+xml")
 					.documentElement
 			);
 			button.title = "Hide password";
@@ -358,13 +358,13 @@ function updatePopupButton(buttonId, action, status) {
 	} else if (status === "OFF") {
 		if (action === "hide") {
 			button.appendChild(
-				parser.parseFromString(EYE_CLOSE_ICON, "image/svg+xml")
+				PARSER.parseFromString(EYE_CLOSE_ICON, "image/svg+xml")
 					.documentElement
 			);
 			button.title = "Show element";
 		} else if (action === "password") {
 			button.appendChild(
-				parser.parseFromString(TEXT_NOT_VISIBLE_ICON, "image/svg+xml")
+				PARSER.parseFromString(TEXT_NOT_VISIBLE_ICON, "image/svg+xml")
 					.documentElement
 			);
 			button.title = "Show password";

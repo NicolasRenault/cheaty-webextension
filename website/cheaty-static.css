@@ -6,6 +6,10 @@
 	--hover-color: 255, 255, 255, 0.2;
 }
 
+[hidden] {
+	display: none !important;
+}
+
 .cheaty_cursor,
 .cheaty-selected,
 .cheaty-selected-static {

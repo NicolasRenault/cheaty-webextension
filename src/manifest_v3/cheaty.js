@@ -21,7 +21,6 @@ let selectMode = false;
 let globalIndex = 0;
 let actionMode = false;
 let currentComponent = null;
-let listOfSelected = null;
 let inspectorMode = false;
 
 console.info("Cheaty extension is enable");
