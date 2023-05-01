@@ -49,6 +49,12 @@ document.addEventListener("keydown", (e) => {
 	}
 });
 
+/**
+ * Check if the element is in the playground section
+ *
+ * @param {HTMLEL} element
+ * @returns boolean
+ */
 function isInSelectionStaticDiv(element) {
 	try {
 		return (
@@ -63,6 +69,9 @@ function isInSelectionStaticDiv(element) {
 	}
 }
 
+/**
+ * Stop all process
+ */
 function stopAllProcess() {
 	if (actionMode) stopActionMode();
 	if (selectMode) stop();
@@ -866,6 +875,9 @@ SELECTION_FROM_POPUP_BUTTON.addEventListener("click", (e) => {
 	setTimeout(initProcess, 200);
 });
 
+/**
+ * Get the list of all components that have been updated and display it on the popup
+ */
 function onPopupOpen() {
 	let components = getListOfUpdatedComponents();
 	displayComponents(components);
@@ -1016,6 +1028,11 @@ const INSPECTOR_MODE_SWITCH = document.getElementById("inspector-mode");
  */
 INSPECTOR_MODE_SWITCH.addEventListener("change", setInspectorMode);
 
+/**
+ * Set the inspector mode
+ *
+ * @param {HTMLElement} e
+ */
 function setInspectorMode(e) {
 	inspectorMode = e.target.checked;
 }

@@ -52,6 +52,7 @@ body.cheaty-selected {
 	-ms-flex-direction: row;
 	flex-direction: row;
 	-ms-flex-pack: distribute;
+	-webkit-box-pack: space-evenly;
 	justify-content: space-evenly;
 	gap: 1rem;
 }
@@ -134,9 +135,13 @@ body.cheaty-selected {
 	font-weight: bold;
 }
 #cheaty_popup_container button {
+	-webkit-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
 	transition: all 0.2s ease-in-out;
 }
 #cheaty_popup_container button:not(:disabled):active {
+	-webkit-transform: translateY(2px);
+	-ms-transform: translateY(2px);
 	transform: translateY(2px);
 }
 
