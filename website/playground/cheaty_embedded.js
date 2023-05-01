@@ -40,7 +40,6 @@ OPTION_CONTAINER.addEventListener("click", function (e) {
  */
 document.addEventListener("keydown", (e) => {
 	if (e.code == "Escape") {
-		console.log("escape 1");
 		if (!OPTION_SECTION.hidden) {
 			OPTION_SECTION.hidden = true;
 		} else if (!POPUP_CONTAINER.hidden) {
