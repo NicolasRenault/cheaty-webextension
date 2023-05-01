@@ -6,12 +6,16 @@
 	--hover-color: 255, 255, 255, 0.2;
 }
 
+[hidden] {
+	display: none !important;
+}
+
 .cheaty-selected {
 	border-color: transparent;
 	outline: 2px dotted orange !important;
 	outline-offset: -2px;
 
-	cursor: var(--cheaty-cursor-pen-url), auto !important;
+	cursor: url("../public/cursor_32x32.png"), auto !important;
 }
 body.cheaty-selected {
 	outline-offset: -5px;
@@ -243,7 +247,6 @@ body.cheaty-selected {
 	max-height: 15rem;
 	max-width: 95%;
 	padding-left: 10px;
-	padding-right: 10px;
 	margin-top: 0;
 	scrollbar-color: rgba(var(--hover-color)) rgb(var(--cheaty-termary-color));
 	scrollbar-width: thin;
@@ -315,7 +318,6 @@ body.cheaty-selected {
 	display: -ms-inline-flexbox;
 	display: inline-flex;
 	height: 25px;
-	padding-top: 5px;
 }
 
 #cheaty_error {

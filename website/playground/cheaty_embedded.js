@@ -10,33 +10,63 @@ import "./cheaty_embedded.css";
  * PLAYGROUND
  */
 
-const popupButton = document.getElementById("popup-button");
-const popupContainer = document.getElementById("popup-container");
-const optionButton = document.getElementById("cheaty_option_button");
-const optionSection = document.getElementById("option");
-const optionContainer = document.getElementById("option_container");
+const POPUP_BUTTON = document.getElementById("popup-button");
+const POPUP_CONTAINER = document.getElementById("popup-container");
+const OPTION_BUTTON = document.getElementById("cheaty_option_button");
+const OPTION_SECTION = document.getElementById("option");
+const OPTION_CONTAINER = document.getElementById("option_container");
+const PLAYGROUND_ID = "playground";
+const STATIC_SELECTION_DIV = [PLAYGROUND_ID];
 
-popupButton.addEventListener("click", () => {
-	popupContainer.hidden = !popupContainer.hidden;
-	//TODO add popup code
+POPUP_BUTTON.addEventListener("click", () => {
+	stopAllProcess();
+	POPUP_CONTAINER.hidden = !POPUP_CONTAINER.hidden;
+	onPopupOpen();
 });
-
-optionButton.addEventListener("click", () => {
-	optionSection.hidden = false;
+OPTION_BUTTON.addEventListener("click", () => {
+	OPTION_SECTION.hidden = false;
 });
 
 /**
  * Close the tutorial section
  */
-optionContainer.addEventListener("click", function (e) {
+OPTION_CONTAINER.addEventListener("click", function (e) {
 	if (e.target !== this) return;
-	optionSection.hidden = true;
+	OPTION_SECTION.hidden = true;
 });
+
+/**
+ * Close on escape
+ */
 document.addEventListener("keydown", (e) => {
-	if (e.code == "Escape" && !optionSection.hidden) {
-		optionSection.hidden = true;
+	if (e.code == "Escape") {
+		console.log("escape 1");
+		if (!OPTION_SECTION.hidden) {
+			OPTION_SECTION.hidden = true;
+		} else if (!POPUP_CONTAINER.hidden) {
+			POPUP_CONTAINER.hidden = true;
+		}
 	}
 });
+
+function isInSelectionStaticDiv(element) {
+	try {
+		return (
+			element.id === PLAYGROUND_ID ||
+			STATIC_SELECTION_DIV.includes(element.closest("section").id) ||
+			STATIC_SELECTION_DIV.includes(
+				element.firstElementChild.closest("section").id
+			)
+		);
+	} catch (error) {
+		return STATIC_SELECTION_DIV.includes(element.id);
+	}
+}
+
+function stopAllProcess() {
+	if (actionMode) stopActionMode();
+	if (selectMode) stop();
+}
 
 /**
  * CHEATY
@@ -60,58 +90,88 @@ const INSPECTOR_INFOS_CONATINER_MAX_WIDTH_BIG = 500;
 const INSPECTOR_INFOS_CONATINER_MEDIA_MAX_WIDTH = 520;
 const INPUT_TEXT_LIST = ["text", "email", "password", "search", "tel", "url"];
 
-let firstInit = true;
 let selectMode = false;
 let globalIndex = 0;
 let actionMode = false;
 let currentComponent = null;
-let listOfSelected = null;
 let inspectorMode = false;
 
-console.info("Cheaty extension is enable");
+console.info("Cheaty extension embedded is enable");
 
 /**
- * Mandatory listener for the key shortcut
- * Run only once because overwrited in @initListeners
+ * Init listeners
  *
- * @see initListeners
- * @param {Event} e
  */
 document.onkeydown = (e) => {
-	//Ctr + Alt + N
+	if (selectMode || actionMode) {
+		e.preventDefault();
+	}
+
+	//Ctrl + Alt + N
 	if (e.ctrlKey && e.altKey && e.key == "n") {
-		initOnce();
-		initProcess();
+		if (selectMode) {
+			stop();
+		} else if (actionMode) {
+			stopActionMode();
+		} else {
+			initProcess();
+		}
+	}
+
+	if (e.code == "ArrowUp" && selectMode) {
+		// Arrow Up
+		selectParentComponent();
+	} else if (e.code == "ArrowDown" && selectMode) {
+		// Arrow Down
+		selectChildComponent();
+	} else if (e.code == "ArrowLeft" && selectMode) {
+		// Arrow Left
+		selectPreviousSiblingComponent();
+	} else if (e.code == "ArrowRight" && selectMode) {
+		// Arrow Right
+		selectNextSiblingComponent();
+	} else if (e.code == "Escape" && (selectMode || actionMode)) {
+		// Escape
+		if (!actionMode) {
+			stop();
+		} else {
+			stopActionMode();
+		}
+	} else if (e.code == "Enter" && selectMode) {
+		// Enter
+		if (!actionMode) {
+			initActionMode();
+		}
 	}
 };
 
-/**
- * Mandatory listener for listening popup message
- * Run only once because overwrited in @initListeners
- *
- * @see initListeners
- */
-try {
-	//TODO fix
-	//chrome.runtime.onMessage.addListener((message) => {
-	// 	if (message.command === "cheaty_init_selection") {
-	// 		initOnce();
-	// 		initProcess();
-	// 	}
-	// });
-} catch (error) {
-	errorHandler(
-		error,
-		"initListeners",
-		"Popup message listener subscription",
-		"chrome.runtime.onMessage.addListener"
-	);
-}
+document.onclick = (e) => {
+	if (selectMode || actionMode) {
+		e.preventDefault();
+		if (!actionMode) initActionMode();
+	}
+};
+
+document.onmousemove = () => {
+	if (selectMode && !actionMode) {
+		selectComponent();
+	}
+};
+
+onresize = () => {
+	if (actionMode) {
+		moveActionMenu();
+	} else if (selectMode) {
+		moveInspectorInfosBar();
+	}
+};
 
 /**
  * Init the process
  */
 function initProcess() {
+	if (!POPUP_CONTAINER.hidden) POPUP_CONTAINER.hidden = true;
+
 	selectMode = false;
 	actionMode = false;
 	removeActionMenu();
@@ -119,157 +179,6 @@ function initProcess() {
 	addSelectionClassToBody();
 	selectComponent();
 	initSelectionMode();
-}
-
-/**
- * Run methods only once. Usefull for method that don't need to be trigger before the extension is being used
- */
-function initOnce() {
-	if (firstInit) {
-		initListeners();
-		initStorage();
-		initCursorsVariable();
-
-		firstInit = !firstInit;
-	}
-}
-
-/**
- * Insert cursors custom CSS variables with path url to the page
- */
-function initCursorsVariable() {
-	//TODO fix
-	// let penUrl = "url(" + chrome.runtime.getURL("icons/cursor_32x32.png") + ")";
-	// document.documentElement.style.setProperty(
-	// 	"--cheaty-cursor-pen-url",
-	// 	penUrl
-	// );
-}
-
-/**
- * Init listeners
- */
-function initListeners() {
-	document.onkeydown = (e) => {
-		if (selectMode || actionMode) {
-			e.preventDefault();
-		}
-
-		//Ctrl + Alt + N
-		if (e.ctrlKey && e.altKey && e.key == "n") {
-			if (selectMode) {
-				stop();
-			} else if (actionMode) {
-				stopActionMode();
-			} else {
-				initProcess();
-			}
-		}
-
-		if (e.code == "ArrowUp" && selectMode) {
-			// Arrow Up
-			selectParentComponent();
-		} else if (e.code == "ArrowDown" && selectMode) {
-			// Arrow Down
-			selectChildComponent();
-		} else if (e.code == "ArrowLeft" && selectMode) {
-			// Arrow Left
-			selectPreviousSiblingComponent();
-		} else if (e.code == "ArrowRight" && selectMode) {
-			// Arrow Right
-			selectNextSiblingComponent();
-		} else if (e.code == "Escape" && (selectMode || actionMode)) {
-			// Escape
-			if (!actionMode) {
-				stop();
-			} else {
-				stopActionMode();
-			}
-			//TODO if popup open then close it
-		} else if (e.code == "Enter" && selectMode) {
-			// Enter
-			if (!actionMode) {
-				initActionMode();
-			}
-		}
-	};
-
-	document.onclick = (e) => {
-		if (selectMode || actionMode) {
-			e.preventDefault();
-			if (!actionMode) initActionMode();
-		}
-	};
-
-	document.onmousemove = () => {
-		if (selectMode && !actionMode) {
-			selectComponent();
-		}
-	};
-
-	onresize = () => {
-		if (actionMode) {
-			moveActionMenu();
-		} else if (selectMode) {
-			moveInspectorInfosBar();
-		}
-	};
-
-	try {
-		//TODO fix
-		// chrome.runtime.onMessage.addListener((message) => {
-		// 	if (message.command === "cheaty_get_data") {
-		// 		sendDataToPopup();
-		// 	} else if (message.command === "cheaty_reverse") {
-		// 		revertActionOnComponent(message.componentId, message.action);
-		// 	} else if (message.command === "cheaty_init_selection") {
-		// 		initProcess();
-		// 	} else if (message.command === "cheaty_select") {
-		// 		selectComponentByCheatyId(message.componentId);
-		// 		initActionMode();
-		// 	}
-		// });
-	} catch (error) {
-		errorHandler(
-			error,
-			"initListeners",
-			"Popup message listener subscription",
-			"chrome.runtime.onMessage.addListener"
-		);
-	}
-}
-
-/**
- * Get data from the browser storage
- */
-function initStorage() {
-	try {
-		//TODO fix
-		// chrome.storage.sync.get("inspectorMode", function (items) {
-		// 	if (!chrome.runtime.lastError) {
-		// 		setInspectorMode(items);
-		// 	}
-		// });
-	} catch (error) {
-		errorHandler(
-			error,
-			"initStorage",
-			"Geting data from browser store",
-			"chrome.storage.sync.get"
-		);
-	}
-}
-
-/**
- * Set the inspectorMode value from storage.sync
- *
- * @see inspectorMode
- * @param {Object} item
- */
-function setInspectorMode(item) {
-	if (item.inspectorMode) {
-		inspectorMode = item.inspectorMode;
-	}
 }
 
 /**
@@ -329,8 +238,7 @@ function selectComponent() {
 	let hovers = document.querySelectorAll(":hover");
 
 	if (hovers.length == 0) {
-		if (currentComponent == document.body) return;
-		currentComponent = document.body;
+		currentComponent = document.getElementById(PLAYGROUND_ID);
 	} else {
 		if (currentComponent == hovers.item(hovers.length - 1)) return;
 		currentComponent = hovers.item(hovers.length - 1);
@@ -412,8 +320,11 @@ function removeSelectionClass() {
  * Add visual aspect to the current component
  */
 function selectCurrentComponent() {
-	if (checkIfNotACheatyElement(currentComponent))
-		currentComponent = document.body;
+	if (
+		checkIfNotACheatyElement(currentComponent) ||
+		!isInSelectionStaticDiv(currentComponent)
+	)
+		currentComponent = document.getElementById(PLAYGROUND_ID);
 
 	addBorderToCurrentComponent();
 	removeInspectorInfosBar();
@@ -829,28 +740,6 @@ function addDataType(component, action, status) {
 }
 
 /**
- * Send a message to the popup witht the data of updated components
- *
- * @see getListOfUpdatedComponents
- */
-function sendDataToPopup() {
-	try {
-		//TODO fix
-		// chrome.runtime.sendMessage({
-		// 	command: "cheaty_get_data",
-		// 	components: getListOfUpdatedComponents(),
-		// });
-	} catch (error) {
-		errorHandler(
-			error,
-			"sendDataToPopup",
-			"Sending data to the popup",
-			"chrome.runtime.sendMessage"
-		);
-	}
-}
-
-/**
  * Get the list off all the updated component on the page
  *
  * @returns array
@@ -898,9 +787,7 @@ function getListOfUpdatedComponents() {
 
 /**
  * Reverse the action on the component passed in param
- * This method call sendDataToPopup to update the content of the popup
  *
- * @see sendDataToPopup
  * @param {string} id of the component
  * @param {string} action
  */
@@ -912,8 +799,6 @@ function revertActionOnComponent(id, action) {
 	} else if (action === "password") {
 		changePasswordTypeComponent(component);
 	}
-
-	sendDataToPopup();
 }
 
 /**
@@ -961,19 +846,174 @@ function checkIfNotACheatyElement(element) {
  * POPUP
  */
 
+const EYE_OPEN_ICON =
+	'<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#98f79899" d="M12 6a9.77 9.77 0 0 1 8.82 5.5C19.17 14.87 15.79 17 12 17s-7.17-2.13-8.82-5.5A9.77 9.77 0 0 1 12 6m0-2C7 4 2.73 7.11 1 11.5C2.73 15.89 7 19 12 19s9.27-3.11 11-7.5C21.27 7.11 17 4 12 4zm0 5a2.5 2.5 0 0 1 0 5a2.5 2.5 0 0 1 0-5m0-2c-2.48 0-4.5 2.02-4.5 4.5S9.52 16 12 16s4.5-2.02 4.5-4.5S14.48 7 12 7z"/></svg>';
+const EYE_CLOSE_ICON =
+	'<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#ff000099" d="M12 6a9.77 9.77 0 0 1 8.82 5.5a9.647 9.647 0 0 1-2.41 3.12l1.41 1.41c1.39-1.23 2.49-2.77 3.18-4.53C21.27 7.11 17 4 12 4c-1.27 0-2.49.2-3.64.57l1.65 1.65C10.66 6.09 11.32 6 12 6zm-1.07 1.14L13 9.21c.57.25 1.03.71 1.28 1.28l2.07 2.07c.08-.34.14-.7.14-1.07C16.5 9.01 14.48 7 12 7c-.37 0-.72.05-1.07.14zM2.01 3.87l2.68 2.68A11.738 11.738 0 0 0 1 11.5C2.73 15.89 7 19 12 19c1.52 0 2.98-.29 4.32-.82l3.42 3.42l1.41-1.41L3.42 2.45L2.01 3.87zm7.5 7.5l2.61 2.61c-.04.01-.08.02-.12.02a2.5 2.5 0 0 1-2.5-2.5c0-.05.01-.08.01-.13zm-3.4-3.4l1.75 1.75a4.6 4.6 0 0 0-.36 1.78a4.507 4.507 0 0 0 6.27 4.14l.98.98c-.88.24-1.8.38-2.75.38a9.77 9.77 0 0 1-8.82-5.5c.7-1.43 1.72-2.61 2.93-3.53z"/></svg>';
+const TEXT_VISIBLE_ICON =
+	'<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#98f79899" d="M2.5 4v3h5v12h3V7h5V4h-13zm19 5h-9v3h3v7h3v-7h3V9z"/></svg>';
+const TEXT_NOT_VISIBLE_ICON =
+	'<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#ff000099" d="M2 17h20v2H2v-2zm1.15-4.05L4 11.47l.85 1.48l1.3-.75l-.85-1.48H7v-1.5H5.3l.85-1.47L4.85 7L4 8.47L3.15 7l-1.3.75l.85 1.47H1v1.5h1.7l-.85 1.48l1.3.75zm6.7-.75l1.3.75l.85-1.48l.85 1.48l1.3-.75l-.85-1.48H15v-1.5h-1.7l.85-1.47l-1.3-.75L12 8.47L11.15 7l-1.3.75l.85 1.47H9v1.5h1.7l-.85 1.48zM23 9.22h-1.7l.85-1.47l-1.3-.75L20 8.47L19.15 7l-1.3.75l.85 1.47H17v1.5h1.7l-.85 1.48l1.3.75l.85-1.48l.85 1.48l1.3-.75l-.85-1.48H23v-1.5z"/></svg>';
+
+const SELECTION_FROM_POPUP_BUTTON = document.getElementById(
+	"cheaty_init_selection_button"
+);
+
+SELECTION_FROM_POPUP_BUTTON.addEventListener("click", (e) => {
+	e.preventDefault();
+	setTimeout(initProcess, 200);
+});
+
+function onPopupOpen() {
+	let components = getListOfUpdatedComponents();
+	displayComponents(components);
+}
+
+/**
+ * Take a list of components with actions and display it on the popup element
+ *
+ * @param {array} components
+ */
+function displayComponents(components) {
+	let list = document.getElementById("cheaty_component_list");
+
+	if (components.length !== 0) {
+		removeAllChildNodes(list);
+
+		let empty_placeholder = document.getElementById("empty_list");
+		empty_placeholder.classList.remove("visible");
+
+		components.forEach((el) => {
+			let li = document.createElement("li");
+			let componentId = el.id;
+
+			let text_container = document.createElement("button");
+			text_container.title = "Select element";
+			text_container.classList.add("text_container");
+
+			let index = document.createElement("span");
+			index.innerText = parseInt(el.index) + 1 + ".";
+			text_container.appendChild(index);
+
+			let type = document.createElement("span");
+			type.innerText = el.type.toLowerCase();
+			text_container.appendChild(type);
+
+			if (el.html_id != "") {
+				let html_Id = document.createElement("span");
+				html_Id.innerText = "#" + el.html_id;
+				text_container.appendChild(html_Id);
+			}
+
+			text_container.addEventListener("click", () => {
+				selectComponentByCheatyId(componentId);
+				initActionMode();
+			});
+
+			li.appendChild(text_container);
+
+			let button_container = document.createElement("div");
+			button_container.classList.add("button_container");
+
+			let actions = el.actions.split("|");
+
+			if (actions[0] !== "") {
+				button_container.appendChild(
+					createActionButton(
+						componentId,
+						"hide",
+						actions[0].split(":")[1]
+					)
+				);
+			}
+
+			if (actions[1] !== "") {
+				button_container.appendChild(
+					createActionButton(
+						componentId,
+						"password",
+						actions[1].split(":")[1]
+					)
+				);
+			}
+
+			li.appendChild(button_container);
+			list.appendChild(li);
+		});
+	}
+}
+
+/**
+ * Remove all the childs of an element
+ *
+ * @param {HTMLElement} parent
+ */
+function removeAllChildNodes(parent) {
+	while (parent.firstChild) {
+		parent.removeChild(parent.firstChild);
+	}
+}
+
+/**
+ * Create and decorate a button from the param values
+ *
+ * @param {string} componentId
+ * @param {string} action
+ */
+function createActionButton(componentId, action, status) {
+	let button = document.createElement("button");
+	button.id = componentId + "_" + action;
+	const PARSER = new DOMParser();
+
+	button.addEventListener("click", () => {
+		revertActionOnComponent(componentId, action);
+		onPopupOpen();
+	});
+
+	if (status === "ON") {
+		if (action === "hide") {
+			button.appendChild(
+				PARSER.parseFromString(EYE_OPEN_ICON, "image/svg+xml")
+					.documentElement
+			);
+			button.title = "Hide element";
+		} else if (action === "password") {
+			button.appendChild(
+				PARSER.parseFromString(TEXT_VISIBLE_ICON, "image/svg+xml")
+					.documentElement
+			);
+			button.title = "Hide password";
+		}
+	} else if (status === "OFF") {
+		if (action === "hide") {
+			button.appendChild(
+				PARSER.parseFromString(EYE_CLOSE_ICON, "image/svg+xml")
+					.documentElement
+			);
+			button.title = "Show element";
+		} else if (action === "password") {
+			button.appendChild(
+				PARSER.parseFromString(TEXT_NOT_VISIBLE_ICON, "image/svg+xml")
+					.documentElement
+			);
+			button.title = "Show password";
+		}
+	}
+
+	return button;
+}
+
 /**
  * OPTION
  */
 
-/**
- * Open the tutorial section
- */
+const INSPECTOR_MODE_SWITCH = document.getElementById("inspector-mode");
 
 /**
  * Inspector mode listener
  */
-// document
-// 	.getElementById("inspector-mode")
-// 	.addEventListener("change", setInspectorMode);
+INSPECTOR_MODE_SWITCH.addEventListener("change", setInspectorMode);
 
-// function setInspectorMode(e) {}
+function setInspectorMode(e) {
+	inspectorMode = e.target.checked;
+}

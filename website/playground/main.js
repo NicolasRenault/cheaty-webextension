@@ -1,25 +1,33 @@
 import "./style.css";
 import "./cheaty_embedded.js";
 
-const tutorialButton = document.getElementById("tutorial-button");
-const tutorialSection = document.getElementById("tutorial");
+const TUTORIAL_BUTTON = document.getElementById("tutorial-button");
+const TUTORIAL_SECTION = document.getElementById("tutorial");
+const RICK_SECTION = document.getElementById("rick");
 
 /**
  * Open the tutorial section
  */
-tutorialButton.addEventListener("click", () => {
-	tutorialSection.hidden = false;
+TUTORIAL_BUTTON.addEventListener("click", () => {
+	TUTORIAL_SECTION.hidden = false;
 });
 
 /**
  * Close the tutorial section
  */
-tutorialSection.addEventListener("click", function (e) {
+TUTORIAL_SECTION.addEventListener("click", function (e) {
 	if (e.target !== this) return;
-	tutorialSection.hidden = true;
+	TUTORIAL_SECTION.hidden = true;
 });
 document.addEventListener("keydown", (e) => {
-	if (e.code == "Escape" && !tutorialSection.hidden) {
-		tutorialSection.hidden = true;
+	if (e.code == "Escape" && !TUTORIAL_SECTION.hidden) {
+		TUTORIAL_SECTION.hidden = true;
 	}
 });
+
+/**
+ * Change opacity the rick section after three seconds to prevent the user to see the rick section before the page fully is loaded
+ */
+setTimeout(() => {
+	RICK_SECTION.style.opacity = 1;
+}, 3000);
