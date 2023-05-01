@@ -619,6 +619,8 @@ function updateActionButtonsState(component, action) {
 			}, 2000);
 		}
 	}
+
+	if (!POPUP_CONTAINER.hidden) onPopupOpen();
 }
 
 /**

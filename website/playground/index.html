@@ -17,6 +17,7 @@
 			<div class="left-0 flex justify-start text-2xl">
 				<a
 					href="/"
+					title="Homepage"
 					class="rounded-md p-1 underline transition-all duration-100 hover:translate-y-[-1px] hover:bg-tertiaryLight"
 					>Go back</a
 				>
@@ -25,6 +26,31 @@
 				Cheaty Playground
 			</h1>
 			<div class="right-0 flex justify-end">
+				<a
+					class="mr-3 flex flex-nowrap items-center rounded-md bg-primaryDark px-3 py-1 text-xl text-primaryLight shadow-md transition-all duration-100 hover:translate-y-[-1px]"
+					href="/download/"
+					target="_blank"
+					title="Download link"
+				>
+					<p class="pr-2">Download</p>
+					<div class="grid grid-cols-3 gap-1.5">
+						<img
+							src="../public/chrome-logo.svg"
+							alt="Chrome logo"
+							class="w-[24px]"
+						/>
+						<img
+							src="../public/firefox-logo.svg"
+							alt="Firefox logo"
+							class="w-[24px]"
+						/>
+						<img
+							src="../public/edge-logo.svg"
+							alt="Edge logo"
+							class="w-[24px]"
+						/>
+					</div>
+				</a>
 				<button
 					id="tutorial-button"
 					title="Tutorial"
@@ -175,9 +201,72 @@
 		</header>
 		<section
 			id="tutorial"
-			class="absolute left-0 top-0 z-50 h-full w-full bg-[#000000cc] text-primaryLight"
-			hidden
-		></section>
+			class="absolute left-0 top-0 z-50 flex h-full w-full flex-col bg-[#000000e6] p-16 text-primaryLight"
+		>
+			<h2 class="mb-10 text-2xl lg:text-5xl">
+				Welcome to the Cheaty Playground
+			</h2>
+			<p class="mb-5 text-2xl text-[red] md:hidden">
+				The extension/page is not meant to work on mobile devices. You
+				may have trouble using it.
+			</p>
+			<p class="mb-5 text-lg lg:max-w-[50%] lg:text-2xl">
+				This page is emulated the Cheaty extension so you can give it a
+				try before installing it.
+			</p>
+			<p class="mb-5 text-lg lg:max-w-[50%] lg:text-2xl">
+				To start, try to use the shortcut
+				<kdb>Ctrl</kdb>
+				+
+				<kdb>Alt</kdb>
+				+
+				<kdb>N</kdb>
+				to start the process. Once here you can select an element on the
+				playground and try to hide it.
+			</p>
+			<p class="mb-5 text-lg lg:max-w-[50%] lg:text-2xl">
+				You can see all the modifications you make in the popup by
+				clicking on the
+				<img
+					src="../public/cheaty-logo.png"
+					title="cheaty-logo"
+					class="inline-block w-[32px]"
+				/>
+				in the top right corner.
+			</p>
+			<p class="mb-5 text-lg lg:max-w-[50%] lg:text-2xl">
+				Don't forget to give a try to the Inspector Mode.
+			</p>
+			<p class="mb-5 text-lg lg:max-w-[50%] lg:text-2xl">
+				<a href="/" title="Homepage" class="underline">Click here</a> to
+				have all the examples of the behavior of the extension.
+			</p>
+			<p class="mb-5 text-lg lg:max-w-[50%] lg:text-2xl">
+				<a
+					href="/download/"
+					target="_blank"
+					title="Download"
+					class="underline"
+					>Click here</a
+				>
+				to download the extension.
+			</p>
+			<p class="mb-5 text-lg lg:max-w-[50%] lg:text-2xl">
+				<a
+					title="GitHub ReadMe"
+					href="https://github.com/NicolasRenault/cheaty-webextention#readme"
+					target="_blank"
+					class="underline"
+					>Click here</a
+				>
+				to see the full documentation.
+			</p>
+			<button
+				class="absolute bottom-10 left-[50%] flex w-fit translate-x-[-50%] flex-nowrap items-center rounded-md bg-secondaryLight px-3 py-1 text-3xl text-primaryLight shadow-md transition-all duration-100 hover:translate-y-[-1px]"
+			>
+				I got it
+			</button>
+		</section>
 		<section
 			id="option"
 			class="absolute left-0 top-0 z-50 h-full w-full bg-[#000000cc] text-primaryLight"

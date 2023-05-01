@@ -343,7 +343,8 @@ body.cheaty-selected {
 #cheaty_option_container {
 	background-color: rgb(var(--cheaty-primary-color));
 	color: rgb(var(--cheaty-text-color));
-	width: 40%;
+	max-width: 400px;
+	width: 100%;
 }
 #cheaty_option_container a,
 #cheaty_option_container button {
