@@ -8,7 +8,9 @@
   <p align="center">
     Extention for the web that feels illegal
     <br />
-    <a href="https://cheaty.nicolasrenault.com">View Demo</a>
+    <a href="https://cheaty.nicolasrenault.com">Website</a>
+    ·
+    <a href="https://cheaty.nicolasrenault.com/playground">Demo</a>
     ·
     <a href="https://cheaty.nicolasrenault.com/#download">Download</a>
     ·
@@ -33,7 +35,8 @@ With Cheaty you can:
 
 ### Installation
 
-Install the extension [here](https://cheaty.nicolasrenault.com/#download) and make sure to enable it in your browser's settings. **Be careful, the extension is not meant to work on mobile devices!**
+Install the extension [here](https://cheaty.nicolasrenault.com/#download) and make sure to enable it in your browser's settings. 
+> **Warning**: The extension is not meant to work on mobile devices.
 
 ## Using the extension
 
@@ -63,7 +66,7 @@ You have 2 buttons that allow you to **Copy** the outerHTML<sup><a href="https:/
 
 <img src="images/hide-action.png" alt="Hide Action" width="500" height="312">
 
-You can click on **Show** to make the HTLM component reappear.
+You can click on **Show** to make the HTML component reappear.
 
 ### Passwords
 

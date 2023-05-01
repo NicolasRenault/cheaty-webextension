@@ -1,40 +1,120 @@
-@import url("../global.css");
-
 :root {
+	--cheaty-primary-color: 27, 38, 59;
+	--cheaty-secondary-color: 65, 90, 119;
+	--cheaty-termary-color: 13, 27, 42;
+	--cheaty-text-color: 224, 225, 221;
 	--hover-color: 255, 255, 255, 0.2;
 }
 
-html,
-body {
+[hidden] {
+	display: none !important;
+}
+
+.cheaty_cursor,
+.cheaty-selected,
+.cheaty-selected-static {
+	cursor: url("/public/cursor_32x32.png"), auto !important;
+}
+
+.cheaty-selected,
+.cheaty-selected-static {
+	border-color: transparent;
+	outline: 3px dotted orange !important;
+	/* outline-offset: -2px; */
+}
+
+.cheaty_action_button_container_static *,
+#cheaty_action_button_container * {
+	all: unset;
+}
+
+.cheaty_action_button_container_static,
+#cheaty_action_button_container {
+	position: absolute;
+	-webkit-box-sizing: content-box;
+	box-sizing: content-box;
+	z-index: 99999 !important;
+	background-color: rgb(var(--cheaty-secondary-color));
+	color: rgb(var(--cheaty-text-color));
+	padding: 5px;
+	border-radius: 5px;
+	min-height: 28px;
+	font-family: Arial, sans-serif;
+	font-size: 16px;
+}
+
+.cheaty_action_button_container_static,
+#cheaty_action_button_container {
+	min-width: 150px;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: row;
+	flex-direction: row;
+	-ms-flex-pack: distribute;
+	-webkit-box-pack: space-evenly;
+	justify-content: space-evenly;
+	gap: 1rem;
+}
+.cheaty_action_button_container_static:after,
+#cheaty_action_button_container:after {
+	position: absolute;
+	content: "";
+	-webkit-box-sizing: content-box;
+	box-sizing: content-box;
+	left: 50%;
+	margin-left: -10px;
+	top: 100%;
+	border: 10px solid transparent;
+	border-top: 10px solid rgb(var(--cheaty-secondary-color));
+}
+.cheaty_action_button_container_static.bottom:after,
+#cheaty_action_button_container.bottom:after {
+	top: -10px;
+	border-top: transparent;
+	border-bottom: 10px solid rgb(var(--cheaty-secondary-color));
+}
+.cheaty_action_button_container_static.cheaty_hidden:after,
+#cheaty_action_button_container.hidden:after {
+	border: transparent;
+}
+.cheaty_action_button_container_static button,
+#cheaty_action_button_container button {
+	all: unset;
+	-webkit-box-sizing: content-box;
+	box-sizing: content-box;
+	color: white;
 	background-color: transparent;
 	border: none;
-	outline: none;
-	margin: 0;
-	padding: 0;
-	border-radius: 5px;
-	min-width: 20rem;
-	max-width: 30rem;
-	max-height: 20rem;
+	border-bottom: 1px solid;
+	height: 100%;
+}
+.cheaty_action_button_container_static button:hover,
+#cheaty_action_button_container button:hover {
+	background-color: rgb(var(--cheaty-text-color), 0.3);
 }
 
-button {
-	transition: all 0.2s ease-in-out;
+.cheaty_action_button_container_static button:disabled,
+#cheaty_action_button_container button:disabled {
+	color: gray;
+	border: none;
+}
+.cheaty_action_button_container_static button:disabled:hover,
+#cheaty_action_button_container button:disabled:hover {
+	background-color: transparent;
 }
 
-button:not(:disabled):active {
-	transform: translateY(2px);
-}
-
-.visible {
-	display: block !important;
-}
-
+/* 
+ * POPUP 
+ */
 #cheaty_popup_container {
 	background-color: rgb(var(--cheaty-primary-color));
 	color: rgb(var(--cheaty-text-color));
 	border: 1px solid rgb(var(--cheaty-secondary-color));
-	height: 100%;
 	overflow: hidden;
+	font-family: "Segoe UI", Tahoma, sans-serif;
 }
 #cheaty_popup_container a,
 #cheaty_popup_container button {
@@ -55,12 +135,11 @@ button:not(:disabled):active {
 	-webkit-box-align: center;
 	-ms-flex-align: center;
 	align-items: center;
-	height: 40px;
+	max-height: 40px;
 }
 #cheaty_popup_container header #cheaty_header_links {
 	position: absolute;
 	right: 5px;
-	top: 14px;
 }
 #cheaty_popup_container header #cheaty_header_links button {
 	padding: 0;
@@ -70,62 +149,17 @@ button:not(:disabled):active {
 	display: -ms-inline-flexbox;
 	display: inline-flex;
 	height: 25px;
+	padding-top: 0 !important;
 }
 #cheaty_popup_container h1 {
 	margin: 0;
+	font-size: 1.5rem;
+	font-weight: bold;
 }
 
 #cheaty_main {
 	margin: 0;
 	padding: 0;
-}
-
-#list_placeholder {
-	position: relative;
-	top: 0px;
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-	z-index: 1;
-	width: 100%;
-	height: 100%;
-	margin: 20px 5px 15px;
-	-webkit-box-pack: center;
-	-ms-flex-pack: center;
-	justify-content: center;
-}
-
-#cheaty_main #empty_list {
-	display: none;
-	margin: 5px;
-	font-size: 18px;
-	line-height: 30px;
-}
-#cheaty_main #empty_list kdb {
-	display: inline-block;
-	-webkit-box-pack: center;
-	-ms-flex-pack: center;
-	justify-content: center;
-	font-family: Roboto Mono, monospace;
-	border: 1px solid  white;
-	border-radius: 0.5rem;
-	padding: 0.2rem 0.375rem;
-}
-#cheaty_main #empty_list svg {
-	display: inline-block;
-}
-#cheaty_main #empty_list p,
-#cheaty_main #empty_list button {
-	display: inherit;
-	outline: 2px solid rgb(var(--cheaty-secondary-color));
-	background-color: rgba(var(--cheaty-primary-color), 0.6);
-	border-radius: 15px;
-	padding: 5px;
-	font-size: 20px;
-	font-weight: bold;
-}
-#cheaty_main #empty_list button:hover {
-	background-color: rgba(var(--hover-color));
 }
 
 #cheaty_component_list {
@@ -135,7 +169,7 @@ button:not(:disabled):active {
 	max-height: 15rem;
 	max-width: 95%;
 	padding-left: 10px;
-	padding-right: 10px;
+	padding-right: 2px;
 	margin-top: 0;
 	scrollbar-color: rgba(var(--hover-color)) rgb(var(--cheaty-termary-color));
 	scrollbar-width: thin;
@@ -189,7 +223,6 @@ button:not(:disabled):active {
 	-webkit-box-pack: end;
 	-ms-flex-pack: end;
 	justify-content: flex-end;
-	padding-right: 5px;
 	width: 25%;
 }
 #cheaty_component_list li .button_container button {
@@ -207,25 +240,8 @@ button:not(:disabled):active {
 	display: -ms-inline-flexbox;
 	display: inline-flex;
 	height: 25px;
-	padding-top: 5px;
 }
 
-#cheaty_error {
-	background-color: red;
-	display: none;
-	z-index: 3;
-	margin-bottom: -14px;
-	padding: 5px;
-}
-#cheaty_error h4 {
-	margin: 0;
-}
-#cheaty_error a {
-	text-decoration: underline;
-}
-#cheaty_error span pre {
-	font-size: 12px;
-}
 /*
 * Prefixed by https://autoprefixer.github.io
 * PostCSS: v8.4.14,

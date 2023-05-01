@@ -1,9 +1,17 @@
+[hidden] {
+	display: none !important;
+}
+
 .cheaty-selected {
 	border-color: transparent;
 	outline: 2px dotted orange !important;
 	outline-offset: -2px;
 
 	cursor: var(--cheaty-cursor-pen-url), auto !important;
+}
+body.cheaty-selected {
+	outline-offset: -5px;
+	outline-width: 3px;
 }
 
 #cheaty_inspector_infos_bar *,

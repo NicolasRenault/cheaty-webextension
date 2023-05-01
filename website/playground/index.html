@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="Cheaty Playground" />
+		<link rel="icon" type="image/png+xml" href="/cheaty-logo-128x128.png" />
+		<script type="module" src="./main.js" defer></script>
+		<title>Cheaty Playground</title>
+	</head>
+	<body
+		class="relative flex h-screen w-screen flex-col bg-primary text-secondary"
+	>
+		<header
+			class="sticky top-0 z-40 grid w-full grid-cols-3 items-center border-b border-b-secondary px-5 py-2 text-center"
+		>
+			<div class="left-0 flex justify-start text-2xl">
+				<a
+					href="/"
+					title="Homepage"
+					class="rounded-md p-1 underline transition-all duration-100 hover:translate-y-[-1px] hover:bg-tertiaryLight"
+					>Go back</a
+				>
+			</div>
+			<h1 class="whitespace-nowrap text-4xl font-bold">
+				Cheaty Playground
+			</h1>
+			<div class="right-0 flex justify-end">
+				<a
+					class="mr-3 flex flex-nowrap items-center rounded-md bg-primaryDark px-3 py-1 text-xl text-primaryLight shadow-md transition-all duration-100 hover:translate-y-[-1px]"
+					href="/download/"
+					target="_blank"
+					title="Download link"
+				>
+					<p class="pr-2">Download</p>
+					<div class="grid grid-cols-3 gap-1.5">
+						<img
+							src="../public/chrome-logo.svg"
+							alt="Chrome logo"
+							class="w-[24px]"
+						/>
+						<img
+							src="../public/firefox-logo.svg"
+							alt="Firefox logo"
+							class="w-[24px]"
+						/>
+						<img
+							src="../public/edge-logo.svg"
+							alt="Edge logo"
+							class="w-[24px]"
+						/>
+					</div>
+				</a>
+				<button
+					id="tutorial-button"
+					title="Tutorial"
+					class="rounded-md transition-all duration-100 hover:translate-y-[-1px] hover:bg-tertiaryLight"
+				>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="40"
+						height="40"
+						viewBox="0 0 256 256"
+					>
+						<path
+							fill="currentColor"
+							d="M138 180a10 10 0 1 1-10-10a10 10 0 0 1 10 10ZM128 74c-21 0-38 15.25-38 34v4a6 6 0 0 0 12 0v-4c0-12.13 11.66-22 26-22s26 9.87 26 22s-11.66 22-26 22a6 6 0 0 0-6 6v8a6 6 0 0 0 12 0v-2.42c18.11-2.58 32-16.66 32-33.58c0-18.75-17-34-38-34Zm102 54A102 102 0 1 1 128 26a102.12 102.12 0 0 1 102 102Zm-12 0a90 90 0 1 0-90 90a90.1 90.1 0 0 0 90-90Z"
+						/>
+					</svg>
+				</button>
+			</div>
+			<div id="cheaty-container" class="absolute right-3 top-[110%]">
+				<button
+					id="popup-button"
+					title="Open popup"
+					class="w-[32px] transition-all duration-100 hover:translate-y-[-1px]"
+				>
+					<img src="../public/cheaty-logo.png" title="cheaty-logo" />
+				</button>
+				<div
+					id="popup-container"
+					class="absolute right-0"
+					hidden="true"
+				>
+					<div id="cheaty_popup_container">
+						<header>
+							<h1>
+								<a tabindex="-1" disabled>Cheaty</a>
+							</h1>
+							<div id="cheaty_header_links">
+								<button
+									id="cheaty_init_selection_button"
+									title="Selection"
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="32"
+										height="32"
+										viewBox="0 0 256 256"
+									>
+										<path
+											fill="currentColor"
+											d="m230.14 70.54l-44.68-44.69a20 20 0 0 0-28.29 0L33.86 149.17A19.85 19.85 0 0 0 28 163.31V208a20 20 0 0 0 20 20h44.69a19.86 19.86 0 0 0 14.14-5.86L230.14 98.82a20 20 0 0 0 0-28.28ZM91 204H52v-39l84-84l39 39Zm101-101l-39-39l18.34-18.34l39 39Z"
+										/>
+									</svg>
+								</button>
+								<button
+									id="cheaty_option_button"
+									title="Parameters"
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="32"
+										height="32"
+										viewBox="0 0 24 24"
+									>
+										<path
+											fill="currentColor"
+											d="M19.43 12.98c.04-.32.07-.64.07-.98c0-.34-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46a.5.5 0 0 0-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65A.488.488 0 0 0 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1a.566.566 0 0 0-.18-.03c-.17 0-.34.09-.43.25l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98c0 .33.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46a.5.5 0 0 0 .61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.06.02.12.03.18.03c.17 0 .34-.09.43-.25l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zm-1.98-1.71c.04.31.05.52.05.73c0 .21-.02.43-.05.73l-.14 1.13l.89.7l1.08.84l-.7 1.21l-1.27-.51l-1.04-.42l-.9.68c-.43.32-.84.56-1.25.73l-1.06.43l-.16 1.13l-.2 1.35h-1.4l-.19-1.35l-.16-1.13l-1.06-.43c-.43-.18-.83-.41-1.23-.71l-.91-.7l-1.06.43l-1.27.51l-.7-1.21l1.08-.84l.89-.7l-.14-1.13c-.03-.31-.05-.54-.05-.74s.02-.43.05-.73l.14-1.13l-.89-.7l-1.08-.84l.7-1.21l1.27.51l1.04.42l.9-.68c.43-.32.84-.56 1.25-.73l1.06-.43l.16-1.13l.2-1.35h1.39l.19 1.35l.16 1.13l1.06.43c.43.18.83.41 1.23.71l.91.7l1.06-.43l1.27-.51l.7 1.21l-1.07.85l-.89.7l.14 1.13zM12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4s4-1.79 4-4s-1.79-4-4-4zm0 6c-1.1 0-2-.9-2-2s.9-2 2-2s2 .9 2 2s-.9 2-2 2z"
+										/>
+									</svg>
+								</button>
+								<!-- <a
+									title="Author"
+									href="https://nicolasrenault.com"
+									target="_blank"
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="32"
+										height="32"
+										viewBox="0 0 24 24"
+									>
+										<path
+											fill="currentColor"
+											d="M12 5.9a2.1 2.1 0 1 1 0 4.2a2.1 2.1 0 0 1 0-4.2m0 9c2.97 0 6.1 1.46 6.1 2.1v1.1H5.9V17c0-.64 3.13-2.1 6.1-2.1M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4s4-1.79 4-4s-1.79-4-4-4zm0 9c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z"
+										/>
+									</svg>
+								</a> -->
+								<a tabindex="-1" disabled>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="32"
+										height="32"
+										viewBox="0 0 24 24"
+									>
+										<path
+											fill="currentColor"
+											d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5c0-2.21-1.79-4-4-4z"
+										/>
+									</svg>
+								</a>
+							</div>
+						</header>
+						<section id="cheaty_main">
+							<span id="empty_list" class="visible">
+								There is nothing here at the moment. Select an
+								element on the page using the shortcut
+								<kdb>Ctrl</kdb>
+								+
+								<kdb>Alt</kdb>
+								+
+								<kdb>N</kdb>
+								or click on the
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="25"
+									height="25"
+									viewBox="0 0 256 256"
+								>
+									<path
+										fill="currentColor"
+										d="m230.14 70.54l-44.68-44.69a20 20 0 0 0-28.29 0L33.86 149.17A19.85 19.85 0 0 0 28 163.31V208a20 20 0 0 0 20 20h44.69a19.86 19.86 0 0 0 14.14-5.86L230.14 98.82a20 20 0 0 0 0-28.28ZM91 204H52v-39l84-84l39 39Zm101-101l-39-39l18.34-18.34l39 39Z"
+									/>
+								</svg>
+							</span>
+							<ul id="cheaty_component_list"></ul>
+						</section>
+						<div id="cheaty_error">
+							<h4>
+								If this section appear, that's mean an error
+								occure. Please feel free to
+								<a
+									href="https://github.com/NicolasRenault/cheaty-webextention/issues/new"
+									target="_blank"
+									>open an issue here</a
+								>
+								or
+								<a
+									href="https://nicolasrenault.com"
+									target="_blank"
+									>contact us here</a
+								>.
+								<p>Error:</p>
+							</h4>
+							<span id="logs"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		<section
+			id="tutorial"
+			class="absolute left-0 top-0 z-50 flex h-full w-full flex-col bg-[#000000e6] p-16 text-primaryLight"
+		>
+			<h2 class="mb-10 text-2xl lg:text-5xl">
+				Welcome to the Cheaty Playground
+			</h2>
+			<p class="mb-5 text-2xl text-[red] md:hidden">
+				The extension/page is not meant to work on mobile devices. You
+				may have trouble using it.
+			</p>
+			<p class="mb-5 text-lg lg:max-w-[50%] lg:text-2xl">
+				This page is emulated the Cheaty extension so you can give it a
+				try before installing it.
+			</p>
+			<p class="mb-5 text-lg lg:max-w-[50%] lg:text-2xl">
+				To start, try to use the shortcut
+				<kdb>Ctrl</kdb>
+				+
+				<kdb>Alt</kdb>
+				+
+				<kdb>N</kdb>
+				to start the process. Once here you can select an element on the
+				playground and try to hide it.
+			</p>
+			<p class="mb-5 text-lg lg:max-w-[50%] lg:text-2xl">
+				You can see all the modifications you make in the popup by
+				clicking on the
+				<img
+					src="../public/cheaty-logo.png"
+					title="cheaty-logo"
+					class="inline-block w-[32px]"
+				/>
+				in the top right corner.
+			</p>
+			<p class="mb-5 text-lg lg:max-w-[50%] lg:text-2xl">
+				Don't forget to give a try to the Inspector Mode.
+			</p>
+			<p class="mb-5 text-lg lg:max-w-[50%] lg:text-2xl">
+				<a href="/" title="Homepage" class="underline">Click here</a> to
+				have all the examples of the behavior of the extension.
+			</p>
+			<p class="mb-5 text-lg lg:max-w-[50%] lg:text-2xl">
+				<a
+					href="/download/"
+					target="_blank"
+					title="Download"
+					class="underline"
+					>Click here</a
+				>
+				to download the extension.
+			</p>
+			<p class="mb-5 text-lg lg:max-w-[50%] lg:text-2xl">
+				<a
+					title="GitHub ReadMe"
+					href="https://github.com/NicolasRenault/cheaty-webextention#readme"
+					target="_blank"
+					class="underline"
+					>Click here</a
+				>
+				to see the full documentation.
+			</p>
+			<button
+				class="absolute bottom-10 left-[50%] flex w-fit translate-x-[-50%] flex-nowrap items-center rounded-md bg-secondaryLight px-3 py-1 text-3xl text-primaryLight shadow-md transition-all duration-100 hover:translate-y-[-1px]"
+			>
+				I got it
+			</button>
+		</section>
+		<section
+			id="option"
+			class="absolute left-0 top-0 z-50 h-full w-full bg-[#000000cc] text-primaryLight"
+			hidden
+		>
+			<div
+				id="option_container"
+				class="flex h-full w-full items-center justify-center"
+			>
+				<div id="cheaty_option_container">
+					<header>
+						<h1>
+							<a
+								title="Cheaty"
+								href="https://cheaty.nicolasrenault.com"
+								target="_blank"
+							>
+								Cheaty
+							</a>
+						</h1>
+					</header>
+					<section id="cheaty_main_option">
+						<form>
+							<label for="inspector-mode">
+								<div class="switch">
+									<input
+										type="checkbox"
+										id="inspector-mode"
+									/>
+									<span class="slider"></span>
+								</div>
+								Inspector Mode
+								<sup>
+									<a
+										href="https://github.com/NicolasRenault/cheaty-webextention#inspector-mode"
+										target="_blank"
+										>?</a
+									>
+								</sup>
+							</label>
+						</form>
+					</section>
+				</div>
+			</div>
+		</section>
+		<section
+			id="rick"
+			class="absolute z-0 flex h-full w-full items-center justify-center"
+			style="opacity: 0"
+		>
+			<img src="../public/rickroll.gif" title="Got Rick Rolled" />
+		</section>
+		<section
+			id="playground"
+			class="z-20 flex h-full w-full flex-col items-center justify-center bg-secondaryDark"
+		>
+			<h2 class="mb-5 text-5xl text-primaryLight">Select something !</h2>
+			<!-- Code from https://v1.tailwindcss.com/components/forms#form-grid -->
+			<div class="w-full max-w-xl rounded-md bg-primaryDark p-5">
+				<form class="w-full max-w-lg">
+					<div class="-mx-3 mb-6 flex flex-wrap">
+						<div class="mb-6 w-full px-3 md:mb-0 md:w-1/2">
+							<label
+								class="mb-2 block text-xs font-bold uppercase tracking-wide text-secondary"
+								for="grid-first-name"
+							>
+								First Name
+							</label>
+							<input
+								class="mb-3 block w-full appearance-none rounded border border-secondaryDark bg-primary px-4 py-3 leading-tight text-secondary focus:bg-primaryLight focus:outline-none"
+								id="grid-first-name"
+								type="text"
+								placeholder="Jane"
+							/>
+						</div>
+						<div class="w-full px-3 md:w-1/2">
+							<label
+								class="mb-2 block text-xs font-bold uppercase tracking-wide text-secondary"
+								for="grid-last-name"
+							>
+								Last Name
+							</label>
+							<input
+								class="focus:border-gray-500 block w-full appearance-none rounded border border-secondaryDark bg-primary px-4 py-3 leading-tight text-secondary focus:bg-primaryLight focus:outline-none"
+								id="grid-last-name"
+								type="text"
+								placeholder="Doe"
+							/>
+						</div>
+					</div>
+					<div class="-mx-3 mb-6 flex flex-wrap">
+						<div class="w-full px-3">
+							<label
+								class="mb-2 block text-xs font-bold uppercase tracking-wide text-secondary"
+								for="grid-password"
+							>
+								Password
+							</label>
+							<input
+								class="focus:border-gray-500 mb-3 block w-full appearance-none rounded border border-secondaryDark bg-primary px-4 py-3 leading-tight text-secondary focus:bg-primaryLight focus:outline-none"
+								id="grid-password"
+								type="password"
+								placeholder="******************"
+							/>
+						</div>
+					</div>
+					<div class="-mx-3 mb-2 flex flex-wrap">
+						<div class="mb-6 w-full px-3 md:mb-0 md:w-1/3">
+							<label
+								class="mb-2 block text-xs font-bold uppercase tracking-wide text-secondary"
+								for="grid-city"
+							>
+								City
+							</label>
+							<input
+								class="focus:border-gray-500 block w-full appearance-none rounded border border-secondaryDark bg-primary px-4 py-3 leading-tight text-secondary focus:bg-primaryLight focus:outline-none"
+								id="grid-city"
+								type="text"
+								placeholder="Albuquerque"
+							/>
+						</div>
+						<div class="mb-6 w-full px-3 md:mb-0 md:w-1/3">
+							<label
+								class="mb-2 block text-xs font-bold uppercase tracking-wide text-secondary"
+								for="grid-state"
+							>
+								State
+							</label>
+							<div class="relative">
+								<select
+									class="focus:border-gray-500 block w-full appearance-none rounded border border-secondaryDark bg-primary px-4 py-3 pr-8 leading-tight text-secondary focus:bg-primaryLight focus:outline-none"
+									id="grid-state"
+								>
+									<option>New Mexico</option>
+									<option>Missouri</option>
+									<option>Texas</option>
+								</select>
+								<div
+									class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-secondary"
+								>
+									<svg
+										class="fill-current h-4 w-4"
+										xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 20 20"
+									>
+										<path
+											d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+										/>
+									</svg>
+								</div>
+							</div>
+						</div>
+						<div class="mb-6 w-full px-3 md:mb-0 md:w-1/3">
+							<label
+								class="mb-2 block text-xs font-bold uppercase tracking-wide text-secondary"
+								for="grid-zip"
+							>
+								Zip
+							</label>
+							<input
+								class="focus:border-gray-500 block w-full appearance-none rounded border border-secondaryDark bg-primary px-4 py-3 leading-tight text-secondary focus:bg-primaryLight focus:outline-none"
+								id="grid-zip"
+								type="text"
+								placeholder="90210"
+							/>
+						</div>
+					</div>
+				</form>
+			</div>
+		</section>
+	</body>
+</html>
