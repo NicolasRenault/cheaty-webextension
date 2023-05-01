@@ -13,7 +13,7 @@
 .cheaty_cursor,
 .cheaty-selected,
 .cheaty-selected-static {
-	cursor: url("./cursor_32x32.png"), auto !important;
+	cursor: url("/public/cursor_32x32.png"), auto !important;
 }
 
 .cheaty-selected,
