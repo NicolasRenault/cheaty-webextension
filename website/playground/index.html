@@ -10,10 +10,10 @@
 		<title>Cheaty Playground</title>
 	</head>
 	<body
-		class="relative flex h-screen w-screen flex-col bg-primary text-secondary"
+		class="relative flex h-screen min-h-[650px] w-screen flex-col bg-primary text-secondary"
 	>
 		<header
-			class="sticky top-0 z-40 grid w-full grid-cols-3 items-center border-b border-b-secondary px-5 py-2 text-center"
+			class="sticky top-0 z-40 grid w-full grid-cols-3 items-center border-b border-b-secondary bg-primary px-5 py-2 text-center max-[510px]:hidden"
 		>
 			<div class="left-0 flex justify-start text-2xl">
 				<a
@@ -28,7 +28,7 @@
 			</h1>
 			<div class="right-0 flex justify-end">
 				<a
-					class="mr-3 flex flex-nowrap items-center rounded-md bg-primaryDark px-3 py-1 text-xl text-primaryLight shadow-md transition-all duration-100 hover:translate-y-[-1px]"
+					class="mr-3 hidden flex-nowrap items-center rounded-md bg-primaryDark px-3 py-1 text-xl text-primaryLight shadow-md transition-all duration-100 hover:translate-y-[-1px] lg:flex"
 					href="/download/"
 					target="_blank"
 					title="Download link"
@@ -202,14 +202,14 @@
 		</header>
 		<section
 			id="tutorial"
-			class="absolute left-0 top-0 z-50 flex h-full w-full flex-col bg-[#000000e6] p-16 text-primaryLight"
+			class="absolute left-0 top-0 z-50 flex h-full w-full flex-col bg-[#000000e6] p-16 text-primaryLight max-[510px]:hidden"
 		>
 			<h2 class="mb-10 text-2xl lg:text-5xl">
 				Welcome to the Cheaty Playground
 			</h2>
-			<p class="mb-5 text-2xl text-[red] md:hidden">
-				The extension/page is not meant to work on mobile devices. You
-				may have trouble using it.
+			<p class="mb-5 text-2xl text-[red] lg:hidden">
+				The extension/playground are not meant to work on mobile or
+				small devices. You may have trouble using it.
 			</p>
 			<p class="mb-5 text-lg lg:max-w-[50%] lg:text-2xl">
 				This page is emulated the Cheaty extension so you can give it a
@@ -217,11 +217,23 @@
 			</p>
 			<p class="mb-5 text-lg lg:max-w-[50%] lg:text-2xl">
 				To start, try to use the shortcut
-				<kdb>Ctrl</kdb>
+				<kdb
+					class="rounded-lg border px-2 py-1.5 font-monospace text-sm"
+				>
+					Ctrl</kdb
+				>
 				+
-				<kdb>Alt</kdb>
+				<kdb
+					class="rounded-lg border px-2 py-1.5 font-monospace text-sm font-black"
+				>
+					Alt</kdb
+				>
 				+
-				<kdb>N</kdb>
+				<kdb
+					class="rounded-lg border px-2 py-1.5 font-monospace text-sm font-black"
+				>
+					N</kdb
+				>
 				to start the process. Once here you can select an element on the
 				playground and try to hide it.
 			</p>
@@ -263,14 +275,14 @@
 				to see the full documentation.
 			</p>
 			<button
-				class="absolute bottom-10 left-[50%] flex w-fit translate-x-[-50%] flex-nowrap items-center rounded-md bg-secondaryLight px-3 py-1 text-3xl text-primaryLight shadow-md transition-all duration-100 hover:translate-y-[-1px]"
+				class="flex w-fit flex-nowrap items-center rounded-md bg-secondaryLight px-3 py-1 text-lg text-primaryLight shadow-md transition-all duration-100 hover:translate-y-[-1px] sm:text-2xl"
 			>
 				I got it
 			</button>
 		</section>
 		<section
 			id="option"
-			class="absolute left-0 top-0 z-50 h-full w-full bg-[#000000cc] text-primaryLight"
+			class="absolute left-0 top-0 z-50 h-full w-full bg-[#000000cc] text-primaryLight max-[510px]:hidden"
 			hidden
 		>
 			<div
@@ -315,14 +327,14 @@
 		</section>
 		<section
 			id="rick"
-			class="absolute z-0 flex h-full w-full items-center justify-center"
+			class="absolute z-0 flex h-full w-full items-center justify-center max-[510px]:hidden"
 			style="opacity: 0"
 		>
 			<img src="../public/rickroll.gif" title="Got Rick Rolled" />
 		</section>
 		<section
 			id="playground"
-			class="z-20 flex h-full w-full flex-col items-center justify-center bg-secondaryDark"
+			class="z-20 flex h-full w-full flex-col items-center justify-center bg-secondaryDark max-[510px]:hidden"
 		>
 			<h2 class="mb-5 text-5xl text-primaryLight">Select something !</h2>
 			<!-- Code from https://v1.tailwindcss.com/components/forms#form-grid -->
@@ -437,6 +449,27 @@
 					</div>
 				</form>
 			</div>
+		</section>
+		<section
+			id="small-device"
+			class="flex h-full w-full flex-col items-center justify-center overflow-hidden bg-primary p-1 text-center text-lg text-secondary min-[510px]:hidden"
+		>
+			<img src="../public/cheaty-logo-128x128.png" width="48" />
+			<h1 class="mb-5 text-4xl font-bold">Sorry</h1>
+			<p>
+				The Playground is disabled on small devices. Try on a bigger
+				screen to be able to use it.
+			</p>
+			<p class="my-5">
+				Or you can go back to the Homepage by clicking on the link below
+				to try all the functionalities of Cheaty.
+			</p>
+			<a
+				href="/"
+				title="Homepage"
+				class="rounded-md p-1 underline transition-all duration-100 hover:translate-y-[-1px] hover:bg-tertiaryLight"
+				>Homepage</a
+			>
 		</section>
 	</body>
 </html>

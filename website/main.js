@@ -7,28 +7,6 @@ const FIREFOX_LINK_ID = "firefox-download-link";
 const EDGE_LINK_ID = "edge-download-link";
 const FIRST_LINK_CONTAINER_ID = "first-link-container";
 
-//TODO Clippy easter egg
-// document.onkeydown = (e) => {
-//Ctrl + Alt + N
-// if (e.ctrlKey && e.altKey && e.key == "n") {
-// 	if (selectMode) {
-// 		stop();
-// 	} else if (actionMode) {
-// 		stopActionMode();
-// 	} else {
-// 		initProcess();
-// 	}
-// }
-//if (e.code == "Escape" && (selectMode || actionMode)) {
-// 	// Escape
-// 	if (!actionMode) {
-// 		stop();
-// 	} else {
-// 		stopActionMode();
-// 	}
-// }
-// };
-
 selectDownloadLink();
 
 /**
