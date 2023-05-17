@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/d669f60e-05cf-444e-8464-5435fc3ab3d2/deploy-status)](https://app.netlify.com/sites/astonishing-empanada-748312/deploys)
+
 <div align="center">
   <a href="https://github.com/NicolasRenault/cheaty-webextention">
     <img src="images/cheaty-logo.png" alt="Logo" width="60" height="60">
