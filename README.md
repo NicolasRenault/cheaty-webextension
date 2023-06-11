@@ -1,14 +1,14 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/d669f60e-05cf-444e-8464-5435fc3ab3d2/deploy-status)](https://app.netlify.com/sites/astonishing-empanada-748312/deploys)
 
 <div align="center">
-  <a href="https://github.com/NicolasRenault/cheaty-webextention">
+  <a href="https://github.com/NicolasRenault/cheaty-webextension">
     <img src="images/cheaty-logo.png" alt="Logo" width="60" height="60">
   </a>
 
   <h3 align="center">Cheaty</h3>
 
   <p align="center">
-    Extention for the web that feels illegal
+    Extension for the web that feels illegal
     <br />
     <a href="https://cheaty.nicolasrenault.com">Website</a>
     ·
@@ -16,9 +16,9 @@
     ·
     <a href="https://cheaty.nicolasrenault.com/#download">Download</a>
     ·
-    <a href="https://github.com/NicolasRenault/cheaty-webextention/issues/new">Report Bug</a>
+    <a href="https://github.com/NicolasRenault/cheaty-webextension/issues/new">Report Bug</a>
     ·
-    <a href="https://github.com/NicolasRenault/cheaty-webextention/issues/new">Request Feature</a>
+    <a href="https://github.com/NicolasRenault/cheaty-webextension/issues/new">Request Feature</a>
   </p>
 </div>
 <br />
@@ -129,11 +129,11 @@ Once enabled you can now see when on **Selection Mode** the **type**<sup><a href
 
 ### Ideas and discussions
 
-Have an awesome idea for a new feature? Please [open an issue](https://github.com/NicolasRenault/cheaty-webextention/issues/new) describing your idea!
+Have an awesome idea for a new feature? Please [open an issue](https://github.com/NicolasRenault/cheaty-webextension/issues/new) describing your idea!
 
 ### Reporting bugs
 
-Something is not working as it should? Please [open an issue](https://github.com/NicolasRenault/cheaty-webextention/issues/new) giving as much information as you can.
+Something is not working as it should? Please [open an issue](https://github.com/NicolasRenault/cheaty-webextension/issues/new) giving as much information as you can.
 
 -   Title - Summarize what the bug is with specific details.
 -   Summary - If the title is too long, include a summary with additional details.
@@ -143,13 +143,13 @@ Something is not working as it should? Please [open an issue](https://github.com
 
 ### Fixing an issue
 
-Since this project is open-source, you can also help by reviewing some of the [existing issues](https://github.com/NicolasRenault/cheaty-webextention/issues). Please make sure you have the [prettier extension](https://prettier.io/https://prettier.io/) installed on your IDE.
+Since this project is open-source, you can also help by reviewing some of the [existing issues](https://github.com/NicolasRenault/cheaty-webextension/issues). Please make sure you have the [prettier extension](https://prettier.io/https://prettier.io/) installed on your IDE.
 
 ## Contact
 
 Nicolas Renault - [Website](https://nicolasrenault.com) - [Github](https://github.com/NicolasRenault)
 
-Project Link: [https://github.com/NicolasRenault/cheaty-webextention](https://github.com/NicolasRenault/cheaty-webextention)
+Project Link: [https://github.com/NicolasRenault/cheaty-webextension](https://github.com/NicolasRenault/cheaty-webextension)
 
 ## Resources
 
@@ -157,4 +157,4 @@ Project Link: [https://github.com/NicolasRenault/cheaty-webextention](https://gi
 
 ## License
 
-[MIT](https://github.com/NicolasRenault/cheaty-webextention/blob/main/LICENCE) © [Nicolas Renault](https://github.com/NicolasRenault)
+[MIT](https://github.com/NicolasRenault/cheaty-webextension/blob/main/LICENCE) © [Nicolas Renault](https://github.com/NicolasRenault)

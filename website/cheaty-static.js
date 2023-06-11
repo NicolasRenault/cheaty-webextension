@@ -1,7 +1,7 @@
 /**
  * This file contains sample of code from the extension.
  * Some method may vary from the extension.
- * @link https://github.com/NicolasRenault/cheaty-webextention/tree/main/src
+ * @link https://github.com/NicolasRenault/cheaty-webextension/tree/main/src
  */
 
 import "./cheaty-static.css";
