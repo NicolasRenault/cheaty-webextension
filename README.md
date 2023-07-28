@@ -147,7 +147,7 @@ Since this project is open-source, you can also help by reviewing some of the [e
 
 ## Contact
 
-Nicolas Renault - [Website](https://nicolasrenault.com) - [Github](https://github.com/NicolasRenault)
+[Nicolas Renault](mailto:contact@nicolasrenault.com) - [Website](https://nicolasrenault.com) - [Github](https://github.com/NicolasRenault)
 
 Project Link: [https://github.com/NicolasRenault/cheaty-webextension](https://github.com/NicolasRenault/cheaty-webextension)
 
